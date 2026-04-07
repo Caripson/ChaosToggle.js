@@ -34,6 +34,12 @@ ChaosToggle.registerShortcut(combo, action);
 ChaosToggle.unregisterShortcut(combo);
 ChaosToggle.runMode(name);
 ChaosToggle.listModes();
+ChaosToggle.setTheme(name);
+ChaosToggle.getTheme();
+ChaosToggle.listThemes();
+ChaosToggle.registerTheme(name, config);
+ChaosToggle.removeTheme(name);
+ChaosToggle.runTheme(name);
 ```
 
 ## Default Shortcuts
@@ -63,7 +69,13 @@ ChaosToggle.init({
   duration: 1800,
   probability: 1,
   cooldownMs: 150,
-  theme: 'neon',
+  theme: 'default',
+  themeOverrides: {},
+  themeParts: {
+    visual: true,
+    effects: true,
+    particles: true
+  },
 
   popup: {
     title: 'Demo Alert',
@@ -123,6 +135,77 @@ Update at runtime:
 ChaosToggle.updateSettings({
   intensity: 0.8,
   effects: { confetti: false, glitchOverlay: true }
+});
+```
+
+
+## Theme System
+
+Themes are now first-class experience profiles. A theme can coordinate:
+
+- visuals (palette, dark/light mood, overlays)
+- effect combos (shake/glitch/popup/etc.)
+- animation personality and intensity
+- particles (snow, eggs, hearts, leaves, fireworks, balloons, confetti)
+- popup tone/content
+- optional sound hooks
+- timing/cooldown patterns
+- trigger overrides and decorations
+
+Activate in one line:
+
+```js
+ChaosToggle.runTheme('halloween');
+```
+
+Built-in themes:
+
+- `easter`
+- `halloween`
+- `christmas`
+- `new-year`
+- `4th-of-july`
+- `thanksgiving`
+- `black-friday`
+- `cyber-monday`
+- `valentines-day`
+- `birthday`
+
+Use themes + modes together:
+
+```js
+ChaosToggle.setTheme('cyber-monday');
+ChaosToggle.runMode('panic');
+```
+
+Partial theme usage and overrides:
+
+```js
+ChaosToggle.updateSettings({
+  theme: 'christmas',
+  themeParts: {
+    particles: true,
+    popup: false,
+    effects: false
+  },
+  themeOverrides: {
+    popup: { message: 'Custom holiday campaign copy.' },
+    particles: { density: 0.4 }
+  }
+});
+```
+
+Register custom themes:
+
+```js
+ChaosToggle.registerTheme('launch-night', {
+  visual: {
+    className: 'ct-theme-launch',
+    palette: { primary: '#ffd166', accent: '#06d6a0', background: '#0b132b', text: '#f1f5f9' }
+  },
+  particles: { type: 'fireworks', density: 0.9 },
+  popup: { title: 'Launch', message: 'Mission mode engaged.' },
+  behavior: { countdown: true }
 });
 ```
 
