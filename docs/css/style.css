@@ -420,6 +420,11 @@ kbd {
    ============================================================ */
 .demo-page { padding-bottom: 70px; }
 
+/* Push ChaosToggle fixed-bottom overlays above the chaos bar */
+body:has(.chaos-bar) .ct-popup { bottom: 72px !important; }
+body:has(.chaos-bar) .ct-clippy { bottom: 72px !important; }
+body:has(.chaos-bar) .ct-theme-hint { bottom: 68px !important; }
+
 /* ============================================================
    Demo — Playground
    ============================================================ */
