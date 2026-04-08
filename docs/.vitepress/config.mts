@@ -13,15 +13,27 @@ export default defineConfig({
 
   themeConfig: {
     nav: [
+      { text: 'Live Demo', link: '/demo/' },
       { text: 'Getting Started', link: '/guide/getting-started' },
       { text: 'Effects', link: '/guide/effects' },
       { text: 'Themes', link: '/guide/themes' },
       { text: 'API', link: '/api/' },
-      { text: 'Plugin Guide', link: '/api/plugin-api' },
       { text: 'Contributing', link: '/community/contributing' },
     ],
 
     sidebar: {
+      '/demo/': [
+        {
+          text: 'Live Demos',
+          items: [
+            { text: 'Playground', link: '/demo/' },
+            { text: 'E-commerce Store', link: '/demo/store' },
+            { text: 'Dashboard', link: '/demo/dashboard' },
+            { text: 'Blog / News', link: '/demo/blog' },
+            { text: 'Corporate Landing', link: '/demo/corporate' },
+          ],
+        },
+      ],
       '/guide/': [
         {
           text: 'Guide',

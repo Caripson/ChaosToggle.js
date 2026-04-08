@@ -7,6 +7,9 @@ hero:
   tagline: 34 effects. 17 themes. Built-in control panel. Zero dependencies. Drop it in and watch your coworkers panic.
   actions:
     - theme: brand
+      text: Try Live Demo
+      link: /demo/
+    - theme: brand
       text: Get Started
       link: /guide/getting-started
     - theme: alt

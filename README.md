@@ -8,10 +8,10 @@
 
 [![npm version](https://img.shields.io/npm/v/chaos-toggle?color=ff4d6d&style=flat-square)](https://www.npmjs.com/package/chaos-toggle)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/chaos-toggle?color=00f5ff&style=flat-square)](https://bundlephobia.com/package/chaos-toggle)
-[![license](https://img.shields.io/github/license/Caripson/ChaosToggle.js?color=10b981&style=flat-square)](./LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-10b981?style=flat-square)](./LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/Caripson/ChaosToggle.js/ci.yml?style=flat-square)](https://github.com/Caripson/ChaosToggle.js/actions)
 
-[Live Demo](https://caripson.github.io/ChaosToggle.js/) &#8226; [Docs](https://caripson.github.io/ChaosToggle.js/guide/getting-started) &#8226; [Effects Reference](https://caripson.github.io/ChaosToggle.js/guide/effects) &#8226; [Themes](https://caripson.github.io/ChaosToggle.js/guide/themes) &#8226; [Plugin Guide](https://caripson.github.io/ChaosToggle.js/api/plugin-api)
+[Live Demo](https://caripson.github.io/ChaosToggle.js/demo/) &#8226; [Getting Started](https://caripson.github.io/ChaosToggle.js/guide/getting-started) &#8226; [Effects Reference](https://caripson.github.io/ChaosToggle.js/guide/effects) &#8226; [Themes](https://caripson.github.io/ChaosToggle.js/guide/themes) &#8226; [Plugin Guide](https://caripson.github.io/ChaosToggle.js/api/plugin-api)
 
 </div>
 
