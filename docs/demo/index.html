@@ -30,11 +30,8 @@
   <div class="container">
     <a href="../index.html" class="nav-logo"><span>Chaos</span>Toggle.js</a>
     <div class="nav-links">
+      <a href="../index.html">Home</a>
       <a href="index.html">Playground</a>
-      <a href="store.html">Store</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="blog.html">Blog</a>
-      <a href="corporate.html">Corporate</a>
       <a href="https://github.com/Caripson/ChaosToggle.js" class="nav-github" target="_blank" rel="noopener">
         <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>
       </a>
@@ -47,25 +44,24 @@
 <div class="nav-drawer">
   <a href="../index.html">Home</a>
   <a href="index.html">Playground</a>
-  <a href="store.html">Store</a>
-  <a href="dashboard.html">Dashboard</a>
-  <a href="blog.html">Blog</a>
-  <a href="corporate.html">Corporate</a>
+  <a href="https://github.com/Caripson/ChaosToggle.js" target="_blank" rel="noopener">GitHub</a>
 </div>
 
 <!-- CONTENT -->
 <div class="demo-page">
   <div class="container" style="padding-top:2rem;">
 
+    <div id="ct-status" style="display:none; padding:.75rem 1rem; border-radius:.5rem; margin-bottom:1.5rem; font-size:.85rem; font-weight:700;"></div>
+
     <section class="pg-section">
       <h2><svg class="icon" aria-hidden="true"><use href="#i-zap"/></svg> Quick Actions</h2>
-      <div class="pg-grid">
-        <button class="pg-btn" onclick="ChaosToggle.trigger()"><svg class="icon" aria-hidden="true"><use href="#i-dice"/></svg> Trigger Random</button>
-        <button class="pg-btn" onclick="ChaosToggle.reset()"><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Reset</button>
-        <button class="pg-btn" onclick="ChaosToggle.runMode('nuclear')"><svg class="icon" aria-hidden="true"><use href="#i-nuclear"/></svg> Nuclear</button>
-        <button class="pg-btn" onclick="ChaosToggle.runMode('panic')"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg> Panic</button>
-        <button class="pg-btn" onclick="ChaosToggle.runMode('celebration')"><svg class="icon" aria-hidden="true"><use href="#i-party"/></svg> Celebration</button>
-        <button class="pg-btn" onclick="ChaosToggle.openPanel()"><svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg> Open Panel</button>
+      <div class="pg-grid" id="quick-actions">
+        <button class="pg-btn" data-action="trigger"><svg class="icon" aria-hidden="true"><use href="#i-dice"/></svg> Trigger Random</button>
+        <button class="pg-btn" data-action="reset"><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Reset</button>
+        <button class="pg-btn" data-mode="nuclear"><svg class="icon" aria-hidden="true"><use href="#i-nuclear"/></svg> Nuclear</button>
+        <button class="pg-btn" data-mode="panic"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg> Panic</button>
+        <button class="pg-btn" data-mode="celebration"><svg class="icon" aria-hidden="true"><use href="#i-party"/></svg> Celebration</button>
+        <button class="pg-btn" data-action="openPanel"><svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg> Open Panel</button>
       </div>
     </section>
 
@@ -98,65 +94,107 @@
 
 <!-- CHAOS BAR -->
 <div class="chaos-bar">
-  <button class="chaos-btn chaos-btn--fire" onclick="ChaosToggle.trigger()"><svg class="icon" aria-hidden="true"><use href="#i-dice"/></svg> TRIGGER CHAOS</button>
-  <button class="chaos-btn chaos-btn--reset" onclick="ChaosToggle.reset()"><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Reset</button>
+  <button class="chaos-btn chaos-btn--fire" data-action="trigger"><svg class="icon" aria-hidden="true"><use href="#i-dice"/></svg> TRIGGER CHAOS</button>
+  <button class="chaos-btn chaos-btn--reset" data-action="reset"><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Reset</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chaos-toggle@latest/dist/chaos-toggle.min.js"></script>
 <script src="../js/main.js"></script>
 <script>
 (function () {
-  var ct = window.ChaosToggle;
-  if (!ct) return;
+  /* Resolve the API — handle IIFE wrapping where ChaosToggle may be { ChaosToggle: api } */
+  var raw = window.ChaosToggle;
+  var ct = null;
+
+  if (raw && typeof raw.init === 'function') {
+    ct = raw;
+  } else if (raw && raw.ChaosToggle && typeof raw.ChaosToggle.init === 'function') {
+    ct = raw.ChaosToggle;
+  } else if (raw && raw.default && typeof raw.default.init === 'function') {
+    ct = raw.default;
+  }
+
+  var statusEl = document.getElementById('ct-status');
+
+  if (!ct) {
+    if (statusEl) {
+      statusEl.style.display = 'block';
+      statusEl.style.background = 'var(--bg-card)';
+      statusEl.style.border = '1px solid var(--brand-red)';
+      statusEl.style.color = 'var(--brand-red)';
+      statusEl.textContent = 'ChaosToggle library failed to load from CDN. Buttons will not work.';
+    }
+    return;
+  }
+
+  /* Make sure the global is the unwrapped API for onclick handlers */
+  window.ChaosToggle = ct;
+
   ct.init({ duration: 3000 });
 
-  var effects = ct.listEffects ? ct.listEffects() : [];
-  var themes = ct.listThemes ? ct.listThemes() : [];
+  if (statusEl) {
+    statusEl.style.display = 'block';
+    statusEl.style.background = 'var(--bg-card)';
+    statusEl.style.border = '1px solid var(--green)';
+    statusEl.style.color = 'var(--green)';
+    statusEl.textContent = 'ChaosToggle v' + (ct.version || '?') + ' loaded. Ready to cause chaos.';
+  }
 
+  /* Wire quick actions via data attributes instead of inline onclick */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-action], [data-mode], [data-effect], [data-theme]');
+    if (!btn) return;
+
+    var action = btn.getAttribute('data-action');
+    var mode = btn.getAttribute('data-mode');
+    var effect = btn.getAttribute('data-effect');
+    var theme = btn.getAttribute('data-theme');
+
+    if (action === 'trigger') ct.trigger();
+    else if (action === 'reset') ct.reset();
+    else if (action === 'openPanel') ct.openPanel();
+    else if (mode && ct.runMode) ct.runMode(mode);
+    else if (effect && ct.runEffect) ct.runEffect(effect);
+    else if (theme && ct.runTheme) ct.runTheme(theme);
+  });
+
+  /* Populate effects grid */
   var eg = document.getElementById('effects-grid');
-  if (eg && effects.length) {
+  if (eg) {
+    var effects = (ct.listEffects && ct.listEffects()) || [];
+    if (!effects.length) {
+      effects = ['bsod','matrixRain','gravity','fakeUpdate','clippy','screenCrack','fakeVirusScan',
+        'confetti','drunkMode','glitchOverlay','screenMelt','pixelDissolve','rgbSplit','shake','textScramble',
+        'fakeCrash','fakeTerminal','crtShutdown','screenFlip','zoomFlicker','noise','flashOverlay',
+        'vhsDistortion','popups','fakeErrorState','elementShuffle','elementScatter',
+        'magneticCursor','tinyGiantMode','cursorChaos','cursorDrift','autoTypo',
+        'delayedClicks','invertedScroll'];
+    }
     effects.forEach(function (e) {
       var id = typeof e === 'string' ? e : e.id;
       var btn = document.createElement('button');
       btn.className = 'pg-btn';
       btn.textContent = id;
-      btn.onclick = function () { ct.runEffect(id); };
-      eg.appendChild(btn);
-    });
-  } else if (eg) {
-    var fallback = ['bsod','matrixRain','gravity','fakeUpdate','clippy','screenCrack','virusScan',
-      'confetti','drunk','glitch','melt','pixelate','invert','earthquake','scramble',
-      'rainbowVomit','fakeCrash','ascii','tilt','spin','blur','comic','xray','neon',
-      'typewriter','redact','bauhaus','deepFry','vaporwave','crt','jackpot','lava',
-      'snow','fireflies'];
-    fallback.forEach(function (id) {
-      var btn = document.createElement('button');
-      btn.className = 'pg-btn';
-      btn.textContent = id;
-      btn.onclick = function () { ct.runEffect(id); };
+      btn.setAttribute('data-effect', id);
       eg.appendChild(btn);
     });
   }
 
+  /* Populate themes grid */
   var tg = document.getElementById('themes-grid');
-  if (tg && themes.length) {
+  if (tg) {
+    var themes = (ct.listThemes && ct.listThemes()) || [];
+    if (!themes.length) {
+      themes = ['default','easter','halloween','christmas','new-year','4th-of-july','thanksgiving',
+        'black-friday','cyber-monday','valentines-day','birthday','office','hacker','retro',
+        'apocalypse','drunk','jumpscare'];
+    }
     themes.forEach(function (t) {
-      var name = typeof t === 'string' ? t : t.name || t;
+      var name = typeof t === 'string' ? t : (t.name || t);
       var btn = document.createElement('button');
       btn.className = 'pg-btn';
       btn.textContent = name;
-      btn.onclick = function () { ct.runTheme(name); };
-      tg.appendChild(btn);
-    });
-  } else if (tg) {
-    var fallbackThemes = ['holiday','office','hacker','retro','apocalypse','drunk','jumpscare',
-      'vaporwave','matrix','y2k','windows95','neon','glitchcore','cottagecore',
-      'corporate','synthwave','chaos'];
-    fallbackThemes.forEach(function (name) {
-      var btn = document.createElement('button');
-      btn.className = 'pg-btn';
-      btn.textContent = name;
-      btn.onclick = function () { ct.runTheme(name); };
+      btn.setAttribute('data-theme', name);
       tg.appendChild(btn);
     });
   }
