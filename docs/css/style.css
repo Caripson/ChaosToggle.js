@@ -334,11 +334,12 @@ kbd {
    ============================================================ */
 .quick-snippet-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; margin-top: 2rem;
+  justify-content: center; max-width: 780px; margin-left: auto; margin-right: auto;
 }
 .examples-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: .75rem;
 }
-.examples-grid--tight { grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); }
+.examples-grid--tight { grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); justify-content: center; }
 .example-card {
   border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-card);
   overflow: hidden;
