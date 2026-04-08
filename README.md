@@ -239,4 +239,5 @@ The easiest ways to contribute:
 
 ## License
 
-[MIT](./LICENSE) -- Caripson
+
+[MIT](./LICENSE) -- Johan Caripson
