@@ -4,7 +4,7 @@ Thanks for helping improve ChaosToggle.js. This page is a short orientation; the
 
 ## Where to look
 
-- **[CONTRIBUTING.md](https://github.com/Caripson/ChaosToggle.js/blob/main/CONTRIBUTING.md)** — branching, issues, PR expectations (add this file at the repo root if it is not there yet).  
+- **[CONTRIBUTING.md](https://github.com/Caripson/ChaosToggle.js/blob/main/CONTRIBUTING.md)** — branching, issues, PR expectations.  
 - **[GitHub Issues](https://github.com/Caripson/ChaosToggle.js/issues)** — bugs, ideas, and effect/theme proposals.  
 - **Source layout** — `src/effects/` for individual effects, `src/themes/builtin.ts` for bundled themes, `src/core/engine.ts` for orchestration.
 

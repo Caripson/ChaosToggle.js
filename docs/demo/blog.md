@@ -4,7 +4,7 @@ layout: page
 ---
 
 <style>
-.dc-demo { --dc-bg: #faf9f7; --dc-ink: #242424; --dc-muted: #6b6b6b; --dc-border: #e8e8e8; --dc-accent: #1a8917; font-family: Georgia, 'Times New Roman', serif; color: var(--dc-ink); background: var(--dc-bg); padding: 0 0 120px; min-height: 100vh; }
+.dc-demo { --dc-bg: #faf9f7; --dc-ink: #242424; --dc-muted: #6b6b6b; --dc-border: #e8e8e8; --dc-accent: #1a8917; font-family: Georgia, 'Times New Roman', serif; color: var(--dc-ink); background: var(--dc-bg); padding: 0; min-height: 100vh; overflow-x: hidden; }
 .dc-demo * { box-sizing: border-box; }
 .dc-header { border-bottom: 1px solid var(--dc-border); background: #fff; position: sticky; top: 0; z-index: 10; }
 .dc-header-inner { max-width: 1100px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
@@ -38,7 +38,7 @@ layout: page
 .dc-comment strong { color: var(--dc-ink); }
 .dc-comment .dc-time { font-size: 0.8rem; color: var(--dc-muted); margin-left: 8px; }
 .dc-comment p { margin: 10px 0 0; font-size: 0.95rem; line-height: 1.55; color: #333; }
-.dc-chaos-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 14px 16px; background: linear-gradient(180deg, rgba(36,36,36,0.97), #1a1a1a); border-top: 1px solid #333; font-family: ui-sans-serif, system-ui, sans-serif; box-shadow: 0 -8px 32px rgba(0,0,0,0.15); }
+.dc-chaos-bar { position: sticky; bottom: 0; z-index: 100; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 14px 16px; background: linear-gradient(180deg, rgba(36,36,36,0.97), #1a1a1a); border-top: 1px solid #333; font-family: ui-sans-serif, system-ui, sans-serif; box-shadow: 0 -8px 32px rgba(0,0,0,0.15); }
 .dc-chaos-bar span { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; margin-right: 8px; width: 100%; text-align: center; }
 @media (min-width: 640px) { .dc-chaos-bar span { width: auto; text-align: left; margin-right: 12px; } }
 .dc-chaos-bar button { cursor: pointer; border: none; padding: 10px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; background: #2d2d2d; color: #f0f0f0; border: 1px solid #444; transition: background 0.15s, transform 0.1s; }
@@ -75,7 +75,6 @@ layout: page
       </blockquote>
       <p>For teams brave enough to keep it around, insiders recommend a dedicated “chaos toolbar,” a forgiving cooldown setting, and a standing rule: never click “Reader Rage” before you’ve hit save. The Daily Chaos will continue monitoring this story—assuming our own CMS survives the afternoon.</p>
     </div>
-
     <section class="dc-comments" aria-labelledby="dc-comments-heading">
       <h2 id="dc-comments-heading">Responses (127)</h2>
       <div class="dc-comment">

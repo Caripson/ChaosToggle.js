@@ -15,8 +15,8 @@ layout: page
   color: var(--cs-text);
   background: var(--cs-bg);
   min-height: 100vh;
-  padding-bottom: 5.5rem;
-  max-width: none;
+  padding-bottom: 0;
+  overflow-x: hidden;
 }
 .cs-header {
   background: var(--cs-card);
@@ -150,10 +150,8 @@ layout: page
 }
 .cs-btn:hover { filter: brightness(1.08); }
 .cs-chaos-bar {
-  position: fixed;
+  position: sticky;
   bottom: 0;
-  left: 0;
-  right: 0;
   background: var(--cs-bar);
   border-top: 1px solid #334155;
   padding: 0.65rem 1rem;

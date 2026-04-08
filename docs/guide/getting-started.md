@@ -13,7 +13,7 @@ Control what can run with the **`effects`** map and your choice of **theme**. Pr
 Add the built bundle from your CDN of choice (for example after publishing to npm / unpkg):
 
 ```html
-<script src="https://unpkg.com/chaos-toggle/dist/chaos-toggle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"></script>
 <script>
   ChaosToggle.init({ autoInit: true });
 </script>
@@ -70,4 +70,6 @@ Prank effects (BSOD, fake update, virus scan, etc.) look real. Only use them whe
 
 - [Effects reference](/guide/effects) — all 34 effects by category  
 - [Themes](/guide/themes) — 17 built-in themes and custom registration  
+- [Modes](/guide/modes) — preset intensity profiles (panic, nuclear, celebration, etc.)  
+- [Control Panel](/guide/panel) — built-in floating settings UI  
 - [API reference](/api/) — full method list  

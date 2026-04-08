@@ -34,7 +34,7 @@ npm install chaos-toggle
 ```
 
 ```js
-import { ChaosToggle } from 'chaos-toggle';
+import ChaosToggle from 'chaos-toggle';
 
 ChaosToggle.init();
 ChaosToggle.trigger();
@@ -101,7 +101,6 @@ A beautiful floating panel with glassmorphism design, draggable, with:
 
 ```js
 ChaosToggle.openPanel();
-// or press Shift+Ctrl+C (configurable)
 ```
 
 ## Theme Builder

@@ -118,7 +118,7 @@ title: ChaosToggle.js
 <div class="ct-features">
   <div class="ct-feat">
     <div class="ct-feat-emoji">💥</div>
-    <h3>34+ Effects</h3>
+    <h3>34 Effects</h3>
     <p>BSOD, matrix rain, gravity, fake Windows Update, Clippy, screen crack, virus scan, and dozens more.</p>
   </div>
   <div class="ct-feat">

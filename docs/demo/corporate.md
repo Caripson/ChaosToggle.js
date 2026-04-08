@@ -4,7 +4,7 @@ layout: page
 ---
 
 <style>
-.sf-demo { --sf-blue: #2563eb; --sf-blue-dark: #1d4ed8; --sf-slate: #0f172a; --sf-muted: #64748b; --sf-bg: #f8fafc; --sf-card: #ffffff; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--sf-slate); background: var(--sf-bg); padding: 0 0 120px; min-height: 100vh; }
+.sf-demo { --sf-blue: #2563eb; --sf-blue-dark: #1d4ed8; --sf-slate: #0f172a; --sf-muted: #64748b; --sf-bg: #f8fafc; --sf-card: #ffffff; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--sf-slate); background: var(--sf-bg); padding: 0; min-height: 100vh; overflow-x: hidden; }
 .sf-demo * { box-sizing: border-box; }
 .sf-nav-wrap { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; }
 .sf-nav { max-width: 1120px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
@@ -51,7 +51,7 @@ layout: page
 .sf-tier .sf-tier-cta.outline { background: #fff; border: 2px solid #e2e8f0; color: var(--sf-slate); }
 .sf-tier .sf-tier-cta.solid { background: var(--sf-blue); color: #fff; }
 .sf-footer { max-width: 1120px; margin: 0 auto; padding: 40px 24px 24px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 0.85rem; color: var(--sf-muted); }
-.sf-chaos-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 14px 16px; background: linear-gradient(180deg, #0f172a, #020617); border-top: 1px solid #1e293b; font-family: ui-sans-serif, system-ui, sans-serif; box-shadow: 0 -12px 40px rgba(15,23,42,0.4); }
+.sf-chaos-bar { position: sticky; bottom: 0; z-index: 100; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 14px 16px; background: linear-gradient(180deg, #0f172a, #020617); border-top: 1px solid #1e293b; font-family: ui-sans-serif, system-ui, sans-serif; box-shadow: 0 -12px 40px rgba(15,23,42,0.4); }
 .sf-chaos-bar span { color: #94a3b8; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; margin-right: 8px; width: 100%; text-align: center; }
 @media (min-width: 720px) { .sf-chaos-bar span { width: auto; text-align: left; margin-right: 14px; } }
 .sf-chaos-bar button { cursor: pointer; border: 1px solid #334155; padding: 10px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; background: #1e293b; color: #e2e8f0; }

@@ -111,7 +111,6 @@ layout: page
 </style>
 
 <div class="ct-pg">
-
 <section class="ct-hero">
   <h1>Playground</h1>
   <p class="ct-tagline">Click anything. Break everything. Blame the intern.</p>
@@ -119,11 +118,8 @@ layout: page
   <br><br>
   <button type="button" class="ct-big-btn" onclick="ChaosToggle.trigger()">TRIGGER CHAOS</button>
 </section>
-
 <div class="ct-ticker"><span>BREAKING: ChaosToggle.js detected in production. DevOps team in emergency meeting. Stock price unaffected because nobody uses our app anyway. Clippy seen roaming the codebase. Film at 11. This is not a drill (it might be a drill). Remember: git blame won't help you now.</span></div>
-
 <div class="ct-counter">Chaos effects triggered on this page: <span id="ct-count">0</span> (and counting)</div>
-
 <section class="ct-section">
   <h2><span class="emoji">🎮</span> Quick Actions</h2>
   <div class="ct-row">
@@ -135,7 +131,6 @@ layout: page
     <button type="button" class="ct-btn ct-btn--cool" onclick="ChaosToggle.openPanel()">Open Panel</button>
   </div>
 </section>
-
 <section class="ct-section">
   <h2><span class="emoji">💥</span> Signature Effects</h2>
   <p class="ct-note">Each button fires a single effect. Some are subtle. Some will make you question your life choices.</p>
@@ -158,7 +153,6 @@ layout: page
     <button type="button" class="ct-btn" onclick="ctFire('effect','cursorChaos')">Cursor Chaos</button>
   </div>
 </section>
-
 <section class="ct-section">
   <h2><span class="emoji">🎨</span> Themes</h2>
   <p class="ct-note">17 built-in vibes. Each one changes the palette, particles, and fires a themed combo of effects.</p>
@@ -182,18 +176,15 @@ layout: page
     <button type="button" class="ct-btn" onclick="ctFire('theme','jumpscare')">Jumpscare</button>
   </div>
 </section>
-
 <section class="ct-section">
   <h2><span class="emoji">🎬</span> Effect Composer</h2>
   <p class="ct-note">Pre-built horror sequence: glass shatters, then the blue screen hits, then a dramatic virus scan. <strong>Buckle. Up.</strong></p>
   <button type="button" class="ct-btn ct-btn--fire" style="font-size:1rem;padding:.7rem 1.5rem;" onclick="ChaosToggle.compose('ultimate',[{effect:'screenCrack',delay:0},{effect:'bsod',delay:800},{effect:'fakeVirusScan',delay:4000}]); ChaosToggle.runComposition('ultimate'); bumpCounter();">Run the Ultimate Prank</button>
 </section>
-
 <div class="ct-quote">
   "I thought my laptop was possessed. Turns out my coworker installed ChaosToggle. HR says it's 'not technically a fireable offense.'"
   <cite>Anonymous Developer, 2026</cite>
 </div>
-
 <section class="ct-section">
   <h2><span class="emoji">🗺️</span> Showcase Pages</h2>
   <p class="ct-note">See how ChaosToggle looks when it hits "real" websites. Each page is a fake site you can destroy.</p>
@@ -220,7 +211,6 @@ layout: page
     </a>
   </div>
 </section>
-
 <section class="ct-section">
   <h2><span class="emoji">🧪</span> Sample Content</h2>
   <p class="ct-note">This section exists so effects have real DOM to chew on. Try Gravity or Element Shuffle on this stuff.</p>
@@ -249,7 +239,6 @@ layout: page
     </form>
   </div>
 </section>
-
 </div>
 
 <script setup>

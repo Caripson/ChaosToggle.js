@@ -17,8 +17,8 @@ layout: page
   color: var(--cm-text);
   display: flex;
   min-height: 100vh;
-  max-width: none;
-  padding-bottom: 5.25rem;
+  overflow-x: hidden;
+  padding-bottom: 0;
 }
 .cm-sidebar {
   width: 240px;
@@ -266,10 +266,8 @@ layout: page
 .cm-pill--warn { background: #fef3c7; color: #92400e; }
 .cm-pill--pending { background: #e0e7ff; color: #3730a3; }
 .cm-chaos-bar {
-  position: fixed;
+  position: sticky;
   bottom: 0;
-  left: 0;
-  right: 0;
   background: var(--cm-bar);
   border-top: 1px solid #334155;
   padding: 0.6rem 1rem;
