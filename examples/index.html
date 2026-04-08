@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChaosToggle.js Interactive Demo</title>
+  <style>
+    :root {
+      --bg-deep: #07060d;
+      --bg-mid: #12101c;
+      --glass: rgba(255, 255, 255, 0.055);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --text: #f4f4f8;
+      --muted: rgba(244, 244, 248, 0.62);
+      --accent: #2dd4bf;
+      --accent-2: #a78bfa;
+      --accent-hot: #fb7185;
+      --radius: 18px;
+      --radius-sm: 12px;
+      --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      color: var(--text);
+      background-color: var(--bg-deep);
+      overflow-x: hidden;
+    }
+
+    /* Animated mesh gradient background */
+    .bg-mesh {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(45, 212, 191, 0.35), transparent 55%),
+        radial-gradient(ellipse 70% 45% at 85% 15%, rgba(167, 139, 250, 0.32), transparent 50%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(251, 113, 133, 0.22), transparent 55%),
+        radial-gradient(ellipse 50% 35% at 0% 60%, rgba(56, 189, 248, 0.18), transparent 50%),
+        linear-gradient(165deg, #0a0912 0%, #12101c 45%, #0d0b14 100%);
+    }
+
+    .bg-mesh::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(7, 6, 13, 0.75) 100%);
+      pointer-events: none;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.035;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: 2.75rem;
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(45, 212, 191, 0.12);
+      border: 1px solid rgba(45, 212, 191, 0.28);
+      margin-bottom: 1.25rem;
+    }
+
+    .badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    .hero h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 5vw, 3.15rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      background: linear-gradient(115deg, #ecfeff 0%, #5eead4 22%, #a5b4fc 48%, #f0abfc 72%, #fda4af 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 4px 24px rgba(45, 212, 191, 0.15));
+    }
+
+    .hero p.sub {
+      margin: 0 auto;
+      max-width: 28rem;
+      font-size: 1.125rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Glass cards */
+    .card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+      backdrop-filter: blur(22px) saturate(160%);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.35rem 1.5rem;
+      margin-bottom: 1.35rem;
+      box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 8px 40px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(45, 212, 191, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(244, 244, 248, 0.88);
+    }
+
+    .card-title span {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Button grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.65rem;
+    }
+
+    .grid.themes {
+      grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+    }
+
+    button.chaos-btn {
+      appearance: none;
+      font-family: inherit;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      transition:
+        transform 0.22s cubic-bezier(0.34, 1.3, 0.64, 1),
+        background 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+    }
+
+    button.chaos-btn:hover {
+      transform: translateY(-3px);
+      background: rgba(45, 212, 191, 0.12);
+      border-color: rgba(45, 212, 191, 0.35);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), 0 0 20px rgba(45, 212, 191, 0.12);
+    }
+
+    button.chaos-btn:active {
+      transform: translateY(-1px);
+    }
+
+    button.chaos-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    button.chaos-btn--quick {
+      background: linear-gradient(135deg, rgba(45, 212, 191, 0.18), rgba(167, 139, 250, 0.12));
+      border-color: rgba(167, 139, 250, 0.25);
+    }
+
+    button.chaos-btn--quick:hover {
+      background: linear-gradient(135deg, rgba(45, 212, 191, 0.28), rgba(167, 139, 250, 0.2));
+      border-color: rgba(45, 212, 191, 0.45);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 28px rgba(167, 139, 250, 0.15);
+    }
+
+    button.chaos-btn--danger {
+      border-color: rgba(251, 113, 133, 0.35);
+      background: rgba(251, 113, 133, 0.08);
+    }
+
+    button.chaos-btn--danger:hover {
+      background: rgba(251, 113, 133, 0.18);
+      border-color: rgba(251, 113, 133, 0.5);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), 0 0 24px rgba(251, 113, 133, 0.12);
+    }
+
+    button.chaos-btn--panel {
+      grid-column: 1 / -1;
+      padding: 0.85rem;
+      font-size: 0.9rem;
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.15), rgba(167, 139, 250, 0.15));
+    }
+
+    /* Sample content */
+    .sample {
+      animation: fadeUp 0.85s ease-out 0.12s both;
+    }
+
+    .sample-inner {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 768px) {
+      .sample-inner {
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: start;
+      }
+    }
+
+    .sample h2 {
+      margin: 0 0 0.65rem;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .sample p {
+      margin: 0 0 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+
+    .sample p:last-child { margin-bottom: 0; }
+
+    .sample a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(45, 212, 191, 0.35);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .sample a:hover {
+      color: #5eead4;
+      border-bottom-color: rgba(94, 234, 212, 0.6);
+    }
+
+    .sample-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .ghost-btn {
+      font-family: inherit;
+      cursor: pointer;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .ghost-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .ghost-btn--primary {
+      background: rgba(45, 212, 191, 0.15);
+      border-color: rgba(45, 212, 191, 0.35);
+    }
+
+    .ghost-btn--primary:hover {
+      background: rgba(45, 212, 191, 0.25);
+    }
+
+    .sample-aside {
+      padding: 1rem 1.1rem;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .sample-aside h3 {
+      margin: 0 0 0.5rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-2);
+    }
+
+    .sample-aside ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    /* Shortcuts footer */
+    .shortcuts {
+      margin-top: 2.5rem;
+      padding: 1.25rem 1.35rem;
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      animation: fadeUp 0.9s ease-out 0.2s both;
+    }
+
+    .shortcuts h3 {
+      margin: 0 0 0.85rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(244, 244, 248, 0.75);
+    }
+
+    .kbd-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem 1.25rem;
+    }
+
+    .kbd-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    kbd {
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, monospace;
+      font-size: 0.72rem;
+      padding: 0.25rem 0.45rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: rgba(244, 244, 248, 0.45);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-mesh" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Live playground</div>
+      <h1>ChaosToggle.js Interactive Demo</h1>
+      <p class="sub">34 effects. 17 themes. Pure chaos.</p>
+    </header>
+
+    <section class="card" aria-labelledby="quick-title">
+      <div class="card-head">
+        <h2 id="quick-title" class="card-title">Quick actions <span>Core controls &amp; intensity modes</span></h2>
+      </div>
+      <div class="grid">
+        <button type="button" class="chaos-btn chaos-btn--quick" data-chaos="trigger">Trigger</button>
+        <button type="button" class="chaos-btn chaos-btn--quick" data-chaos="reset">Reset</button>
+        <button type="button" class="chaos-btn chaos-btn--danger" data-chaos="runMode:nuclear">Nuclear Mode</button>
+        <button type="button" class="chaos-btn chaos-btn--danger" data-chaos="runMode:panic">Panic Mode</button>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="panel-title">
+      <div class="card-head">
+        <h2 id="panel-title" class="card-title">Control panel <span>Built-in UI for themes, modes &amp; tweaks</span></h2>
+      </div>
+      <div class="grid">
+        <button type="button" class="chaos-btn chaos-btn--panel" data-chaos="openPanel">Open settings panel</button>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="effects-title">
+      <div class="card-head">
+        <h2 id="effects-title" class="card-title">Signature effects <span>One-shot pranks &amp; visuals</span></h2>
+      </div>
+      <div class="grid">
+        <button type="button" class="chaos-btn" data-chaos="runEffect:bsod">BSOD</button>
+        <button type="button" class="chaos-btn" data-chaos="runEffect:matrixRain">Matrix Rain</button>
+        <button type="button" class="chaos-btn" data-chaos="runEffect:fakeTerminal">Fake Terminal</button>
+        <button type="button" class="chaos-btn" data-chaos="runEffect:clippy">Clippy</button>
+        <button type="button" class="chaos-btn" data-chaos="runEffect:screenCrack">Screen Crack</button>
+        <button type="button" class="chaos-btn" data-chaos="runEffect:gravity">Gravity</button>
+        <button type="button" class="chaos-btn" data-chaos="runEffect:screenFlip">Screen Flip</button>
+        <button type="button" class="chaos-btn" data-chaos="runEffect:drunkMode">Drunk Mode</button>
+        <button type="button" class="chaos-btn" data-chaos="runEffect:fakeUpdate">Fake Update</button>
+        <button type="button" class="chaos-btn" data-chaos="runEffect:fakeVirusScan">Virus Scan</button>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="themes-title">
+      <div class="card-head">
+        <h2 id="themes-title" class="card-title">Built-in themes <span>Applies theme + triggers chaos</span></h2>
+      </div>
+      <div class="grid themes">
+        <button type="button" class="chaos-btn" data-chaos="runTheme:default">Default</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:easter">Easter</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:halloween">Halloween</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:christmas">Christmas</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:new-year">New Year</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:4th-of-july">4th of July</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:thanksgiving">Thanksgiving</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:black-friday">Black Friday</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:cyber-monday">Cyber Monday</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:valentines-day">Valentine's</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:birthday">Birthday</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:office">Office</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:hacker">Hacker</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:retro">Retro TV</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:apocalypse">Apocalypse</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:drunk">Drunk</button>
+        <button type="button" class="chaos-btn" data-chaos="runTheme:jumpscare">Jumpscare</button>
+      </div>
+    </section>
+
+    <section class="card sample" aria-labelledby="sample-title">
+      <div class="sample-inner">
+        <div>
+          <h2 id="sample-title">Sample page chrome</h2>
+          <p>
+            ChaosToggle animates and distorts real DOM nodes—headings, paragraphs, links, and controls all
+            participate. Use this block to see how effects feel on a typical layout.
+          </p>
+          <p>
+            Read the <a href="https://github.com/Caripson/ChaosToggle.js" rel="noopener noreferrer">project on GitHub</a>
+            for API details, or keep clicking buttons until your coworkers question your sanity.
+          </p>
+          <div class="sample-actions">
+            <button type="button" class="ghost-btn ghost-btn--primary">Primary action</button>
+            <button type="button" class="ghost-btn">Secondary</button>
+          </div>
+        </div>
+        <aside class="sample-aside">
+          <h3>Effect targets</h3>
+          <ul>
+            <li>Typography and spacing</li>
+            <li>Interactive controls</li>
+            <li>Inline links and focus rings</li>
+            <li>Layered overlays &amp; particles</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="shortcuts">
+      <h3>Keyboard shortcuts</h3>
+      <div class="kbd-row">
+        <div class="kbd-item"><kbd>Shift</kbd> <span>+</span> <kbd>H</kbd> <span>Trigger chaos</span></div>
+        <div class="kbd-item"><kbd>Shift</kbd> <span>+</span> <kbd>R</kbd> <span>Reset</span></div>
+        <div class="kbd-item"><kbd>Shift</kbd> <span>+</span> <kbd>P</kbd> <span>Panic mode</span></div>
+        <div class="kbd-item"><kbd>Shift</kbd> <span>+</span> <kbd>C</kbd> <span>Celebration mode</span></div>
+      </div>
+      <p class="footer-note">Nuclear mode has no default shortcut—use the button above or register one with <code style="font-size:0.75em;opacity:0.85">ChaosToggle.registerShortcut()</code>.</p>
+    </footer>
+  </div>
+
+  <script src="../dist/chaos-toggle.js"></script>
+  <script>
+    (function () {
+      ChaosToggle.init();
+
+      function handleChaos(cmd) {
+        if (cmd === "trigger") return ChaosToggle.trigger();
+        if (cmd === "reset") return ChaosToggle.reset();
+        if (cmd === "openPanel") return ChaosToggle.openPanel();
+        var i = cmd.indexOf(":");
+        if (i === -1) return;
+        var action = cmd.slice(0, i);
+        var arg = cmd.slice(i + 1);
+        if (action === "runMode") ChaosToggle.runMode(arg);
+        else if (action === "runEffect") ChaosToggle.runEffect(arg);
+        else if (action === "runTheme") ChaosToggle.runTheme(arg);
+      }
+
+      document.body.addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-chaos]");
+        if (!btn) return;
+        handleChaos(btn.getAttribute("data-chaos"));
+      });
+    })();
+  </script>
+</body>
+</html>

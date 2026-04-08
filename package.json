@@ -1,0 +1,70 @@
+{
+  "name": "chaos-toggle",
+  "version": "1.0.0",
+  "description": "Drop-in visual chaos & prank effects for the web. Themes, modes, a built-in control panel, and a plugin system.",
+  "main": "dist/chaos-toggle.cjs.js",
+  "module": "dist/chaos-toggle.esm.js",
+  "browser": "dist/chaos-toggle.min.js",
+  "unpkg": "dist/chaos-toggle.min.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/chaos-toggle.esm.js",
+      "require": "./dist/chaos-toggle.cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "chaos",
+    "prank",
+    "effects",
+    "visual",
+    "glitch",
+    "confetti",
+    "easter-egg",
+    "fun",
+    "demo",
+    "presentation",
+    "bsod",
+    "matrix",
+    "themes"
+  ],
+  "author": "Caripson",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Caripson/ChaosToggle.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Caripson/ChaosToggle.js/issues"
+  },
+  "homepage": "https://github.com/Caripson/ChaosToggle.js#readme",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "rollup": "^4.31.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5",
+    "jsdom": "^26.0.0",
+    "vitepress": "^1.6.3"
+  }
+}
