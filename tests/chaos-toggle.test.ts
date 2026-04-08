@@ -47,7 +47,7 @@ afterEach(() => {
 
 describe('ChaosToggle API', () => {
   it('exposes expected methods and version', () => {
-    expect(ChaosToggle.version).toBe('1.1.0');
+    expect(ChaosToggle.version).toBe('1.2.0');
     for (const key of [
       'init',
       'trigger',
@@ -199,6 +199,120 @@ describe('Theme management', () => {
 
   it('runTheme returns false for unknown theme', () => {
     expect(ChaosToggle.runTheme('unknown-theme-xyz')).toBe(false);
+  });
+});
+
+describe('Theme-aware particles and popups', () => {
+  beforeEach(() => {
+    ChaosToggle.init({ cooldownMs: 0, probability: 1, duration: 2000 });
+  });
+
+  it('4th-of-july confetti includes patriotic emoji accents', () => {
+    ChaosToggle.setTheme('4th-of-july');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/🇺🇸|⭐/);
+  });
+
+  it('easter particles include chicks or eggs', () => {
+    ChaosToggle.setTheme('easter');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/🐥|🥚/);
+  });
+
+  it('birthday particles include balloons', () => {
+    ChaosToggle.setTheme('birthday');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toContain('🎈');
+  });
+
+  it('christmas particles include seasonal icons', () => {
+    ChaosToggle.setTheme('christmas');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/❄️|🎁|⭐/);
+  });
+
+  it('halloween particles include spooky icons', () => {
+    ChaosToggle.setTheme('halloween');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/🎃|🦇|👻/);
+  });
+
+  it('valentines-day particles include hearts or roses', () => {
+    ChaosToggle.setTheme('valentines-day');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/💖|💕|🌹/);
+  });
+
+  it('thanksgiving particles include autumn icons', () => {
+    ChaosToggle.setTheme('thanksgiving');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/🍂|🍁|🦃/);
+  });
+
+  it('office particles include office clutter icons', () => {
+    ChaosToggle.setTheme('office');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/📎|📄|☕/);
+  });
+
+  it('hacker particles include terminal-like glyphs', () => {
+    ChaosToggle.setTheme('hacker');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/0|1|>_/);
+  });
+
+  it('retro particles include broadcast-era icons', () => {
+    ChaosToggle.setTheme('retro');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/📼|📺|✦/);
+  });
+
+  it('apocalypse particles include destructive icons', () => {
+    ChaosToggle.setTheme('apocalypse');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/🔥|☠|💥/);
+  });
+
+  it('drunk particles include drink or bubble icons', () => {
+    ChaosToggle.setTheme('drunk');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/🍺|🍸|🫧/);
+  });
+
+  it('jumpscare particles include danger icons', () => {
+    ChaosToggle.setTheme('jumpscare');
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.body.textContent || '').toMatch(/☠|✖/);
+  });
+
+  it('popups use the active theme copy and button label', () => {
+    ChaosToggle.setTheme('birthday');
+    expect(ChaosToggle.runEffect('popups')).toBe(true);
+
+    const popup = document.querySelector('.ct-popup');
+    expect(popup?.querySelector('h4')?.textContent).toBe('Level Up');
+    expect(popup?.querySelector('p')?.textContent).toContain('Balloons are up');
+    expect(popup?.querySelector('button')?.textContent).toBe('Party on');
+  });
+
+  it('christmas popup uses seasonal copy and button label', () => {
+    ChaosToggle.setTheme('christmas');
+    expect(ChaosToggle.runEffect('popups')).toBe(true);
+
+    const popup = document.querySelector('.ct-popup');
+    expect(popup?.querySelector('h4')?.textContent).toBe('Holiday Theme');
+    expect(popup?.querySelector('p')?.textContent).toContain('Snow, gifts, and stars');
+    expect(popup?.querySelector('button')?.textContent).toBe('Open gift');
+  });
+
+  it('office popup uses office-themed copy and button label', () => {
+    ChaosToggle.setTheme('office');
+    expect(ChaosToggle.runEffect('popups')).toBe(true);
+
+    const popup = document.querySelector('.ct-popup');
+    expect(popup?.querySelector('h4')?.textContent).toBe('IT Department');
+    expect(popup?.querySelector('p')?.textContent).toContain('Paperwork, coffee, and emergency support tickets');
+    expect(popup?.querySelector('button')?.textContent).toBe('Call support');
   });
 });
 

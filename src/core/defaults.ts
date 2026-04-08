@@ -9,7 +9,7 @@ export const DEFAULT_THEME_PROFILE: ThemeProfile = {
   },
   effects: {},
   animation: { style: 'default', intensityMultiplier: 1, shakeStyle: 'default' },
-  particles: { type: 'confetti', density: 1, emoji: null, mixWithConfetti: false },
+  particles: { type: 'confetti', density: 1, emoji: null, emojiSet: [], mixWithConfetti: false, motion: 'fall', colors: [], size: 1 },
   popup: { title: 'Demo Alert', message: 'ChaosToggle demo popup. This is a visual effect only.', confirmText: 'Keep going', tone: 'neutral' },
   sound: { enabled: false, preset: null },
   timing: { durationMultiplier: 1, cooldownMultiplier: 1, pattern: 'default' },

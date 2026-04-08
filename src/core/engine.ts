@@ -84,6 +84,23 @@ export class ChaosToggleEngine {
     return this._themeState;
   }
 
+  private _activeThemeName(): string {
+    return this._settings.theme || 'default';
+  }
+
+  private _resolvePopupConfig(): ThemeProfile['popup'] {
+    const popup = deepMerge(DEFAULT_THEME_PROFILE.popup, this._themeState.popup || {});
+    const incoming = this._settings.popup || DEFAULT_SETTINGS.popup;
+
+    if (incoming.title && incoming.title !== DEFAULT_SETTINGS.popup.title) popup.title = incoming.title;
+    if (incoming.message && incoming.message !== DEFAULT_SETTINGS.popup.message) popup.message = incoming.message;
+    if (incoming.confirmText && incoming.confirmText !== DEFAULT_SETTINGS.popup.confirmText) {
+      popup.confirmText = incoming.confirmText;
+    }
+
+    return popup;
+  }
+
   private _themeDuration(): number {
     const base = clamp(Number(this._settings.duration || 0), 250, 120000);
     const multi = this._themeState.timing?.durationMultiplier ?? 1;
@@ -110,6 +127,9 @@ export class ChaosToggleEngine {
       intensity: this._settings.intensity,
       duration: this._themeDuration(),
       palette: this._themeState.visual.palette,
+      themeName: this._activeThemeName(),
+      theme: this._themeState,
+      popup: this._resolvePopupConfig(),
       addNode: (node: HTMLElement) => this.addNode(node),
       addTimer: (id: number) => this.addTimer(id),
       log: (...args: unknown[]) => this._log(...args),
@@ -477,6 +497,7 @@ export class ChaosToggleEngine {
     if (!effect) return false;
     if (!this._initialized) this.init({});
     this._installStyles();
+    this._resolveTheme();
     const ctx = this._createEffectContext();
     const cleanup = effect.apply(ctx);
     if (typeof cleanup === 'function') this._effectCleanups.push(cleanup);
@@ -494,6 +515,7 @@ export class ChaosToggleEngine {
     if (!steps) return false;
     if (!this._initialized) this.init({});
     this._installStyles();
+    this._resolveTheme();
     const ctx = this._createEffectContext();
     for (const step of steps) {
       const effect = this._effectRegistry.get(step.effect);

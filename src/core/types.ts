@@ -7,6 +7,9 @@ export interface EffectContext {
   intensity: number;
   duration: number;
   palette: ThemePalette;
+  themeName: string;
+  theme: ThemeProfile;
+  popup: ThemePopup;
   addNode(node: HTMLElement): void;
   addTimer(id: number): void;
   log(...args: unknown[]): void;
@@ -45,7 +48,11 @@ export interface ThemeParticles {
   type: string;
   density: number;
   emoji: string | null;
+  emojiSet: string[];
   mixWithConfetti: boolean;
+  motion: string;
+  colors: string[];
+  size: number;
 }
 
 export interface ThemePopup {

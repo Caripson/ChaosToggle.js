@@ -2,7 +2,7 @@ import typescript from '@rollup/plugin-typescript';
 import terser from '@rollup/plugin-terser';
 import dts from 'rollup-plugin-dts';
 
-const banner = `/* ChaosToggle.js v1.0.0
+const banner = `/* ChaosToggle.js v1.2.0
  * https://github.com/Caripson/ChaosToggle.js
  * (c) ${new Date().getFullYear()} Caripson - MIT License
  */`;
