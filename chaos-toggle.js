@@ -201,8 +201,13 @@
     return out;
   }
 
-  function pickEnabledSections(base, incoming, parts) {
+  function pickEnabledSections(base, incoming, parts, fallback) {
     var out = deepMerge({}, base);
+    Object.keys(parts || {}).forEach(function (key) {
+      if (parts[key] !== false) return;
+      if (fallback && typeof fallback[key] !== 'undefined') out[key] = deepMerge({}, fallback[key]);
+      else delete out[key];
+    });
     Object.keys(incoming || {}).forEach(function (key) {
       if (parts && parts[key] === false) return;
       out[key] = isObject(incoming[key]) && isObject(out[key]) ? deepMerge(out[key], incoming[key]) : incoming[key];
@@ -253,6 +258,8 @@
     this._destroyables = [];
     this._effectNodes = [];
     this._activeTimers = [];
+    this._resetTimer = null;
+    this._activeVisualClass = null;
     this._lastTriggerAt = 0;
     this._enabled = true;
     this._initialized = false;
@@ -314,6 +321,8 @@
   ChaosToggleEngine.prototype._clearTimers = function () {
     this._activeTimers.forEach(function (id) { clearTimeout(id); clearInterval(id); });
     this._activeTimers = [];
+    if (this._resetTimer) clearTimeout(this._resetTimer);
+    this._resetTimer = null;
   };
 
   ChaosToggleEngine.prototype._themeDuration = function () {
@@ -324,8 +333,8 @@
 
   ChaosToggleEngine.prototype._scheduleReset = function () {
     var self = this;
-    this._clearTimers();
-    this._activeTimers.push(setTimeout(function () { self.reset(); }, this._themeDuration()));
+    if (this._resetTimer) clearTimeout(this._resetTimer);
+    this._resetTimer = setTimeout(function () { self.reset(); }, this._themeDuration());
   };
 
   ChaosToggleEngine.prototype._createLayer = function (className, extraStyles) {
@@ -497,7 +506,9 @@
     var visual = this._themeState.visual || {};
     var root = this._scopeRoot();
     var palette = visual.palette || {};
+    if (this._activeVisualClass && this._activeVisualClass !== visual.className) root.classList.remove(this._activeVisualClass);
     if (visual.className) root.classList.add(visual.className);
+    this._activeVisualClass = visual.className || null;
     root.style.setProperty('--chaos-primary', palette.primary || '#ff4d6d');
     root.style.setProperty('--chaos-accent', palette.accent || '#00f5ff');
     root.style.setProperty('--chaos-bg', palette.background || '#111111');
@@ -509,8 +520,8 @@
   ChaosToggleEngine.prototype._clearEffects = function () {
     var root = this._scopeRoot();
     root.classList.remove('chaos-toggle-zoom', 'chaos-toggle-error', 'chaos-toggle-theme-pulse', 'chaos-toggle-theme-recoil', 'chaos-toggle-theme-dark');
-    var visualClass = this._themeState.visual && this._themeState.visual.className;
-    if (visualClass) root.classList.remove(visualClass);
+    if (this._activeVisualClass) root.classList.remove(this._activeVisualClass);
+    this._activeVisualClass = null;
     this._applyShake(false);
     root.style.transform = '';
     this._effectNodes.forEach(function (node) { if (node && node.remove) node.remove(); });
@@ -531,7 +542,7 @@
     var activeName = this._settings.theme || 'default';
     var selected = this._themes[activeName] || this._themes.default || {};
     var fromTheme = deepMerge(DEFAULT_THEME_PROFILE, selected);
-    var withOverrides = pickEnabledSections(fromTheme, this._settings.themeOverrides || {}, this._settings.themeParts || {});
+    var withOverrides = pickEnabledSections(fromTheme, this._settings.themeOverrides || {}, this._settings.themeParts || {}, DEFAULT_THEME_PROFILE);
     this._themeState = withOverrides;
     return withOverrides;
   };
