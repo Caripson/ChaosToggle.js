@@ -20,9 +20,6 @@
     "LICENSE"
   ],
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs",
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "test": "vitest run",
@@ -64,7 +61,6 @@
     "tslib": "^2.8.1",
     "typescript": "^5.7.3",
     "vitest": "^3.0.5",
-    "jsdom": "^26.0.0",
-    "vitepress": "^1.6.3"
+    "jsdom": "^26.0.0"
   }
 }

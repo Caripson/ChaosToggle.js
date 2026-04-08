@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChaosToggle.js — Drop-in chaos &amp; prank effects for the web</title>
+  <meta name="description" content="34 visual chaos effects, 17 themes, zero dependencies. One script tag to make your coworkers question reality.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- SVG sprite -->
+<div style="display:none" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-explosion" viewBox="0 0 24 24"><path fill="currentColor" d="M11.5 1L9 9 1 6.5l5 7L2 22l8-4 3 5 1-9 9 1-6-5.5 5-7-8 3z"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10a2 2 0 0 0 2-2c0-.5-.18-.96-.5-1.33-.3-.35-.5-.81-.5-1.34A2.33 2.33 0 0 1 15.33 15H18a4 4 0 0 0 4-4c0-5.09-4.49-9-10-9zm-6 10a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm6 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 21v-7m0-4V3m8 18v-9m0-4V3m8 18v-3m0-4V3M1 14h6M9 8h6M17 16h6"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path fill="currentColor" d="M16 3V1h-2v2H10V1H8v2H6v7c0 2.21 1.79 4 4 4h.17L8.59 19.17A2 2 0 0 0 10 22h4a2 2 0 0 0 1.41-3.41L13.83 14H14c2.21 0 4-1.79 4-4V3h-2z"/></symbol>
+    <symbol id="i-diamond" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L2 12l10 10 10-10L12 2zm0 3.41L18.59 12 12 18.59 5.41 12 12 5.41z"/></symbol>
+    <symbol id="i-feather" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5zM16 8l-2 2M2 22l4.5-4.5"/></symbol>
+    <symbol id="i-gamepad" viewBox="0 0 24 24"><path fill="currentColor" d="M15 7.5V2H9v5.5l3 3 3-3zM7.5 9H2v6h5.5l3-3-3-3zM9 16.5V22h6v-5.5l-3-3-3 3zM16.5 9l-3 3 3 3H22V9h-5.5z"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><path fill="currentColor" d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12.9-1.64h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 20 3.5H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44A2 2 0 0 0 7 16h12v-2H7.42a.25.25 0 0 1-.26-.24z"/></symbol>
+    <symbol id="i-barchart" viewBox="0 0 24 24"><path fill="currentColor" d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zM16.2 13h2.8v6h-2.8v-6z"/></symbol>
+    <symbol id="i-newspaper" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM6 12h12v2H6v-2zm0-4h12v2H6V8zm0-4h8v2H6V4z"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path fill="currentColor" d="M15 11V5l-3-3-3 3v2H3v14h18V11h-6zm-8 8H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm6 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm6 12h-2v-2h2v2zm0-4h-2v-2h2v2z"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+  </svg>
+</div>
+
+<!-- =========== NAV =========== -->
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo"><span>Chaos</span>Toggle.js</a>
+    <div class="nav-links">
+      <a href="demo/index.html">Live Demo</a>
+      <a href="#features">Features</a>
+      <a href="#demos">Demos</a>
+      <a href="#install">Get Started</a>
+      <a href="https://github.com/Caripson/ChaosToggle.js" class="nav-github" target="_blank" rel="noopener">
+        <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+    </div>
+    <button class="nav-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-drawer">
+  <a href="demo/index.html">Live Demo</a>
+  <a href="#features">Features</a>
+  <a href="#demos">Demos</a>
+  <a href="#install">Get Started</a>
+  <a href="https://github.com/Caripson/ChaosToggle.js" target="_blank" rel="noopener">GitHub</a>
+</div>
+
+<!-- =========== HERO =========== -->
+<section class="hero">
+  <div class="container">
+    <h1>ChaosToggle.js</h1>
+    <p class="hero-sub">The ultimate prank &amp; chaos effects library for the web.</p>
+    <p class="hero-sub2">Drop one script tag. Watch your coworkers question reality.</p>
+    <div class="hero-badge">WARNING: May cause spontaneous laughter, confused Slack messages, and emergency stand-ups</div>
+    <div class="hero-actions">
+      <a href="demo/index.html" class="btn btn--brand">Try Live Demo</a>
+      <a href="#install" class="btn btn--outline">Get Started</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>34</strong> effects</div>
+      <div class="stat"><strong>17</strong> themes</div>
+      <div class="stat"><strong>0</strong> dependencies</div>
+      <div class="stat"><strong>1</strong> script tag</div>
+      <div class="stat"><strong>&infin;</strong> confused coworkers</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FEATURES =========== -->
+<section id="features" class="section">
+  <div class="container">
+    <h2 class="section-title">What's Inside</h2>
+    <p class="section-sub">Everything you need to turn any website into a prank playground.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-explosion"/></svg></div>
+        <h3>34 Effects</h3>
+        <p>BSOD, matrix rain, gravity, fake Windows Update, Clippy, screen crack, virus scan, and dozens more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-palette"/></svg></div>
+        <h3>17 Themes</h3>
+        <p>Holiday packs, office pranks, hacker retro, apocalypse, drunk mode, and jumpscare. One click each.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg></div>
+        <h3>Control Panel</h3>
+        <p>Draggable glass UI to tweak intensity, duration, and effects live. No build step needed.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-plug"/></svg></div>
+        <h3>Plugin System</h3>
+        <p>Ship custom effects and themes as ChaosPlugin packages. Hook into engine events.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-diamond"/></svg></div>
+        <h3>TypeScript-first</h3>
+        <p>Full type coverage for settings, themes, effects, and the public API. Great DX.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-feather"/></svg></div>
+        <h3>Zero Dependencies</h3>
+        <p>One script tag or ESM import. Self-contained runtime with inlined styles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== QUOTE =========== -->
+<section class="section">
+  <div class="container">
+    <blockquote class="quote">
+      "I thought my laptop was broken. Turns out the new intern installed ChaosToggle on the staging server. We've promoted them to Senior Chaos Engineer."
+      <cite>-- Anonymous Engineering Manager, 2026</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- =========== DEMOS =========== -->
+<section id="demos" class="section">
+  <div class="container">
+    <h2 class="section-title">See It In Action</h2>
+    <p class="section-sub">Fake websites you can destroy. Click a page, press the chaos buttons, and watch it all fall apart.</p>
+    <div class="demos-grid">
+      <a href="demo/index.html" class="demo-card">
+        <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#i-gamepad"/></svg></span>
+        <span class="title">Playground</span>
+        <span class="desc">All effects, all themes, one page</span>
+      </a>
+      <a href="demo/store.html" class="demo-card">
+        <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#i-cart"/></svg></span>
+        <span class="title">E-commerce</span>
+        <span class="desc">Invisible keyboards and checkout chaos</span>
+      </a>
+      <a href="demo/dashboard.html" class="demo-card">
+        <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#i-barchart"/></svg></span>
+        <span class="title">Dashboard</span>
+        <span class="desc">KPIs meet system failure</span>
+      </a>
+      <a href="demo/blog.html" class="demo-card">
+        <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#i-newspaper"/></svg></span>
+        <span class="title">Blog</span>
+        <span class="desc">Breaking news that breaks the page</span>
+      </a>
+      <a href="demo/corporate.html" class="demo-card">
+        <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg></span>
+        <span class="title">Corporate</span>
+        <span class="desc">The intern pushed to prod</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== INSTALL =========== -->
+<section id="install" class="section">
+  <div class="container">
+    <div class="install-box">
+      <h2>Get started in 30 seconds</h2>
+      <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  ChaosToggle.init();
+  ChaosToggle.runEffect('bsod'); // Blue Screen of Death
+&lt;/script&gt;</code></pre>
+      <pre><code>npm install chaos-toggle</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FOOTER =========== -->
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="demo/index.html">Live Demo</a>
+    <a href="https://github.com/Caripson/ChaosToggle.js" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.npmjs.com/package/chaos-toggle" target="_blank" rel="noopener">npm</a>
+  </div>
+  <p>Released under the MIT License. &copy; 2026 Caripson</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

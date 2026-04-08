@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChaosShop — ChaosToggle.js Demo</title>
+  <meta name="description" content="Fake e-commerce store demo for ChaosToggle.js effects.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- SVG sprite -->
+<div style="display:none" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><path fill="currentColor" d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12.9-1.64h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 20 3.5H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44A2 2 0 0 0 7 16h12v-2H7.42a.25.25 0 0 1-.26-.24z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path fill="currentColor" d="M17.65 6.35A8 8 0 1 0 20 12h-2a6 6 0 1 1-1.76-4.24L13 11h7V4l-2.35 2.35z"/></symbol>
+    <symbol id="i-tree" viewBox="0 0 24 24"><path fill="currentColor" d="M17 12h2L12 2 5 12h2l-3 6h7v4h2v-4h7l-3-6zm-5-6.5l3.74 5.5H13v2h1.62L17.24 18H6.76l2.62-5H11v-2H8.26L12 5.5z"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path fill="currentColor" d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></symbol>
+    <symbol id="i-creditcard" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></symbol>
+    <symbol id="i-paperclip" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M21.44 11.05l-9.19 9.19a5.64 5.64 0 0 1-7.98-7.98l9.19-9.19A3.75 3.75 0 0 1 18.77 8.4l-9.19 9.19a1.88 1.88 0 0 1-2.66-2.65l8.49-8.48"/></symbol>
+    <symbol id="i-coffee" viewBox="0 0 24 24"><path fill="currentColor" d="M18.5 3H6c-1.1 0-2 .9-2 2v5.71c0 3.83 2.95 7.18 6.78 7.29A7 7 0 0 0 18 11V5h.5A1.5 1.5 0 0 0 20 3.5 1.5 1.5 0 0 0 18.5 3zM16 11a5 5 0 0 1-5 5c-2.76 0-5-2.24-5-5V5h10v6zM2 21h18v2H2v-2z"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><path fill="currentColor" d="M21 2H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7v2H8v2h8v-2h-2v-2h7a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm0 14H3V4h18v12z"/></symbol>
+    <symbol id="i-tshirt" viewBox="0 0 24 24"><path fill="currentColor" d="M16 2H8L3 7l3 3 2-2v12h8V8l2 2 3-3-5-5zm-1 16H9V7.41l-2 2L5.41 7 8.83 4h6.34L18.59 7 17 8.59l-2-2V18z"/></symbol>
+    <symbol id="i-teddy" viewBox="0 0 24 24"><path fill="currentColor" d="M15.75 2A3.25 3.25 0 0 1 19 5.25c0 .98-.44 1.85-1.13 2.44A7.97 7.97 0 0 1 20 12.98V13a8 8 0 0 1-16 0 7.97 7.97 0 0 1 2.13-5.31A3.24 3.24 0 0 1 5 5.25 3.25 3.25 0 0 1 8.25 2c1.04 0 1.97.5 2.56 1.27A7.95 7.95 0 0 1 12 3c.41 0 .82.03 1.22.1A3.24 3.24 0 0 1 15.75 2zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm-2 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm4 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></symbol>
+    <symbol id="i-headphones" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></symbol>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="container">
+    <a href="../index.html" class="nav-logo"><span>Chaos</span>Toggle.js</a>
+    <div class="nav-links">
+      <a href="index.html">Playground</a>
+      <a href="store.html">Store</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="blog.html">Blog</a>
+      <a href="corporate.html">Corporate</a>
+      <a href="https://github.com/Caripson/ChaosToggle.js" class="nav-github" target="_blank" rel="noopener">
+        <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+    </div>
+    <button class="nav-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-drawer">
+  <a href="../index.html">Home</a>
+  <a href="index.html">Playground</a>
+  <a href="store.html">Store</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="blog.html">Blog</a>
+  <a href="corporate.html">Corporate</a>
+</div>
+
+<!-- STORE CONTENT -->
+<div class="demo-page">
+  <div class="store-header"><svg class="icon" aria-hidden="true"><use href="#i-cart"/></svg> ChaosShop -- Merch for the Unhinged Developer</div>
+  <div class="container">
+    <div class="store-grid">
+
+      <div class="store-card">
+        <div class="store-card-img"><svg class="icon" aria-hidden="true"><use href="#i-coffee"/></svg></div>
+        <div class="store-card-body">
+          <h3>"It Works On My Machine" Mug</h3>
+          <div class="price">$14.99</div>
+          <p class="desc">Ceramic mug. Holds coffee and regret.</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-card-img"><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg></div>
+        <div class="store-card-body">
+          <h3>BSOD Framed Poster</h3>
+          <div class="price">$29.99</div>
+          <p class="desc">Museum-quality print of the most feared screen.</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-card-img"><svg class="icon" aria-hidden="true"><use href="#i-paperclip"/></svg></div>
+        <div class="store-card-body">
+          <h3>Clippy Plush Toy</h3>
+          <div class="price">$19.99</div>
+          <p class="desc">"It looks like you're crying. Would you like help?"</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-card-img"><svg class="icon" aria-hidden="true"><use href="#i-tshirt"/></svg></div>
+        <div class="store-card-body">
+          <h3>404 T-Shirt</h3>
+          <div class="price">$24.99</div>
+          <p class="desc">This shirt was not found. Neither was our QA budget.</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-card-img"><svg class="icon" aria-hidden="true"><use href="#i-teddy"/></svg></div>
+        <div class="store-card-body">
+          <h3>Rubber Duck (Debugger Edition)</h3>
+          <div class="price">$9.99</div>
+          <p class="desc">Explain your code to it. It won't judge. Probably.</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-card-img"><svg class="icon" aria-hidden="true"><use href="#i-headphones"/></svg></div>
+        <div class="store-card-body">
+          <h3>Noise-Cancelling Headphones</h3>
+          <div class="price">$199.99</div>
+          <p class="desc">For when the open-plan office becomes too open-plan.</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CHAOS BAR -->
+<div class="chaos-bar">
+  <button class="chaos-btn chaos-btn--fire" onclick="ChaosToggle.runTheme('holiday')"><svg class="icon" aria-hidden="true"><use href="#i-tree"/></svg> Black Friday</button>
+  <button class="chaos-btn chaos-btn--fire" onclick="ChaosToggle.runEffect('screenCrack'); setTimeout(function(){ ChaosToggle.runEffect('confetti'); }, 500);"><svg class="icon" aria-hidden="true"><use href="#i-zap"/></svg> Flash Deal</button>
+  <button class="chaos-btn chaos-btn--theme" onclick="ChaosToggle.runEffect('bsod')"><svg class="icon" aria-hidden="true"><use href="#i-creditcard"/></svg> Payment BSOD</button>
+  <button class="chaos-btn chaos-btn--theme" onclick="ChaosToggle.runEffect('clippy')"><svg class="icon" aria-hidden="true"><use href="#i-paperclip"/></svg> Clippy Checkout</button>
+  <button class="chaos-btn chaos-btn--reset" onclick="ChaosToggle.reset()"><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Reset</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  if (window.ChaosToggle) { ChaosToggle.init({ duration: 3000 }); }
+</script>
+</body>
+</html>

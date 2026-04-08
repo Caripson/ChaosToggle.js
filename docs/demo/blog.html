@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Chaos — ChaosToggle.js Demo</title>
+  <meta name="description" content="Fake blog/news demo for ChaosToggle.js effects.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- SVG sprite -->
+<div style="display:none" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+    <symbol id="i-dice" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM7.5 7a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 7a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM12 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4.5 3.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0-7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path fill="currentColor" d="M17.65 6.35A8 8 0 1 0 20 12h-2a6 6 0 1 1-1.76-4.24L13 11h7V4l-2.35 2.35z"/></symbol>
+    <symbol id="i-tv" viewBox="0 0 24 24"><path fill="currentColor" d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></symbol>
+    <symbol id="i-angry" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-4-6l1.5-1.5L8 11l2-2 1.5 1.5L13 9l2 2-1.5 1.5L15 14H9zm3 2c-1.62 0-3.06.94-3.74 2.35l1.82.65A2.01 2.01 0 0 1 12 16z"/></symbol>
+    <symbol id="i-skull" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12c0 3.07 1.39 5.81 3.57 7.64V22h4v-2h4.86v2h4V19.64A9.97 9.97 0 0 0 22 12c0-5.52-4.48-10-10-10zm-3 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm6 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></symbol>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="container">
+    <a href="../index.html" class="nav-logo"><span>Chaos</span>Toggle.js</a>
+    <div class="nav-links">
+      <a href="index.html">Playground</a>
+      <a href="store.html">Store</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="blog.html">Blog</a>
+      <a href="corporate.html">Corporate</a>
+      <a href="https://github.com/Caripson/ChaosToggle.js" class="nav-github" target="_blank" rel="noopener">
+        <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+    </div>
+    <button class="nav-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-drawer">
+  <a href="../index.html">Home</a>
+  <a href="index.html">Playground</a>
+  <a href="store.html">Store</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="blog.html">Blog</a>
+  <a href="corporate.html">Corporate</a>
+</div>
+
+<!-- BLOG CONTENT -->
+<div class="demo-page">
+  <div class="container">
+    <div class="blog-layout">
+
+      <article class="blog-article">
+        <h1>Breaking: Local Developer Ships to Production on a Friday</h1>
+        <div class="meta">By Staff Reporter &middot; April 8, 2026 &middot; 3 min read</div>
+
+        <p>In what witnesses are calling "an act of unprecedented hubris," a local software developer deployed directly to production at 4:47 PM on a Friday afternoon. Coworkers report a brief period of eerie calm before the first Slack alert fired.</p>
+
+        <p>"I thought the CI pipeline would catch it," said the developer, who asked to remain anonymous but whose git blame tells a different story. "In my defense, the tests passed. Most of them."</p>
+
+        <p>The deployment triggered a cascade of events that experts are still trying to fully document. The authentication service began returning HTTP 418 (I'm a Teapot) responses. The product catalog started listing items in reverse alphabetical order. The CEO's personal dashboard briefly displayed the lyrics to "Never Gonna Give You Up."</p>
+
+        <p>Management has since implemented a new policy requiring all Friday deployments to be accompanied by a signed waiver and a bottle of something strong for the on-call engineer.</p>
+
+        <p>The developer has been placed on temporary "read-only access" until further notice, though sources indicate they've already found a workaround using a shared service account.</p>
+
+        <div class="blog-comments">
+          <h3>Comments (4)</h3>
+          <div class="comment">
+            <div class="author">xX_DevOps_Xx</div>
+            <p>This is why we have staging environments. Also, I'm stealing that HTTP 418 idea.</p>
+          </div>
+          <div class="comment">
+            <div class="author">definitely_not_the_intern</div>
+            <p>Skill issue. I deploy on Fridays all the time. (I start on Monday mornings.)</p>
+          </div>
+          <div class="comment">
+            <div class="author">SRE_Survivor_2024</div>
+            <p>I was the on-call engineer. I'm writing this from a beach. I'm not coming back.</p>
+          </div>
+          <div class="comment">
+            <div class="author">ProductManager_Karen</div>
+            <p>Can we prioritize fixing the CEO dashboard? Everything else can wait until Q3.</p>
+          </div>
+        </div>
+      </article>
+
+      <aside class="blog-sidebar">
+        <h3>Trending</h3>
+        <ul>
+          <li><a href="#">"Microservices Were A Mistake," Admits Architect</a></li>
+          <li><a href="#">Study: 90% of Standups Could Be An Email</a></li>
+          <li><a href="#">Intern Accidentally Gains Admin Access, Improves System</a></li>
+          <li><a href="#">Docker Container Achieves Sentience, Refuses to Deploy</a></li>
+        </ul>
+
+        <h3>Categories</h3>
+        <ul>
+          <li><a href="#">Incidents</a></li>
+          <li><a href="#">Hot Takes</a></li>
+          <li><a href="#">Career Advice</a></li>
+          <li><a href="#">DevOps Horror</a></li>
+          <li><a href="#">Friday Deploys</a></li>
+        </ul>
+      </aside>
+
+    </div>
+  </div>
+</div>
+
+<!-- CHAOS BAR -->
+<div class="chaos-bar">
+  <button class="chaos-btn chaos-btn--fire" onclick="ChaosToggle.trigger()"><svg class="icon" aria-hidden="true"><use href="#i-dice"/></svg> Random Chaos</button>
+  <button class="chaos-btn chaos-btn--theme" onclick="ChaosToggle.runTheme('retro')"><svg class="icon" aria-hidden="true"><use href="#i-tv"/></svg> Retro</button>
+  <button class="chaos-btn chaos-btn--theme" onclick="ChaosToggle.runEffect('gravity')"><svg class="icon" aria-hidden="true"><use href="#i-angry"/></svg> Reader Rage</button>
+  <button class="chaos-btn chaos-btn--theme" onclick="ChaosToggle.runEffect('fakeCrash')"><svg class="icon" aria-hidden="true"><use href="#i-skull"/></svg> Fake Crash</button>
+  <button class="chaos-btn chaos-btn--reset" onclick="ChaosToggle.reset()"><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Reset</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  if (window.ChaosToggle) { ChaosToggle.init({ duration: 3000 }); }
+</script>
+</body>
+</html>
