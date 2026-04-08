@@ -8,6 +8,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: 'ChaosToggle.js',
   description: 'Drop-in visual chaos & prank effects for the web',
+  base: '/ChaosToggle.js/',
   cleanUrls: true,
 
   themeConfig: {
