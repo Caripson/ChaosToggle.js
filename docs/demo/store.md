@@ -3,97 +3,6 @@ title: ChaosShop Demo
 layout: page
 ---
 
-<div class="chaos-shop-wrap">
-  <header class="cs-header">
-    <div class="cs-header-inner">
-      <div class="cs-logo">
-        <span class="cs-logo-mark">🛒</span>
-        <span class="cs-logo-text">ChaosShop</span>
-      </div>
-      <div class="cs-search" aria-hidden="true">
-        <span class="cs-search-fake">Search products…</span>
-      </div>
-      <div class="cs-cart" title="Cart">
-        <span class="cs-cart-icon">🛍️</span>
-        <span class="cs-cart-badge">3 items</span>
-      </div>
-    </div>
-  </header>
-
-  <main class="cs-main">
-    <section class="cs-hero">
-      <h1 class="cs-hero-title">Deals that defy logic</h1>
-      <p class="cs-hero-sub">Free shipping on orders over $0.01 · Same-day delivery to parallel universes</p>
-    </section>
-
-    <section class="cs-grid" aria-label="Products">
-      <article class="cs-card">
-        <div class="cs-card-img" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">⌨️</div>
-        <div class="cs-card-body">
-          <h2 class="cs-card-title">Invisible Keyboard</h2>
-          <p class="cs-card-price">$49.99</p>
-          <p class="cs-card-stars">★★★★☆ <span class="cs-card-reviews">(2,847)</span></p>
-          <button type="button" class="cs-btn">Add to Cart</button>
-        </div>
-      </article>
-      <article class="cs-card">
-        <div class="cs-card-img" style="background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);">☕</div>
-        <div class="cs-card-body">
-          <h2 class="cs-card-title">Error 404 Mug</h2>
-          <p class="cs-card-price">$14.99</p>
-          <p class="cs-card-stars">★★★★★ <span class="cs-card-reviews">(12,103)</span></p>
-          <button type="button" class="cs-btn">Add to Cart</button>
-        </div>
-      </article>
-      <article class="cs-card">
-        <div class="cs-card-img" style="background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);">🖼️</div>
-        <div class="cs-card-body">
-          <h2 class="cs-card-title">BSOD Poster</h2>
-          <p class="cs-card-price">$24.99</p>
-          <p class="cs-card-stars">★★★☆☆ <span class="cs-card-reviews">(891)</span></p>
-          <button type="button" class="cs-btn">Add to Cart</button>
-        </div>
-      </article>
-      <article class="cs-card">
-        <div class="cs-card-img" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">💾</div>
-        <div class="cs-card-body">
-          <h2 class="cs-card-title">Matrix Screensaver USB</h2>
-          <p class="cs-card-price">$9.99</p>
-          <p class="cs-card-stars">★★★★☆ <span class="cs-card-reviews">(5,220)</span></p>
-          <button type="button" class="cs-btn">Add to Cart</button>
-        </div>
-      </article>
-      <article class="cs-card">
-        <div class="cs-card-img" style="background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);">📎</div>
-        <div class="cs-card-body">
-          <h2 class="cs-card-title">Clippy Plushie</h2>
-          <p class="cs-card-price">$29.99</p>
-          <p class="cs-card-stars">★★★★★ <span class="cs-card-reviews">(3,401)</span></p>
-          <button type="button" class="cs-btn">Add to Cart</button>
-        </div>
-      </article>
-      <article class="cs-card">
-        <div class="cs-card-img" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);">💥</div>
-        <div class="cs-card-body">
-          <h2 class="cs-card-title">Self-Destructing Hard Drive</h2>
-          <p class="cs-card-price">$99.99</p>
-          <p class="cs-card-stars">★★☆☆☆ <span class="cs-card-reviews">(14)</span></p>
-          <button type="button" class="cs-btn">Add to Cart</button>
-        </div>
-      </article>
-    </section>
-  </main>
-
-  <nav class="cs-chaos-bar" aria-label="Chaos demo controls">
-    <span class="cs-chaos-label">Chaos toolbar</span>
-    <button type="button" class="cs-chaos-btn cs-chaos-btn--sale" onclick="ChaosToggle.runTheme('black-friday')">Black Friday Sale</button>
-    <button type="button" class="cs-chaos-btn" onclick="ChaosToggle.runEffect('screenCrack'); setTimeout(()=>ChaosToggle.runEffect('confetti'),500)">Flash Deal!</button>
-    <button type="button" class="cs-chaos-btn" onclick="ChaosToggle.runEffect('bsod')">Payment Error</button>
-    <button type="button" class="cs-chaos-btn" onclick="ChaosToggle.runEffect('clippy')">Checkout Assistant</button>
-    <button type="button" class="cs-chaos-btn cs-chaos-btn--reset" onclick="ChaosToggle.reset()">Reset</button>
-  </nav>
-</div>
-
 <style>
 .chaos-shop-wrap {
   --cs-bg: #f4f6f9;
@@ -107,7 +16,6 @@ layout: page
   background: var(--cs-bg);
   min-height: 100vh;
   padding-bottom: 5.5rem;
-  margin: -24px -24px 0;
   max-width: none;
 }
 .cs-header {
@@ -300,22 +208,110 @@ layout: page
 }
 </style>
 
+<div class="chaos-shop-wrap">
+  <header class="cs-header">
+    <div class="cs-header-inner">
+      <div class="cs-logo">
+        <span class="cs-logo-mark">🛒</span>
+        <span class="cs-logo-text">ChaosShop</span>
+      </div>
+      <div class="cs-search" aria-hidden="true">
+        <span class="cs-search-fake">Search products…</span>
+      </div>
+      <div class="cs-cart" title="Cart">
+        <span class="cs-cart-icon">🛍️</span>
+        <span class="cs-cart-badge">3 items</span>
+      </div>
+    </div>
+  </header>
+  <main class="cs-main">
+    <section class="cs-hero">
+      <h1 class="cs-hero-title">Deals that defy logic</h1>
+      <p class="cs-hero-sub">Free shipping on orders over $0.01 · Same-day delivery to parallel universes</p>
+    </section>
+    <section class="cs-grid" aria-label="Products">
+      <article class="cs-card">
+        <div class="cs-card-img" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">⌨️</div>
+        <div class="cs-card-body">
+          <h2 class="cs-card-title">Invisible Keyboard</h2>
+          <p class="cs-card-price">$49.99</p>
+          <p class="cs-card-stars">★★★★☆ <span class="cs-card-reviews">(2,847)</span></p>
+          <button type="button" class="cs-btn">Add to Cart</button>
+        </div>
+      </article>
+      <article class="cs-card">
+        <div class="cs-card-img" style="background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);">☕</div>
+        <div class="cs-card-body">
+          <h2 class="cs-card-title">Error 404 Mug</h2>
+          <p class="cs-card-price">$14.99</p>
+          <p class="cs-card-stars">★★★★★ <span class="cs-card-reviews">(12,103)</span></p>
+          <button type="button" class="cs-btn">Add to Cart</button>
+        </div>
+      </article>
+      <article class="cs-card">
+        <div class="cs-card-img" style="background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);">🖼️</div>
+        <div class="cs-card-body">
+          <h2 class="cs-card-title">BSOD Poster</h2>
+          <p class="cs-card-price">$24.99</p>
+          <p class="cs-card-stars">★★★☆☆ <span class="cs-card-reviews">(891)</span></p>
+          <button type="button" class="cs-btn">Add to Cart</button>
+        </div>
+      </article>
+      <article class="cs-card">
+        <div class="cs-card-img" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">💾</div>
+        <div class="cs-card-body">
+          <h2 class="cs-card-title">Matrix Screensaver USB</h2>
+          <p class="cs-card-price">$9.99</p>
+          <p class="cs-card-stars">★★★★☆ <span class="cs-card-reviews">(5,220)</span></p>
+          <button type="button" class="cs-btn">Add to Cart</button>
+        </div>
+      </article>
+      <article class="cs-card">
+        <div class="cs-card-img" style="background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);">📎</div>
+        <div class="cs-card-body">
+          <h2 class="cs-card-title">Clippy Plushie</h2>
+          <p class="cs-card-price">$29.99</p>
+          <p class="cs-card-stars">★★★★★ <span class="cs-card-reviews">(3,401)</span></p>
+          <button type="button" class="cs-btn">Add to Cart</button>
+        </div>
+      </article>
+      <article class="cs-card">
+        <div class="cs-card-img" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);">💥</div>
+        <div class="cs-card-body">
+          <h2 class="cs-card-title">Self-Destructing Hard Drive</h2>
+          <p class="cs-card-price">$99.99</p>
+          <p class="cs-card-stars">★★☆☆☆ <span class="cs-card-reviews">(14)</span></p>
+          <button type="button" class="cs-btn">Add to Cart</button>
+        </div>
+      </article>
+    </section>
+  </main>
+  <nav class="cs-chaos-bar" aria-label="Chaos demo controls">
+    <span class="cs-chaos-label">Chaos toolbar</span>
+    <button type="button" class="cs-chaos-btn cs-chaos-btn--sale" onclick="ChaosToggle.runTheme('black-friday')">Black Friday Sale</button>
+    <button type="button" class="cs-chaos-btn" onclick="ChaosToggle.runEffect('screenCrack'); setTimeout(()=>ChaosToggle.runEffect('confetti'),500)">Flash Deal!</button>
+    <button type="button" class="cs-chaos-btn" onclick="ChaosToggle.runEffect('bsod')">Payment Error</button>
+    <button type="button" class="cs-chaos-btn" onclick="ChaosToggle.runEffect('clippy')">Checkout Assistant</button>
+    <button type="button" class="cs-chaos-btn cs-chaos-btn--reset" onclick="ChaosToggle.reset()">Reset</button>
+  </nav>
+</div>
+
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 
 function loadChaos() {
-  if (window.ChaosToggle) {
+  function unwrap() { var c = window.ChaosToggle; if (c && c.ChaosToggle) window.ChaosToggle = c.ChaosToggle; }
+  unwrap()
+  if (window.ChaosToggle && window.ChaosToggle.init) {
     window.ChaosToggle.init({ duration: 3000 })
     return
   }
-  const el = document.createElement('script')
-  el.src = 'https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js'
-  el.onload = () => {
-    if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 })
-  }
+  var el = document.createElement('script')
+  el.src = 'https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js'
+  el.onload = function() { unwrap(); if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 }); }
   document.head.appendChild(el)
 }
 
-onMounted(() => { loadChaos() })
-onUnmounted(() => { if (window.ChaosToggle) window.ChaosToggle.reset() })
+onMounted(function() { loadChaos() })
+onUnmounted(function() { if (window.ChaosToggle) window.ChaosToggle.reset() })
 </script>

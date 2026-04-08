@@ -4,7 +4,7 @@ layout: page
 ---
 
 <style>
-.sf-demo { --sf-blue: #2563eb; --sf-blue-dark: #1d4ed8; --sf-slate: #0f172a; --sf-muted: #64748b; --sf-bg: #f8fafc; --sf-card: #ffffff; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--sf-slate); background: var(--sf-bg); margin: -24px -24px 0; padding: 0 0 120px; min-height: 100vh; }
+.sf-demo { --sf-blue: #2563eb; --sf-blue-dark: #1d4ed8; --sf-slate: #0f172a; --sf-muted: #64748b; --sf-bg: #f8fafc; --sf-card: #ffffff; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--sf-slate); background: var(--sf-bg); padding: 0 0 120px; min-height: 100vh; }
 .sf-demo * { box-sizing: border-box; }
 .sf-nav-wrap { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; }
 .sf-nav { max-width: 1120px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
@@ -61,7 +61,6 @@ layout: page
 </style>
 
 <div class="sf-demo">
-
 <div class="sf-nav-wrap">
   <nav class="sf-nav" aria-label="Main">
     <div class="sf-logo">
@@ -77,7 +76,6 @@ layout: page
     </div>
   </nav>
 </div>
-
 <section class="sf-hero">
   <span class="sf-hero-badge">Workflow intelligence</span>
   <h1>Streamline Your Workflow</h1>
@@ -87,7 +85,6 @@ layout: page
     <button type="button" class="sf-btn-ghost">Watch Demo</button>
   </div>
 </section>
-
 <section class="sf-section" aria-labelledby="sf-features-heading">
   <p class="sf-section-title" id="sf-features-heading">Why SyncFlow</p>
   <h2>Everything your team needs, in one calm dashboard</h2>
@@ -109,14 +106,12 @@ layout: page
     </div>
   </div>
 </section>
-
 <div class="sf-quote-wrap">
   <div class="sf-quote">
     <blockquote>“SyncFlow transformed how our team works together. We finally have one place for priorities, context, and decisions—without losing them to a thread from 2023.”</blockquote>
     <cite>— Sarah Johnson, CTO at TechCorp</cite>
   </div>
 </div>
-
 <section class="sf-section" aria-labelledby="sf-pricing-heading">
   <p class="sf-section-title" id="sf-pricing-heading">Pricing</p>
   <h2>Plans that scale with your ambition</h2>
@@ -160,11 +155,9 @@ layout: page
     </div>
   </div>
 </section>
-
 <footer class="sf-footer">
   © 2026 SyncFlow Inc. All rights reserved. Built for teams who ship—and occasionally read the footer.
 </footer>
-
 <div class="sf-chaos-bar" role="toolbar" aria-label="Chaos demo controls">
   <span>Board mode</span>
   <button type="button" onclick="ChaosToggle.runMode('celebration')">Investor Demo</button>
@@ -173,25 +166,24 @@ layout: page
   <button type="button" onclick="ChaosToggle.runTheme('jumpscare')">Jumpscare</button>
   <button type="button" class="sf-reset" onclick="ChaosToggle.reset()">Reset</button>
 </div>
-
 </div>
 
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 
 function loadChaos() {
-  if (window.ChaosToggle) {
+  function unwrap() { var c = window.ChaosToggle; if (c && c.ChaosToggle) window.ChaosToggle = c.ChaosToggle; }
+  unwrap()
+  if (window.ChaosToggle && window.ChaosToggle.init) {
     window.ChaosToggle.init({ duration: 3000 })
     return
   }
-  const el = document.createElement('script')
-  el.src = 'https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js'
-  el.onload = () => {
-    if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 })
-  }
+  var el = document.createElement('script')
+  el.src = 'https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js'
+  el.onload = function() { unwrap(); if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 }); }
   document.head.appendChild(el)
 }
 
-onMounted(() => { loadChaos() })
-onUnmounted(() => { if (window.ChaosToggle) window.ChaosToggle.reset() })
+onMounted(function() { loadChaos() })
+onUnmounted(function() { if (window.ChaosToggle) window.ChaosToggle.reset() })
 </script>

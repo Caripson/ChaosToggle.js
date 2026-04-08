@@ -20,7 +20,7 @@
 ## First prank in 30 seconds
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"></script>
 <script>
   ChaosToggle.init();
   ChaosToggle.runEffect('bsod'); // Blue Screen of Death

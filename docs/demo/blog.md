@@ -4,7 +4,7 @@ layout: page
 ---
 
 <style>
-.dc-demo { --dc-bg: #faf9f7; --dc-ink: #242424; --dc-muted: #6b6b6b; --dc-border: #e8e8e8; --dc-accent: #1a8917; font-family: Georgia, 'Times New Roman', serif; color: var(--dc-ink); background: var(--dc-bg); margin: -24px -24px 0; padding: 0 0 120px; min-height: 100vh; }
+.dc-demo { --dc-bg: #faf9f7; --dc-ink: #242424; --dc-muted: #6b6b6b; --dc-border: #e8e8e8; --dc-accent: #1a8917; font-family: Georgia, 'Times New Roman', serif; color: var(--dc-ink); background: var(--dc-bg); padding: 0 0 120px; min-height: 100vh; }
 .dc-demo * { box-sizing: border-box; }
 .dc-header { border-bottom: 1px solid var(--dc-border); background: #fff; position: sticky; top: 0; z-index: 10; }
 .dc-header-inner { max-width: 1100px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
@@ -49,7 +49,6 @@ layout: page
 </style>
 
 <div class="dc-demo">
-
 <header class="dc-header">
   <div class="dc-header-inner">
     <div class="dc-masthead">The Daily <span>Chaos</span></div>
@@ -61,7 +60,6 @@ layout: page
     </nav>
   </div>
 </header>
-
 <div class="dc-layout">
   <article class="dc-article">
     <p class="dc-article-meta">By chaos_engineer · April 8, 2026 · 5 min read</p>
@@ -94,7 +92,6 @@ layout: page
       </div>
     </section>
   </article>
-
   <aside class="dc-sidebar" aria-label="Sidebar">
     <h2>Trending</h2>
     <ul class="dc-trending">
@@ -114,7 +111,6 @@ layout: page
     </div>
   </aside>
 </div>
-
 <div class="dc-chaos-bar" role="toolbar" aria-label="Chaos demo controls">
   <span>Editor’s desk</span>
   <button type="button" onclick="ChaosToggle.trigger()">Breaking News</button>
@@ -123,25 +119,24 @@ layout: page
   <button type="button" onclick="ChaosToggle.runEffect('fakeCrash')">Oops</button>
   <button type="button" class="dc-reset" onclick="ChaosToggle.reset()">Reset</button>
 </div>
-
 </div>
 
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 
 function loadChaos() {
-  if (window.ChaosToggle) {
+  function unwrap() { var c = window.ChaosToggle; if (c && c.ChaosToggle) window.ChaosToggle = c.ChaosToggle; }
+  unwrap()
+  if (window.ChaosToggle && window.ChaosToggle.init) {
     window.ChaosToggle.init({ duration: 3000 })
     return
   }
-  const el = document.createElement('script')
-  el.src = 'https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js'
-  el.onload = () => {
-    if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 })
-  }
+  var el = document.createElement('script')
+  el.src = 'https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js'
+  el.onload = function() { unwrap(); if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 }); }
   document.head.appendChild(el)
 }
 
-onMounted(() => { loadChaos() })
-onUnmounted(() => { if (window.ChaosToggle) window.ChaosToggle.reset() })
+onMounted(function() { loadChaos() })
+onUnmounted(function() { if (window.ChaosToggle) window.ChaosToggle.reset() })
 </script>

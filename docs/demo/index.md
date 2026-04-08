@@ -4,7 +4,7 @@ layout: page
 ---
 
 <style>
-.ct-pg { font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, system-ui; max-width: 960px; margin: 0 auto; padding: 0 1rem 6rem; }
+.ct-pg { font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, system-ui; max-width: 960px; margin: 0 auto; padding: 0 1rem 6rem; overflow-x: hidden; }
 .ct-pg *, .ct-pg *::before, .ct-pg *::after { box-sizing: border-box; }
 
 .ct-hero { text-align: center; padding: 2rem 0 1.5rem; }
@@ -81,12 +81,12 @@ layout: page
 .ct-showcase .sc-title { font-weight: 800; font-size: .95rem; display: block; margin-bottom: .25rem; }
 .ct-showcase .sc-desc { font-size: .8rem; color: var(--vp-c-text-2); line-height: 1.4; }
 
-.ct-sample { border: 2px dashed var(--vp-c-divider); border-radius: 1rem; padding: 1.25rem; background: var(--vp-c-bg-soft); }
+.ct-sample { border: 2px dashed var(--vp-c-divider); border-radius: 1rem; padding: 1.25rem; background: var(--vp-c-bg-soft); overflow: hidden; }
 .ct-sample h3 { margin: 1rem 0 .5rem; }
 .ct-sample form { margin-top: 1rem; }
 .ct-sample label { display: block; margin: .6rem 0 .2rem; font-size: .85rem; font-weight: 600; }
 .ct-sample input, .ct-sample textarea, .ct-sample select {
-  width: 100%; max-width: 24rem; padding: .45rem .6rem; border-radius: .4rem;
+  display: block; width: 100%; max-width: 100%; padding: .45rem .6rem; border-radius: .4rem;
   border: 1px solid var(--vp-c-divider); background: var(--vp-c-bg); color: var(--vp-c-text-1);
   font-family: inherit; font-size: .9rem;
 }
@@ -273,13 +273,19 @@ function loadChaos() {
     else if (type === 'celebration') window.ChaosToggle.runMode('celebration')
   }
 
-  if (window.ChaosToggle) {
+  function unwrap() {
+    var ct = window.ChaosToggle
+    if (ct && ct.ChaosToggle) window.ChaosToggle = ct.ChaosToggle
+  }
+  unwrap()
+  if (window.ChaosToggle && window.ChaosToggle.init) {
     window.ChaosToggle.init({ duration: 3000 })
     return
   }
   var el = document.createElement('script')
-  el.src = 'https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js'
+  el.src = 'https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js'
   el.onload = function() {
+    unwrap()
     if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 })
   }
   document.head.appendChild(el)

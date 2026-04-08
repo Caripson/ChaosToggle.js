@@ -3,131 +3,6 @@ title: Dashboard Demo
 layout: page
 ---
 
-<div class="cm-dash-wrap">
-  <aside class="cm-sidebar">
-    <div class="cm-sidebar-brand">
-      <span class="cm-brand-icon">📊</span>
-      <span class="cm-brand-text">ChaosMetrics</span>
-    </div>
-    <nav class="cm-nav" aria-label="Main">
-      <div class="cm-nav-item cm-nav-item--active">Overview</div>
-      <div class="cm-nav-item">Analytics</div>
-      <div class="cm-nav-item">Reports</div>
-      <div class="cm-nav-item">Settings</div>
-    </nav>
-    <div class="cm-sidebar-footer">
-      <span class="cm-sidebar-hint">v2.4.1 · Enterprise</span>
-    </div>
-  </aside>
-
-  <div class="cm-shell">
-    <header class="cm-topbar">
-      <div class="cm-topbar-left">
-        <h1 class="cm-page-title">Overview</h1>
-        <p class="cm-breadcrumb">Home / Dashboard</p>
-      </div>
-      <div class="cm-topbar-right">
-        <span class="cm-avatar" title="John Doe">JD</span>
-      </div>
-    </header>
-
-    <main class="cm-content">
-      <section class="cm-kpis" aria-label="Key metrics">
-        <article class="cm-kpi cm-kpi--revenue">
-          <p class="cm-kpi-label">Revenue</p>
-          <p class="cm-kpi-value">$1.2M</p>
-          <p class="cm-kpi-delta positive">↑ 12.4% vs last month</p>
-        </article>
-        <article class="cm-kpi cm-kpi--users">
-          <p class="cm-kpi-label">Users</p>
-          <p class="cm-kpi-value">48,291</p>
-          <p class="cm-kpi-delta positive">↑ 3.1% vs last month</p>
-        </article>
-        <article class="cm-kpi cm-kpi--uptime">
-          <p class="cm-kpi-label">Uptime</p>
-          <p class="cm-kpi-value">99.2%</p>
-          <p class="cm-kpi-delta">SLA target 99.0%</p>
-        </article>
-        <article class="cm-kpi cm-kpi--incidents">
-          <p class="cm-kpi-label">Incidents</p>
-          <p class="cm-kpi-value">7</p>
-          <p class="cm-kpi-delta negative">3 open</p>
-        </article>
-      </section>
-
-      <section class="cm-panel">
-        <div class="cm-panel-head">
-          <h2 class="cm-panel-title">Monthly active usage</h2>
-          <span class="cm-panel-meta">Last 6 months</span>
-        </div>
-        <div class="cm-chart" role="img" aria-label="Bar chart: Jan through Jun">
-          <div class="cm-chart-bars">
-            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--1" style="height: 45%;"></div><span class="cm-bar-label">Jan</span></div>
-            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--2" style="height: 62%;"></div><span class="cm-bar-label">Feb</span></div>
-            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--3" style="height: 38%;"></div><span class="cm-bar-label">Mar</span></div>
-            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--4" style="height: 88%;"></div><span class="cm-bar-label">Apr</span></div>
-            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--5" style="height: 55%;"></div><span class="cm-bar-label">May</span></div>
-            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--6" style="height: 72%;"></div><span class="cm-bar-label">Jun</span></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="cm-panel cm-panel--table">
-        <div class="cm-panel-head">
-          <h2 class="cm-panel-title">Recent activity</h2>
-        </div>
-        <div class="cm-table-wrap">
-          <table class="cm-table">
-            <thead>
-              <tr>
-                <th>Event</th>
-                <th>User</th>
-                <th>Time</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Deployed API gateway v3</td>
-                <td>sre-bot</td>
-                <td>2 min ago</td>
-                <td><span class="cm-pill cm-pill--ok">Success</span></td>
-              </tr>
-              <tr>
-                <td>Quota alert — 87% of burst</td>
-                <td>billing@co</td>
-                <td>18 min ago</td>
-                <td><span class="cm-pill cm-pill--warn">Warning</span></td>
-              </tr>
-              <tr>
-                <td>User export requested (GDPR)</td>
-                <td>jdoe</td>
-                <td>1 hr ago</td>
-                <td><span class="cm-pill cm-pill--pending">Pending</span></td>
-              </tr>
-              <tr>
-                <td>Failed login spike (region EU)</td>
-                <td>security</td>
-                <td>3 hr ago</td>
-                <td><span class="cm-pill cm-pill--ok">Reviewed</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <nav class="cm-chaos-bar" aria-label="Chaos demo controls">
-    <span class="cm-chaos-label">Chaos toolbar</span>
-    <button type="button" class="cm-chaos-btn cm-chaos-btn--danger" onclick="ChaosToggle.runTheme('apocalypse')">System Failure</button>
-    <button type="button" class="cm-chaos-btn" onclick="ChaosToggle.runTheme('hacker')">Hacker Alert</button>
-    <button type="button" class="cm-chaos-btn" onclick="ChaosToggle.runEffect('fakeUpdate')">Windows Update</button>
-    <button type="button" class="cm-chaos-btn" onclick="ChaosToggle.runTheme('drunk')">Drunk Friday</button>
-    <button type="button" class="cm-chaos-btn cm-chaos-btn--reset" onclick="ChaosToggle.reset()">Reset</button>
-  </nav>
-</div>
-
 <style>
 .cm-dash-wrap {
   --cm-sidebar: #0c1222;
@@ -142,7 +17,6 @@ layout: page
   color: var(--cm-text);
   display: flex;
   min-height: 100vh;
-  margin: -24px -24px 0;
   max-width: none;
   padding-bottom: 5.25rem;
 }
@@ -449,22 +323,142 @@ layout: page
 }
 </style>
 
+<div class="cm-dash-wrap">
+  <aside class="cm-sidebar">
+    <div class="cm-sidebar-brand">
+      <span class="cm-brand-icon">📊</span>
+      <span class="cm-brand-text">ChaosMetrics</span>
+    </div>
+    <nav class="cm-nav" aria-label="Main">
+      <div class="cm-nav-item cm-nav-item--active">Overview</div>
+      <div class="cm-nav-item">Analytics</div>
+      <div class="cm-nav-item">Reports</div>
+      <div class="cm-nav-item">Settings</div>
+    </nav>
+    <div class="cm-sidebar-footer">
+      <span class="cm-sidebar-hint">v2.4.1 · Enterprise</span>
+    </div>
+  </aside>
+  <div class="cm-shell">
+    <header class="cm-topbar">
+      <div class="cm-topbar-left">
+        <h1 class="cm-page-title">Overview</h1>
+        <p class="cm-breadcrumb">Home / Dashboard</p>
+      </div>
+      <div class="cm-topbar-right">
+        <span class="cm-avatar" title="John Doe">JD</span>
+      </div>
+    </header>
+    <main class="cm-content">
+      <section class="cm-kpis" aria-label="Key metrics">
+        <article class="cm-kpi cm-kpi--revenue">
+          <p class="cm-kpi-label">Revenue</p>
+          <p class="cm-kpi-value">$1.2M</p>
+          <p class="cm-kpi-delta positive">↑ 12.4% vs last month</p>
+        </article>
+        <article class="cm-kpi cm-kpi--users">
+          <p class="cm-kpi-label">Users</p>
+          <p class="cm-kpi-value">48,291</p>
+          <p class="cm-kpi-delta positive">↑ 3.1% vs last month</p>
+        </article>
+        <article class="cm-kpi cm-kpi--uptime">
+          <p class="cm-kpi-label">Uptime</p>
+          <p class="cm-kpi-value">99.2%</p>
+          <p class="cm-kpi-delta">SLA target 99.0%</p>
+        </article>
+        <article class="cm-kpi cm-kpi--incidents">
+          <p class="cm-kpi-label">Incidents</p>
+          <p class="cm-kpi-value">7</p>
+          <p class="cm-kpi-delta negative">3 open</p>
+        </article>
+      </section>
+      <section class="cm-panel">
+        <div class="cm-panel-head">
+          <h2 class="cm-panel-title">Monthly active usage</h2>
+          <span class="cm-panel-meta">Last 6 months</span>
+        </div>
+        <div class="cm-chart" role="img" aria-label="Bar chart: Jan through Jun">
+          <div class="cm-chart-bars">
+            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--1" style="height: 45%;"></div><span class="cm-bar-label">Jan</span></div>
+            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--2" style="height: 62%;"></div><span class="cm-bar-label">Feb</span></div>
+            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--3" style="height: 38%;"></div><span class="cm-bar-label">Mar</span></div>
+            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--4" style="height: 88%;"></div><span class="cm-bar-label">Apr</span></div>
+            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--5" style="height: 55%;"></div><span class="cm-bar-label">May</span></div>
+            <div class="cm-bar-wrap"><div class="cm-bar cm-bar--6" style="height: 72%;"></div><span class="cm-bar-label">Jun</span></div>
+          </div>
+        </div>
+      </section>
+      <section class="cm-panel cm-panel--table">
+        <div class="cm-panel-head">
+          <h2 class="cm-panel-title">Recent activity</h2>
+        </div>
+        <div class="cm-table-wrap">
+          <table class="cm-table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>User</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Deployed API gateway v3</td>
+                <td>sre-bot</td>
+                <td>2 min ago</td>
+                <td><span class="cm-pill cm-pill--ok">Success</span></td>
+              </tr>
+              <tr>
+                <td>Quota alert — 87% of burst</td>
+                <td>billing@co</td>
+                <td>18 min ago</td>
+                <td><span class="cm-pill cm-pill--warn">Warning</span></td>
+              </tr>
+              <tr>
+                <td>User export requested (GDPR)</td>
+                <td>jdoe</td>
+                <td>1 hr ago</td>
+                <td><span class="cm-pill cm-pill--pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td>Failed login spike (region EU)</td>
+                <td>security</td>
+                <td>3 hr ago</td>
+                <td><span class="cm-pill cm-pill--ok">Reviewed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <nav class="cm-chaos-bar" aria-label="Chaos demo controls">
+    <span class="cm-chaos-label">Chaos toolbar</span>
+    <button type="button" class="cm-chaos-btn cm-chaos-btn--danger" onclick="ChaosToggle.runTheme('apocalypse')">System Failure</button>
+    <button type="button" class="cm-chaos-btn" onclick="ChaosToggle.runTheme('hacker')">Hacker Alert</button>
+    <button type="button" class="cm-chaos-btn" onclick="ChaosToggle.runEffect('fakeUpdate')">Windows Update</button>
+    <button type="button" class="cm-chaos-btn" onclick="ChaosToggle.runTheme('drunk')">Drunk Friday</button>
+    <button type="button" class="cm-chaos-btn cm-chaos-btn--reset" onclick="ChaosToggle.reset()">Reset</button>
+  </nav>
+</div>
+
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 
 function loadChaos() {
-  if (window.ChaosToggle) {
+  function unwrap() { var c = window.ChaosToggle; if (c && c.ChaosToggle) window.ChaosToggle = c.ChaosToggle; }
+  unwrap()
+  if (window.ChaosToggle && window.ChaosToggle.init) {
     window.ChaosToggle.init({ duration: 3000 })
     return
   }
-  const el = document.createElement('script')
-  el.src = 'https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js'
-  el.onload = () => {
-    if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 })
-  }
+  var el = document.createElement('script')
+  el.src = 'https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js'
+  el.onload = function() { unwrap(); if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 }); }
   document.head.appendChild(el)
 }
 
-onMounted(() => { loadChaos() })
-onUnmounted(() => { if (window.ChaosToggle) window.ChaosToggle.reset() })
+onMounted(function() { loadChaos() })
+onUnmounted(function() { if (window.ChaosToggle) window.ChaosToggle.reset() })
 </script>
