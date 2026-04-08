@@ -22,6 +22,7 @@
     <symbol id="i-gamepad" viewBox="0 0 24 24"><path fill="currentColor" d="M15 7.5V2H9v5.5l3 3 3-3zM7.5 9H2v6h5.5l3-3-3-3zM9 16.5V22h6v-5.5l-3-3-3 3zM16.5 9l-3 3 3 3H22V9h-5.5z"/></symbol>
     <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 9h-9a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
   </svg>
 </div>
 
@@ -32,6 +33,8 @@
     <div class="nav-links">
       <a href="demo/index.html">Playground</a>
       <a href="#features">Features</a>
+      <a href="#effects">Effects</a>
+      <a href="#api">API</a>
       <a href="#install">Get Started</a>
       <a href="https://github.com/Caripson/ChaosToggle.js" class="nav-github" target="_blank" rel="noopener">
         <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>
@@ -45,6 +48,8 @@
 <div class="nav-drawer">
   <a href="demo/index.html">Playground</a>
   <a href="#features">Features</a>
+  <a href="#effects">Effects</a>
+  <a href="#api">API</a>
   <a href="#install">Get Started</a>
   <a href="https://github.com/Caripson/ChaosToggle.js" target="_blank" rel="noopener">GitHub</a>
 </div>
@@ -63,136 +68,11 @@
     <div class="hero-stats">
       <div class="stat"><strong>34</strong> effects</div>
       <div class="stat"><strong>17</strong> themes</div>
+      <div class="stat"><strong>7</strong> modes</div>
       <div class="stat"><strong>0</strong> dependencies</div>
       <div class="stat"><strong>1</strong> script tag</div>
       <div class="stat"><strong>&infin;</strong> confused coworkers</div>
     </div>
-  </div>
-</section>
-
-<!-- =========== FEATURES =========== -->
-<section id="features" class="section">
-  <div class="container">
-    <h2 class="section-title">What's Inside</h2>
-    <p class="section-sub">Everything you need to turn any website into a prank playground. Click any feature to read more.</p>
-    <div class="features-grid">
-
-      <div class="feature-card" tabindex="0">
-        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-explosion"/></svg></div>
-        <h3>34 Effects <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
-        <p>BSOD, matrix rain, gravity, fake Windows Update, Clippy, screen crack, virus scan, and dozens more.</p>
-        <div class="feature-details">
-          <ul>
-            <li><strong>Overlays:</strong> Glitch, noise, flash, VHS distortion, CRT shutdown, screen crack, RGB split, screen melt, pixel dissolve</li>
-            <li><strong>Pranks:</strong> BSOD, fake Windows Update, fake terminal, Clippy, fake virus scan, fake Chrome crash</li>
-            <li><strong>DOM manipulation:</strong> Gravity (elements fall), element shuffle, element scatter, text scramble, tiny/giant mode</li>
-            <li><strong>Cursor effects:</strong> Magnetic cursor, cursor chaos (rainbow trail), cursor drift, auto-typo</li>
-            <li><strong>Interaction:</strong> Delayed clicks, inverted scroll, screen flip, drunk mode, popups</li>
-            <li><strong>Visual:</strong> Shake (multiple styles), zoom flicker, confetti (multiple particle types), fake error state</li>
-          </ul>
-          <p>Every effect auto-cleans after its duration. No permanent side effects.</p>
-        </div>
-      </div>
-
-      <div class="feature-card" tabindex="0">
-        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-palette"/></svg></div>
-        <h3>17 Themes <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
-        <p>Holiday packs, office pranks, hacker retro, apocalypse, drunk mode, and jumpscare. One click each.</p>
-        <div class="feature-details">
-          <ul>
-            <li><strong>Holiday:</strong> Easter, Halloween, Christmas, New Year, 4th of July, Thanksgiving, Valentine's Day, Birthday</li>
-            <li><strong>Retail:</strong> Black Friday, Cyber Monday</li>
-            <li><strong>Vibe:</strong> Office, Hacker, Retro, Apocalypse, Drunk, Jumpscare</li>
-          </ul>
-          <p>Each theme brings its own palette, particle type, overlay, popup text, animation style, and behaviour modifiers. Mix-and-match with <code>themeOverrides</code>.</p>
-        </div>
-      </div>
-
-      <div class="feature-card" tabindex="0">
-        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg></div>
-        <h3>Control Panel <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
-        <p>Draggable glass UI to tweak intensity, duration, and effects live. No build step needed.</p>
-        <div class="feature-details">
-          <ul>
-            <li>Open with <code>ChaosToggle.openPanel()</code> or the <kbd>Shift+P</kbd> shortcut</li>
-            <li>Sliders for intensity, duration, and probability</li>
-            <li>Per-effect enable/disable toggles</li>
-            <li>Theme picker with instant preview</li>
-            <li>Quick action buttons for all modes</li>
-            <li>Export/import settings as JSON</li>
-          </ul>
-          <p>The panel runs entirely in a Shadow DOM so it never interferes with your page styles.</p>
-        </div>
-      </div>
-
-      <div class="feature-card" tabindex="0">
-        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-plug"/></svg></div>
-        <h3>Plugin System <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
-        <p>Ship custom effects and themes as ChaosPlugin packages. Hook into engine events.</p>
-        <div class="feature-details">
-          <ul>
-            <li>Register effects: <code>ChaosToggle.registerEffect({ id, name, apply })</code></li>
-            <li>Register themes: <code>ChaosToggle.registerTheme(name, config)</code></li>
-            <li>Compose sequences: <code>ChaosToggle.compose('intro', [...])</code></li>
-            <li>Listen to events: <code>ChaosToggle.on('beforeTrigger', fn)</code></li>
-            <li>Bundle as a ChaosPlugin with <code>{ name, effects, themes, install }</code></li>
-          </ul>
-          <p>Plugins install via <code>ChaosToggle.use(plugin)</code> and automatically register their effects and themes.</p>
-        </div>
-      </div>
-
-      <div class="feature-card" tabindex="0">
-        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-diamond"/></svg></div>
-        <h3>TypeScript-first <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
-        <p>Full type coverage for settings, themes, effects, and the public API. Great DX.</p>
-        <div class="feature-details">
-          <ul>
-            <li>Every API method has typed params and return values</li>
-            <li>Exported types: <code>ChaosToggleAPI</code>, <code>ChaosSettings</code>, <code>ChaosEffect</code>, <code>ChaosPlugin</code>, <code>ThemeProfile</code>, <code>ThemeBuilder</code></li>
-            <li>Theme builder with fluent API: <code>ChaosToggle.buildTheme('myTheme').palette(...).effects(...).register()</code></li>
-            <li>Auto-complete in VS Code, WebStorm, Cursor, etc.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="feature-card" tabindex="0">
-        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-feather"/></svg></div>
-        <h3>Zero Dependencies <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
-        <p>One script tag or ESM import. Self-contained runtime with inlined styles.</p>
-        <div class="feature-details">
-          <ul>
-            <li>CDN: <code>&lt;script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"&gt;</code></li>
-            <li>ESM: <code>import ChaosToggle from 'chaos-toggle'</code></li>
-            <li>CJS: <code>const { ChaosToggle } = require('chaos-toggle')</code></li>
-            <li>No React, Vue, or Angular required — works with everything</li>
-            <li>Injects its own CSS at runtime — zero external stylesheets</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- =========== QUOTE =========== -->
-<section class="section">
-  <div class="container">
-    <blockquote class="quote">
-      "I thought my laptop was broken. Turns out the new intern installed ChaosToggle on the staging server. We've promoted them to Senior Chaos Engineer."
-      <cite>-- Anonymous Engineering Manager, 2026</cite>
-    </blockquote>
-  </div>
-</section>
-
-<!-- =========== PLAYGROUND CTA =========== -->
-<section id="playground" class="section">
-  <div class="container" style="text-align:center;">
-    <h2 class="section-title">See It In Action</h2>
-    <p class="section-sub">All 34 effects. All 17 themes. One playground. Click buttons and watch reality fall apart.</p>
-    <a href="demo/index.html" class="btn btn--brand" style="font-size:1.15rem; padding:.95rem 2.5rem; margin-top:1rem;">
-      <svg class="icon" aria-hidden="true" style="width:1.1em;height:1.1em;vertical-align:-0.15em;margin-right:.35em;"><use href="#i-gamepad"/></svg>
-      Open Playground
-    </a>
   </div>
 </section>
 
@@ -201,12 +81,485 @@
   <div class="container">
     <div class="install-box">
       <h2>Get started in 30 seconds</h2>
-      <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"&gt;&lt;/script&gt;
+      <div class="install-tabs">
+        <button class="install-tab active" data-tab="cdn">CDN (instant chaos)</button>
+        <button class="install-tab" data-tab="npm">npm</button>
+        <button class="install-tab" data-tab="esm">ESM import</button>
+      </div>
+      <div class="install-panel active" data-panel="cdn">
+        <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   ChaosToggle.init();
   ChaosToggle.runEffect('bsod'); // Blue Screen of Death
-&lt;/script&gt;</code></pre>
-      <pre><code>npm install chaos-toggle</code></pre>
+&lt;/script&gt;</code><button class="copy-btn" data-copy>Copy</button></pre>
+      </div>
+      <div class="install-panel" data-panel="npm">
+        <pre><code>npm install chaos-toggle</code><button class="copy-btn" data-copy>Copy</button></pre>
+      </div>
+      <div class="install-panel" data-panel="esm">
+        <pre><code>import ChaosToggle from 'chaos-toggle';
+
+ChaosToggle.init();
+ChaosToggle.trigger();</code><button class="copy-btn" data-copy>Copy</button></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== QUICK EXAMPLES =========== -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Quick Examples</h2>
+    <p class="section-sub">Copy, paste, deploy, deny everything.</p>
+    <div class="examples-grid">
+      <div class="example-card">
+        <h4>Run a specific effect</h4>
+        <pre><code>ChaosToggle.runEffect('matrixRain');
+ChaosToggle.runEffect('bsod');
+ChaosToggle.runEffect('gravity');</code></pre>
+      </div>
+      <div class="example-card">
+        <h4>Apply a theme</h4>
+        <pre><code>ChaosToggle.runTheme('hacker');
+ChaosToggle.runTheme('office');
+ChaosToggle.runTheme('apocalypse');</code></pre>
+      </div>
+      <div class="example-card">
+        <h4>Run a mode</h4>
+        <pre><code>ChaosToggle.runMode('nuclear');
+ChaosToggle.runMode('panic');
+ChaosToggle.runMode('celebration');</code></pre>
+      </div>
+      <div class="example-card">
+        <h4>Compose a sequence</h4>
+        <pre><code>ChaosToggle.compose('ultimate-prank', [
+  { effect: 'screenCrack', delay: 0 },
+  { effect: 'bsod', delay: 800 },
+  { effect: 'fakeVirusScan', delay: 4000 },
+]);
+ChaosToggle.runComposition('ultimate-prank');</code></pre>
+      </div>
+      <div class="example-card">
+        <h4>Open the control panel</h4>
+        <pre><code>ChaosToggle.openPanel();</code></pre>
+      </div>
+      <div class="example-card">
+        <h4>Configure settings</h4>
+        <pre><code>ChaosToggle.init({
+  intensity: 0.7,
+  duration: 3000,
+  theme: 'hacker',
+  effects: {
+    bsod: true,
+    matrixRain: true,
+    gravity: false,
+  },
+});</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FEATURES =========== -->
+<section id="features" class="section section--alt">
+  <div class="container">
+    <h2 class="section-title">What's Inside</h2>
+    <p class="section-sub">Six pillars of professional-grade mayhem. Click any card to expand.</p>
+    <div class="features-grid">
+
+      <div class="feature-card" tabindex="0">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-explosion"/></svg></div>
+        <h3>34 Effects <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
+        <p>BSOD, matrix rain, gravity, fake Windows Update, Clippy, screen crack, virus scan, and dozens more.</p>
+        <div class="feature-details"><div>
+          <ul>
+            <li><strong>Overlays:</strong> Glitch, noise, flash, VHS distortion, CRT shutdown, screen crack, RGB split, screen melt, pixel dissolve</li>
+            <li><strong>Pranks:</strong> BSOD, fake Windows Update, fake terminal, Clippy, fake virus scan, fake Chrome crash</li>
+            <li><strong>DOM:</strong> Gravity, element shuffle, element scatter, text scramble, tiny/giant mode</li>
+            <li><strong>Cursor:</strong> Magnetic cursor, cursor chaos, cursor drift, auto-typo</li>
+            <li><strong>Interaction:</strong> Delayed clicks, inverted scroll, screen flip, drunk mode, popups</li>
+          </ul>
+          <p>Every effect auto-cleans after its duration. No permanent side effects.</p>
+        </div></div>
+      </div>
+
+      <div class="feature-card" tabindex="0">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-palette"/></svg></div>
+        <h3>17 Themes <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
+        <p>Holiday packs, office pranks, hacker retro, apocalypse, drunk mode, and jumpscare.</p>
+        <div class="feature-details"><div>
+          <ul>
+            <li><strong>Holiday:</strong> Easter, Halloween, Christmas, New Year, 4th of July, Thanksgiving, Valentine's Day, Birthday</li>
+            <li><strong>Retail:</strong> Black Friday, Cyber Monday</li>
+            <li><strong>Vibe:</strong> Office, Hacker, Retro, Apocalypse, Drunk, Jumpscare</li>
+          </ul>
+          <p>Each theme brings its own palette, particles, overlay, popups, animation style, and behavior modifiers. Mix with <code>themeOverrides</code>.</p>
+        </div></div>
+      </div>
+
+      <div class="feature-card" tabindex="0">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg></div>
+        <h3>Control Panel <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
+        <p>Draggable glass UI to tweak intensity, duration, and effects live.</p>
+        <div class="feature-details"><div>
+          <ul>
+            <li>Open with <code>ChaosToggle.openPanel()</code> or <kbd>Shift+P</kbd></li>
+            <li>Sliders for intensity, duration, and probability</li>
+            <li>Per-effect enable/disable toggles</li>
+            <li>Theme picker with instant preview</li>
+            <li>Export/import settings as JSON</li>
+          </ul>
+          <p>Runs in a Shadow DOM -- never interferes with your page styles.</p>
+        </div></div>
+      </div>
+
+      <div class="feature-card" tabindex="0">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-plug"/></svg></div>
+        <h3>Plugin System <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
+        <p>Ship custom effects and themes as ChaosPlugin packages.</p>
+        <div class="feature-details"><div>
+          <ul>
+            <li><code>ChaosToggle.registerEffect({ id, name, apply })</code></li>
+            <li><code>ChaosToggle.registerTheme(name, config)</code></li>
+            <li><code>ChaosToggle.compose('intro', [...])</code></li>
+            <li><code>ChaosToggle.on('beforeTrigger', fn)</code></li>
+          </ul>
+          <p>Install via <code>ChaosToggle.use(plugin)</code>.</p>
+        </div></div>
+      </div>
+
+      <div class="feature-card" tabindex="0">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-diamond"/></svg></div>
+        <h3>TypeScript-first <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
+        <p>Full type coverage. Great DX and autocomplete everywhere.</p>
+        <div class="feature-details"><div>
+          <ul>
+            <li>Every API method typed with params and return values</li>
+            <li>Exported: <code>ChaosToggleAPI</code>, <code>ChaosSettings</code>, <code>ChaosEffect</code>, <code>ChaosPlugin</code>, <code>ThemeProfile</code>, <code>ThemeBuilder</code></li>
+            <li>Fluent theme builder: <code>.palette(...).effects(...).register()</code></li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="feature-card" tabindex="0">
+        <div class="feature-emoji"><svg class="icon" aria-hidden="true"><use href="#i-feather"/></svg></div>
+        <h3>Zero Dependencies <svg class="icon feature-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></h3>
+        <p>One script tag or ESM import. Self-contained with inlined styles.</p>
+        <div class="feature-details"><div>
+          <ul>
+            <li>CDN, ESM, or CJS -- works with everything</li>
+            <li>No React, Vue, or Angular required</li>
+            <li>Injects its own CSS at runtime</li>
+          </ul>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========== EFFECTS REFERENCE =========== -->
+<section id="effects" class="section">
+  <div class="container">
+    <h2 class="section-title">All 34 Effects</h2>
+    <p class="section-sub">Because <code>alert('hacked')</code> is so 2005.</p>
+    <div class="effects-table-wrap">
+      <table class="effects-table">
+        <thead><tr><th>Effect</th><th>Category</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>shake</code></td><td><span class="cat-badge cat-badge--visual">Visual</span></td><td>Shakes the page (4 animation styles)</td></tr>
+          <tr><td><code>glitchOverlay</code></td><td><span class="cat-badge cat-badge--overlay">Overlay</span></td><td>Full-screen scanline glitch layer</td></tr>
+          <tr><td><code>noise</code></td><td><span class="cat-badge cat-badge--overlay">Overlay</span></td><td>Film-grain noise overlay</td></tr>
+          <tr><td><code>flashOverlay</code></td><td><span class="cat-badge cat-badge--overlay">Overlay</span></td><td>Pulsing bright flash across viewport</td></tr>
+          <tr><td><code>confetti</code></td><td><span class="cat-badge cat-badge--visual">Visual</span></td><td>Falling particles (emoji or colored pieces)</td></tr>
+          <tr><td><code>zoomFlicker</code></td><td><span class="cat-badge cat-badge--visual">Visual</span></td><td>Subtle scale pulse on root</td></tr>
+          <tr><td><code>fakeErrorState</code></td><td><span class="cat-badge cat-badge--visual">Visual</span></td><td>Dramatic hue-shift like a broken display</td></tr>
+          <tr><td><code>matrixRain</code></td><td><span class="cat-badge cat-badge--overlay">Overlay</span></td><td>Full-viewport katakana digital rain</td></tr>
+          <tr><td><code>rgbSplit</code></td><td><span class="cat-badge cat-badge--visual">Visual</span></td><td>Chromatic aberration across root</td></tr>
+          <tr><td><code>vhsDistortion</code></td><td><span class="cat-badge cat-badge--overlay">Overlay</span></td><td>Scanlines, tracking errors, analog skew</td></tr>
+          <tr><td><code>screenCrack</code></td><td><span class="cat-badge cat-badge--overlay">Overlay</span></td><td>Shattered-glass fracture lines</td></tr>
+          <tr><td><code>pixelDissolve</code></td><td><span class="cat-badge cat-badge--overlay">Overlay</span></td><td>View explodes into colored pixel storm</td></tr>
+          <tr><td><code>screenMelt</code></td><td><span class="cat-badge cat-badge--visual">Visual</span></td><td>Viewport drips away with molten edge</td></tr>
+          <tr><td><code>crtShutdown</code></td><td><span class="cat-badge cat-badge--visual">Visual</span></td><td>Vintage CRT display collapse with phosphor flash</td></tr>
+          <tr><td><code>bsod</code></td><td><span class="cat-badge cat-badge--prank">Prank</span></td><td>Full-screen Windows Blue Screen of Death</td></tr>
+          <tr><td><code>fakeUpdate</code></td><td><span class="cat-badge cat-badge--prank">Prank</span></td><td>Convincing Windows Update progress screen</td></tr>
+          <tr><td><code>fakeTerminal</code></td><td><span class="cat-badge cat-badge--prank">Prank</span></td><td>Hollywood-style typing terminal overlay</td></tr>
+          <tr><td><code>clippy</code></td><td><span class="cat-badge cat-badge--prank">Prank</span></td><td>Paperclip assistant with unhelpful suggestions</td></tr>
+          <tr><td><code>fakeVirusScan</code></td><td><span class="cat-badge cat-badge--prank">Prank</span></td><td>Dramatic full-screen antivirus scan UI</td></tr>
+          <tr><td><code>fakeCrash</code></td><td><span class="cat-badge cat-badge--prank">Prank</span></td><td>Chrome-style "Aw, Snap!" crash page</td></tr>
+          <tr><td><code>gravity</code></td><td><span class="cat-badge cat-badge--dom">DOM</span></td><td>Visible blocks fall with goofy physics</td></tr>
+          <tr><td><code>elementShuffle</code></td><td><span class="cat-badge cat-badge--dom">DOM</span></td><td>Swaps on-screen positions of elements</td></tr>
+          <tr><td><code>elementScatter</code></td><td><span class="cat-badge cat-badge--dom">DOM</span></td><td>Flings elements off-screen with spin</td></tr>
+          <tr><td><code>textScramble</code></td><td><span class="cat-badge cat-badge--dom">DOM</span></td><td>Replaces text with random characters, then restores</td></tr>
+          <tr><td><code>tinyGiantMode</code></td><td><span class="cat-badge cat-badge--dom">DOM</span></td><td>Random elements balloon or shrink</td></tr>
+          <tr><td><code>magneticCursor</code></td><td><span class="cat-badge cat-badge--interaction">Interaction</span></td><td>Nearby elements creep toward the pointer</td></tr>
+          <tr><td><code>cursorChaos</code></td><td><span class="cat-badge cat-badge--interaction">Interaction</span></td><td>Rainbow crumbs and restless pointer styles</td></tr>
+          <tr><td><code>cursorDrift</code></td><td><span class="cat-badge cat-badge--interaction">Interaction</span></td><td>Fake pointer slowly wanders from real one</td></tr>
+          <tr><td><code>autoTypo</code></td><td><span class="cat-badge cat-badge--interaction">Interaction</span></td><td>Sneaks extra neighbor keys into text fields</td></tr>
+          <tr><td><code>delayedClicks</code></td><td><span class="cat-badge cat-badge--interaction">Interaction</span></td><td>Clicks pause on loading cursor before firing</td></tr>
+          <tr><td><code>invertedScroll</code></td><td><span class="cat-badge cat-badge--interaction">Interaction</span></td><td>Wheel direction goes backwards</td></tr>
+          <tr><td><code>screenFlip</code></td><td><span class="cat-badge cat-badge--interaction">Interaction</span></td><td>Rotates the whole page upside down</td></tr>
+          <tr><td><code>drunkMode</code></td><td><span class="cat-badge cat-badge--interaction">Interaction</span></td><td>Blurry vision and tipsy wobble</td></tr>
+          <tr><td><code>popups</code></td><td><span class="cat-badge cat-badge--overlay">Overlay</span></td><td>Corner toast with title and dismiss</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========== THEMES GALLERY =========== -->
+<section class="section section--alt">
+  <div class="container">
+    <h2 class="section-title">17 Themes</h2>
+    <p class="section-sub">17 ways to ruin someone's afternoon. Each brings its own palette, particles, overlays, and behavior.</p>
+    <div class="themes-group">
+      <div class="themes-group-title">Holiday</div>
+      <div class="themes-chips">
+        <span class="theme-chip">easter</span>
+        <span class="theme-chip">halloween</span>
+        <span class="theme-chip">christmas</span>
+        <span class="theme-chip">new-year</span>
+        <span class="theme-chip">4th-of-july</span>
+        <span class="theme-chip">thanksgiving</span>
+        <span class="theme-chip">valentines-day</span>
+        <span class="theme-chip">birthday</span>
+      </div>
+    </div>
+    <div class="themes-group">
+      <div class="themes-group-title">Retail</div>
+      <div class="themes-chips">
+        <span class="theme-chip">black-friday</span>
+        <span class="theme-chip">cyber-monday</span>
+      </div>
+    </div>
+    <div class="themes-group">
+      <div class="themes-group-title">Vibe</div>
+      <div class="themes-chips">
+        <span class="theme-chip">default</span>
+        <span class="theme-chip">office</span>
+        <span class="theme-chip">hacker</span>
+        <span class="theme-chip">retro</span>
+        <span class="theme-chip">apocalypse</span>
+        <span class="theme-chip">drunk</span>
+        <span class="theme-chip">jumpscare</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== MODES =========== -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">7 Preset Modes</h2>
+    <p class="section-sub">From "slightly annoying" to "oh god what happened".</p>
+    <div class="modes-grid">
+      <div class="mode-card">
+        <h4>subtle</h4>
+        <p>Low intensity. Shake + text scramble only. Perfect for gaslighting.</p>
+      </div>
+      <div class="mode-card">
+        <h4>demo</h4>
+        <p>Medium intensity. Enough effects to impress, not enough to panic.</p>
+      </div>
+      <div class="mode-card">
+        <h4>chaos</h4>
+        <p>High intensity. Most effects enabled. Things are getting weird.</p>
+      </div>
+      <div class="mode-card">
+        <h4>nuclear</h4>
+        <p>Maximum everything. Every effect fires. The page does not survive.</p>
+      </div>
+      <div class="mode-card">
+        <h4>celebration</h4>
+        <p>Confetti and popups only. For when someone ships to prod on time.</p>
+      </div>
+      <div class="mode-card">
+        <h4>glitch</h4>
+        <p>Distortion-focused. Overlays, VHS, text scramble. No confetti.</p>
+      </div>
+      <div class="mode-card">
+        <h4>panic</h4>
+        <p>High intensity with error states. Feels like something is very wrong.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== PLAYGROUND CTA =========== -->
+<section class="section section--alt">
+  <div class="container playground-cta">
+    <h2 class="section-title">See It In Action</h2>
+    <p class="section-sub">All 34 effects. All 17 themes. All 7 modes. One playground. Click buttons and watch reality fall apart.</p>
+    <a href="demo/index.html" class="btn btn--brand">
+      <svg class="icon" aria-hidden="true"><use href="#i-gamepad"/></svg>
+      Open Playground
+    </a>
+  </div>
+</section>
+
+<!-- =========== API REFERENCE =========== -->
+<section id="api" class="section">
+  <div class="container">
+    <h2 class="section-title">API Reference</h2>
+    <p class="section-sub">The serious part. (Just kidding, it's still chaos.)</p>
+    <div class="api-table-wrap">
+      <table class="api-table">
+        <thead><tr><th>Method</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>init(config?)</code></td><td>Initialize with optional config</td></tr>
+          <tr><td><code>trigger()</code></td><td>Fire all enabled effects</td></tr>
+          <tr><td><code>reset()</code></td><td>Clear all active effects</td></tr>
+          <tr><td><code>destroy()</code></td><td>Full teardown</td></tr>
+          <tr><td><code>updateSettings(config)</code></td><td>Merge new settings at runtime</td></tr>
+          <tr><td><code>enable()</code> / <code>disable()</code></td><td>Toggle on/off</td></tr>
+          <tr><td><code>getSettings()</code></td><td>Get current settings copy</td></tr>
+          <tr><td><code>runEffect(id)</code></td><td>Run a single effect by ID</td></tr>
+          <tr><td><code>listEffects()</code></td><td>List all registered effect IDs</td></tr>
+          <tr><td><code>registerEffect(effect)</code></td><td>Add a custom effect object</td></tr>
+          <tr><td><code>runMode(name)</code></td><td>Run a preset mode</td></tr>
+          <tr><td><code>listModes()</code></td><td>List available mode names</td></tr>
+          <tr><td><code>runTheme(name)</code></td><td>Apply and trigger a theme</td></tr>
+          <tr><td><code>setTheme(name)</code></td><td>Set theme without triggering</td></tr>
+          <tr><td><code>listThemes()</code></td><td>List registered theme names</td></tr>
+          <tr><td><code>buildTheme(name)</code></td><td>Start fluent theme builder</td></tr>
+          <tr><td><code>registerTheme(name, config)</code></td><td>Register a theme object</td></tr>
+          <tr><td><code>compose(name, steps)</code></td><td>Define a timed effect sequence</td></tr>
+          <tr><td><code>runComposition(name)</code></td><td>Run a composed sequence</td></tr>
+          <tr><td><code>use(plugin)</code></td><td>Install a ChaosPlugin</td></tr>
+          <tr><td><code>on(event, handler)</code></td><td>Listen for engine events</td></tr>
+          <tr><td><code>openPanel()</code> / <code>closePanel()</code> / <code>togglePanel()</code></td><td>Control the built-in panel</td></tr>
+          <tr><td><code>registerShortcut(combo, action)</code></td><td>Add a keyboard shortcut</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========== THEME BUILDER + PLUGIN =========== -->
+<section class="section section--alt">
+  <div class="container">
+    <h2 class="section-title">Theme Builder &amp; Plugins</h2>
+    <p class="section-sub">Build your own chaos. Ship it to your friends.</p>
+    <div class="code-section">
+      <div class="code-block">
+        <h4>Fluent Theme Builder</h4>
+        <pre><code>ChaosToggle.buildTheme('office-prank')
+  .palette('#0078d7', '#ffb900', '#f0f0f0', '#333')
+  .effects('bsod', 'fakeUpdate', 'clippy')
+  .particles('confetti', { density: 0.3 })
+  .popup({
+    title: 'IT Department',
+    message: 'Your PC has been compromised.'
+  })
+  .timing({ durationMultiplier: 2 })
+  .register();
+
+ChaosToggle.runTheme('office-prank');</code></pre>
+      </div>
+      <div class="code-block">
+        <h4>Plugin System</h4>
+        <pre><code>const myPlugin = {
+  id: 'chaos-plugin-office',
+  name: 'Office Pranks Pack',
+  version: '1.0.0',
+  effects: [myCustomEffect],
+  themes: [{ id: 'corporate', config: {...} }],
+  install(engine) {
+    engine.registerShortcut('Shift+B', 'runEffect:bsod');
+  },
+};
+
+ChaosToggle.use(myPlugin);</code></pre>
+      </div>
+    </div>
+    <div class="code-section" style="margin-top:1rem;">
+      <div class="code-block">
+        <h4>Event Hooks</h4>
+        <pre><code>ChaosToggle.on('beforeTrigger', () =&gt;
+  console.log('Chaos incoming...')
+);
+ChaosToggle.on('effectStart', (id) =&gt;
+  console.log(`Effect: ${id}`)
+);
+ChaosToggle.on('themeChange', (name) =&gt;
+  console.log(`Theme: ${name}`)
+);</code></pre>
+      </div>
+      <div class="code-block">
+        <h4>TypeScript Types</h4>
+        <pre><code>import type {
+  ChaosEffect,
+  ChaosPlugin,
+  ChaosToggleAPI,
+  ThemeProfile,
+  ThemeBuilder,
+  ChaosSettings,
+} from 'chaos-toggle';</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== KEYBOARD SHORTCUTS =========== -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Keyboard Shortcuts</h2>
+    <p class="section-sub">For when clicking is too slow.</p>
+    <table class="shortcuts-table">
+      <thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>Shift+H</kbd></td><td>Trigger chaos</td></tr>
+        <tr><td><kbd>Shift+P</kbd></td><td>Panic mode</td></tr>
+        <tr><td><kbd>Shift+R</kbd></td><td>Reset</td></tr>
+        <tr><td><kbd>Shift+C</kbd></td><td>Celebration mode</td></tr>
+      </tbody>
+    </table>
+    <div style="max-width:500px; margin:1rem auto 0;">
+      <div class="example-card">
+        <h4>Register custom shortcuts</h4>
+        <pre><code>ChaosToggle.registerShortcut('Shift+B', 'runEffect:bsod');
+ChaosToggle.registerShortcut('Shift+M', 'runEffect:matrixRain');
+ChaosToggle.registerShortcut('Alt+K', () =&gt; ChaosToggle.togglePanel());</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== TESTIMONIALS =========== -->
+<section class="section section--alt">
+  <div class="container">
+    <h2 class="section-title">Field Reports</h2>
+    <p class="section-sub">Real feedback from real engineers. (Names withheld to protect the guilty.)</p>
+    <div class="quotes-stack">
+      <blockquote class="quote">
+        "I thought my laptop was broken. Turns out the new intern installed ChaosToggle on the staging server. We've promoted them to Senior Chaos Engineer."
+        <cite>-- Anonymous Engineering Manager, 2026</cite>
+      </blockquote>
+      <blockquote class="quote">
+        "Our QA team filed 47 bugs in one hour before someone told them it was a prank. Best sprint velocity we've ever had."
+        <cite>-- Lead QA, Series B Startup</cite>
+      </blockquote>
+      <blockquote class="quote">
+        "I added ChaosToggle to our demo environment. The investors loved it. They thought it was an AI feature. We got funded."
+        <cite>-- CTO Who Shall Not Be Named</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- =========== CONTRIBUTING =========== -->
+<section class="section">
+  <div class="container">
+    <div class="contrib-box">
+      <h3>Want to contribute?</h3>
+      <p>ChaosToggle is open source and welcomes contributions. The easiest ways to help:</p>
+      <div class="contrib-ways">
+        <span class="contrib-way">New Effect</span>
+        <span class="contrib-way">New Theme</span>
+        <span class="contrib-way">Bug Fix</span>
+        <span class="contrib-way">Documentation</span>
+      </div>
+      <a href="https://github.com/Caripson/ChaosToggle.js/blob/main/CONTRIBUTING.md" class="btn btn--outline" target="_blank" rel="noopener">Read the Contributing Guide</a>
     </div>
   </div>
 </section>
