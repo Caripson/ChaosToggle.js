@@ -157,6 +157,8 @@ export interface CompositionStep {
 
 export interface ChaosToggleAPI {
   readonly version: string;
+  /** Alias of `init` for a friendlier first call. */
+  start(config?: Partial<ChaosSettings>): ChaosToggleAPI;
   init(config?: Partial<ChaosSettings>): ChaosToggleAPI;
   trigger(modeEffects?: Record<string, boolean>): boolean;
   reset(): ChaosToggleAPI;

@@ -3,6 +3,44 @@
 (function () {
   'use strict';
 
+  function unwrapChaosToggle() {
+    var raw = window.ChaosToggle;
+    if (!raw) return null;
+    if (typeof raw.init === 'function' || typeof raw.start === 'function') return raw;
+    if (raw.ChaosToggle && (typeof raw.ChaosToggle.init === 'function' || typeof raw.ChaosToggle.start === 'function')) {
+      return raw.ChaosToggle;
+    }
+    if (raw.default && (typeof raw.default.init === 'function' || typeof raw.default.start === 'function')) {
+      return raw.default;
+    }
+    return null;
+  }
+
+  /* --- Homepage: ChaosToggle preview (scoped to #site-main) --- */
+  var siteMain = document.getElementById('site-main');
+  if (siteMain) {
+    var ct = unwrapChaosToggle();
+    if (ct) {
+      window.ChaosToggle = ct;
+      var boot = typeof ct.start === 'function' ? ct.start.bind(ct) : ct.init.bind(ct);
+      boot({ duration: 2800, scopeSelector: '#site-main' });
+
+      document.addEventListener('click', function (e) {
+        var effBtn = e.target.closest('[data-landing-effect]');
+        if (effBtn && ct.runEffect) {
+          e.preventDefault();
+          ct.runEffect(effBtn.getAttribute('data-landing-effect') || '');
+          return;
+        }
+        var modeBtn = e.target.closest('[data-landing-mode]');
+        if (modeBtn && ct.runMode) {
+          e.preventDefault();
+          ct.runMode(modeBtn.getAttribute('data-landing-mode') || '');
+        }
+      });
+    }
+  }
+
   /* --- Mobile nav toggle --- */
   var hamburger = document.querySelector('.nav-hamburger');
   var drawer = document.querySelector('.nav-drawer');
@@ -59,7 +97,7 @@
       if (!code) return;
       var text = code.textContent || '';
       navigator.clipboard.writeText(text).then(function () {
-        btn.textContent = 'Copied. No turning back.';
+        btn.textContent = 'Copied';
         btn.classList.add('copied');
         setTimeout(function () {
           btn.textContent = 'Copy';

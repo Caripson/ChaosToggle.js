@@ -47,7 +47,7 @@ afterEach(() => {
 
 describe('ChaosToggle API', () => {
   it('exposes expected methods and version', () => {
-    expect(ChaosToggle.version).toBe('1.0.0');
+    expect(ChaosToggle.version).toBe('1.1.0');
     for (const key of [
       'init',
       'trigger',

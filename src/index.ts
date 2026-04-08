@@ -10,7 +10,7 @@ import type {
   ThemeOverlay, ThemeDecorations, ThemeBehavior, ModeConfig,
 } from './core/types';
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 
 const engine = new ChaosToggleEngine();
 
@@ -24,6 +24,7 @@ for (const effect of ALL_EFFECTS) {
 
 const api: ChaosToggleAPI = {
   get version() { return VERSION; },
+  start: (config?) => { engine.init(config); return api; },
   init: (config?) => { engine.init(config); return api; },
   trigger: (modeEffects?) => engine.trigger(modeEffects),
   reset: () => { engine.reset(); return api; },

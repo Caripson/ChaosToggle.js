@@ -22,10 +22,12 @@
 ```html
 <script src="https://cdn.jsdelivr.net/npm/chaos-toggle/dist/chaos-toggle.min.js"></script>
 <script>
-  ChaosToggle.init();
+  ChaosToggle.start(); // alias of init()
   ChaosToggle.runEffect('bsod'); // Blue Screen of Death
 </script>
 ```
+
+`start()` is an alias of `init()`—use whichever reads better in your docs.
 
 ## Install
 
@@ -36,7 +38,7 @@ npm install chaos-toggle
 ```js
 import ChaosToggle from 'chaos-toggle';
 
-ChaosToggle.init();
+ChaosToggle.start();
 ChaosToggle.trigger();
 ```
 
