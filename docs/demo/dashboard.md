@@ -449,11 +449,22 @@ layout: page
 }
 </style>
 
-<script>
-if (typeof window !== 'undefined') {
-  const s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js';
-  s.onload = function() { ChaosToggle.init({ duration: 3000 }); };
-  document.head.appendChild(s);
+<script setup>
+import { onMounted, onUnmounted } from 'vue'
+
+function loadChaos() {
+  if (window.ChaosToggle) {
+    window.ChaosToggle.init({ duration: 3000 })
+    return
+  }
+  const el = document.createElement('script')
+  el.src = 'https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js'
+  el.onload = () => {
+    if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 })
+  }
+  document.head.appendChild(el)
 }
+
+onMounted(() => { loadChaos() })
+onUnmounted(() => { if (window.ChaosToggle) window.ChaosToggle.reset() })
 </script>

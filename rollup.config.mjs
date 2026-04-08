@@ -34,6 +34,7 @@ export default [
         sourcemap: true,
         exports: 'named',
         inlineDynamicImports: true,
+        footer: 'if(typeof ChaosToggle!=="undefined"&&ChaosToggle.ChaosToggle){ChaosToggle=ChaosToggle.ChaosToggle;}',
       },
       {
         file: 'dist/chaos-toggle.min.js',
@@ -44,6 +45,7 @@ export default [
         exports: 'named',
         inlineDynamicImports: true,
         plugins: [terser()],
+        footer: 'if(typeof ChaosToggle!=="undefined"&&ChaosToggle.ChaosToggle){ChaosToggle=ChaosToggle.ChaosToggle;}',
       },
     ],
     plugins: [

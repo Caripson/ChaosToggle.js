@@ -4,315 +4,287 @@ layout: page
 ---
 
 <style>
-.ct-demo-root {
-  --ct-neon-pink: #ff2d95;
-  --ct-neon-cyan: #00f5ff;
-  --ct-neon-lime: #b7ff00;
-  --ct-neon-violet: #a855f7;
-  --ct-bg-deep: #070b14;
-  --ct-glass: rgba(18, 24, 40, 0.55);
-  --ct-glass-border: rgba(0, 245, 255, 0.22);
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  color: #e8eef8;
-  background: radial-gradient(ellipse 120% 80% at 50% -20%, rgba(168, 85, 247, 0.35), transparent 55%),
-    radial-gradient(ellipse 90% 60% at 100% 50%, rgba(255, 45, 149, 0.12), transparent 50%),
-    radial-gradient(ellipse 80% 50% at 0% 80%, rgba(0, 245, 255, 0.1), transparent 45%),
-    var(--ct-bg-deep);
-  min-height: 100vh;
-  padding: 2rem 1.25rem 4rem;
-  margin: -24px -24px 0;
-  box-sizing: border-box;
-}
-.ct-demo-root * { box-sizing: border-box; }
-.ct-hero {
-  text-align: center;
-  padding: 2.5rem 1rem 2rem;
-  margin-bottom: 2rem;
-}
+.ct-pg { font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, system-ui; max-width: 960px; margin: 0 auto; padding: 0 1rem 6rem; }
+.ct-pg *, .ct-pg *::before, .ct-pg *::after { box-sizing: border-box; }
+
+.ct-hero { text-align: center; padding: 2rem 0 1.5rem; }
 .ct-hero h1 {
-  font-size: clamp(2.5rem, 8vw, 4.25rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  margin: 0 0 0.75rem;
-  background: linear-gradient(120deg, var(--ct-neon-cyan), var(--ct-neon-pink), var(--ct-neon-lime));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 0 24px rgba(0, 245, 255, 0.35));
+  font-size: clamp(2.2rem, 7vw, 3.8rem); font-weight: 900; margin: 0 0 .5rem;
+  background: linear-gradient(90deg, #ff4d6d, #f97316, #facc15, #4ade80, #38bdf8, #a78bfa, #ff4d6d);
+  background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: ct-rainbow 4s linear infinite;
 }
-.ct-hero p.ct-sub {
-  font-size: 1.15rem;
-  opacity: 0.88;
-  max-width: 32rem;
-  margin: 0 auto 2rem;
-  line-height: 1.5;
+@keyframes ct-rainbow { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
+.ct-hero .ct-tagline { font-size: 1.15rem; color: var(--vp-c-text-2); margin: 0 0 1.5rem; }
+.ct-hero .ct-warning {
+  display: inline-block; font-size: .8rem; padding: .4rem .9rem; border-radius: 999px;
+  background: #fef3c7; color: #92400e; border: 1px dashed #f59e0b; margin-bottom: 1.5rem;
+  animation: ct-wiggle 2s ease-in-out infinite;
 }
-.ct-card {
-  background: var(--ct-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--ct-glass-border);
-  border-radius: 1.25rem;
-  padding: 1.5rem 1.35rem;
-  margin-bottom: 1.75rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+@keyframes ct-wiggle { 0%,100% { transform: rotate(-1deg); } 50% { transform: rotate(1deg); } }
+
+.ct-big-btn {
+  display: inline-block; cursor: pointer; border: none; font-family: inherit;
+  font-size: 1.4rem; font-weight: 900; letter-spacing: .04em; text-transform: uppercase;
+  padding: 1rem 2.5rem; border-radius: 1rem; color: #fff;
+  background: linear-gradient(135deg, #ef4444, #f97316, #eab308);
+  box-shadow: 0 6px 24px rgba(239,68,68,.4), 0 0 0 4px rgba(239,68,68,.15);
+  transition: transform .15s, box-shadow .15s;
+  animation: ct-bigpulse 1.5s ease-in-out infinite;
 }
-.ct-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 40px rgba(0, 245, 255, 0.08), 0 8px 32px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 45, 149, 0.35);
+.ct-big-btn:hover { transform: scale(1.08) rotate(-1deg); box-shadow: 0 10px 36px rgba(239,68,68,.5); }
+.ct-big-btn:active { transform: scale(.96); }
+@keyframes ct-bigpulse { 0%,100% { box-shadow: 0 6px 24px rgba(239,68,68,.4), 0 0 0 4px rgba(239,68,68,.15); } 50% { box-shadow: 0 6px 32px rgba(249,115,22,.5), 0 0 0 8px rgba(234,179,8,.12); } }
+
+.ct-section { margin-bottom: 2rem; }
+.ct-section h2 {
+  font-size: 1.3rem; font-weight: 800; margin: 0 0 .75rem; padding-bottom: .5rem;
+  border-bottom: 3px dashed var(--vp-c-divider);
 }
-.ct-card h2 {
-  margin: 0 0 1rem;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--ct-neon-cyan);
-  text-shadow: 0 0 20px rgba(0, 245, 255, 0.25);
-}
+.ct-section h2 .emoji { margin-right: .4rem; }
+.ct-note { font-size: .9rem; color: var(--vp-c-text-2); margin: 0 0 .75rem; line-height: 1.5; }
+
+.ct-row { display: flex; flex-wrap: wrap; gap: .5rem; }
+.ct-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: .5rem; }
+.ct-grid--sm { grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); }
+
 .ct-btn {
-  appearance: none;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 0.875rem;
-  padding: 0.65rem 1.1rem;
-  border-radius: 999px;
-  color: #0a0e18;
-  background: linear-gradient(135deg, var(--ct-neon-cyan), var(--ct-neon-pink));
-  box-shadow: 0 4px 20px rgba(255, 45, 149, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
-  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  cursor: pointer; border: 2px solid var(--vp-c-divider); border-radius: .6rem;
+  padding: .5rem .85rem; font-family: inherit; font-size: .85rem; font-weight: 700;
+  background: var(--vp-c-bg-soft); color: var(--vp-c-text-1);
+  transition: all .15s; position: relative; overflow: hidden;
 }
-.ct-btn:hover {
-  transform: scale(1.06) translateY(-1px);
-  filter: brightness(1.08);
-  box-shadow: 0 8px 28px rgba(0, 245, 255, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
-}
-.ct-btn:active {
-  transform: scale(0.98);
-}
-.ct-btn--xl {
-  font-size: 1.35rem;
-  padding: 1.1rem 2.25rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, var(--ct-neon-lime), var(--ct-neon-cyan), var(--ct-neon-violet));
-  animation: ct-pulse 2.2s ease-in-out infinite;
-}
-@keyframes ct-pulse {
-  0%, 100% { box-shadow: 0 4px 24px rgba(183, 255, 0, 0.4); }
-  50% { box-shadow: 0 8px 36px rgba(168, 85, 247, 0.55), 0 0 40px rgba(0, 245, 255, 0.25); }
-}
-.ct-btn--theme {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.9), rgba(255, 45, 149, 0.85));
-  color: #fff;
-  font-size: 0.8rem;
-  padding: 0.55rem 0.85rem;
-}
-.ct-btn--effect {
-  background: linear-gradient(135deg, #22d3ee, #6366f1);
-  color: #fff;
-  font-size: 0.8rem;
-}
-.ct-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  align-items: center;
-}
-.ct-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
-  gap: 0.65rem;
-}
-.ct-grid--themes {
-  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
-}
-.ct-showcase {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
-}
+.ct-btn:hover { transform: translateY(-2px) rotate(-.5deg); border-color: var(--vp-c-brand-1); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+.ct-btn:active { transform: scale(.95); }
+
+.ct-btn--fire { background: linear-gradient(135deg, #ef4444, #f97316); color: #fff; border-color: transparent; }
+.ct-btn--fire:hover { box-shadow: 0 4px 16px rgba(239,68,68,.35); border-color: transparent; }
+.ct-btn--cool { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border-color: transparent; }
+.ct-btn--cool:hover { box-shadow: 0 4px 16px rgba(59,130,246,.35); border-color: transparent; }
+.ct-btn--green { background: linear-gradient(135deg, #22c55e, #14b8a6); color: #fff; border-color: transparent; }
+.ct-btn--green:hover { box-shadow: 0 4px 16px rgba(34,197,94,.35); border-color: transparent; }
+.ct-btn--pink { background: linear-gradient(135deg, #ec4899, #f43f5e); color: #fff; border-color: transparent; }
+.ct-btn--pink:hover { box-shadow: 0 4px 16px rgba(236,72,153,.35); border-color: transparent; }
+.ct-btn--dark { background: linear-gradient(135deg, #1e293b, #334155); color: #f1f5f9; border-color: transparent; }
+.ct-btn--dark:hover { box-shadow: 0 4px 16px rgba(30,41,59,.4); border-color: transparent; }
+.ct-btn--reset { background: #fff; border: 2px dashed #d1d5db; color: #6b7280; }
+.ct-btn--reset:hover { border-color: #9ca3af; background: #f9fafb; }
+
+.ct-showcase { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .75rem; }
 .ct-showcase a {
-  display: block;
-  padding: 1rem 1.15rem;
-  border-radius: 1rem;
-  text-decoration: none;
-  color: inherit;
-  background: rgba(10, 14, 24, 0.5);
-  border: 1px solid rgba(0, 245, 255, 0.2);
-  transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  display: block; padding: 1rem; border-radius: .75rem; text-decoration: none; color: inherit;
+  border: 2px solid var(--vp-c-divider); background: var(--vp-c-bg-soft);
+  transition: all .2s;
 }
-.ct-showcase a:hover {
-  border-color: var(--ct-neon-pink);
-  transform: scale(1.02);
-  background: rgba(168, 85, 247, 0.12);
-}
-.ct-showcase a strong {
-  display: block;
-  color: var(--ct-neon-cyan);
-  margin-bottom: 0.35rem;
-  font-size: 1.05rem;
-}
-.ct-showcase a span {
-  font-size: 0.85rem;
-  opacity: 0.85;
-  line-height: 1.4;
-}
-.ct-sample {
-  max-width: 52rem;
-  margin: 0 auto;
-}
-.ct-sample h2, .ct-sample h3 { color: #c4d4f0; }
-.ct-sample a { color: var(--ct-neon-cyan); }
-.ct-sample form {
-  margin-top: 1rem;
-  padding: 1.25rem;
-  border-radius: 1rem;
-  border: 1px dashed rgba(255, 45, 149, 0.35);
-  background: rgba(0, 0, 0, 0.25);
-}
-.ct-sample label { display: block; margin: 0.75rem 0 0.25rem; font-size: 0.9rem; }
+.ct-showcase a:hover { border-color: var(--vp-c-brand-1); transform: translateY(-3px) rotate(.5deg); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+.ct-showcase .sc-emoji { font-size: 1.8rem; margin-bottom: .4rem; display: block; }
+.ct-showcase .sc-title { font-weight: 800; font-size: .95rem; display: block; margin-bottom: .25rem; }
+.ct-showcase .sc-desc { font-size: .8rem; color: var(--vp-c-text-2); line-height: 1.4; }
+
+.ct-sample { border: 2px dashed var(--vp-c-divider); border-radius: 1rem; padding: 1.25rem; background: var(--vp-c-bg-soft); }
+.ct-sample h3 { margin: 1rem 0 .5rem; }
+.ct-sample form { margin-top: 1rem; }
+.ct-sample label { display: block; margin: .6rem 0 .2rem; font-size: .85rem; font-weight: 600; }
 .ct-sample input, .ct-sample textarea, .ct-sample select {
-  width: 100%;
-  max-width: 28rem;
-  padding: 0.5rem 0.65rem;
-  border-radius: 0.5rem;
-  border: 1px solid rgba(0, 245, 255, 0.25);
-  background: rgba(7, 11, 20, 0.8);
-  color: #e8eef8;
+  width: 100%; max-width: 24rem; padding: .45rem .6rem; border-radius: .4rem;
+  border: 1px solid var(--vp-c-divider); background: var(--vp-c-bg); color: var(--vp-c-text-1);
+  font-family: inherit; font-size: .9rem;
 }
-.ct-composer-note {
-  font-size: 0.9rem;
-  opacity: 0.85;
-  margin: 0 0 1rem;
-  line-height: 1.5;
+
+.ct-ticker {
+  overflow: hidden; white-space: nowrap; padding: .6rem 0; font-size: .85rem;
+  color: var(--vp-c-text-2); border-top: 1px dashed var(--vp-c-divider);
+  border-bottom: 1px dashed var(--vp-c-divider); margin-bottom: 2rem;
 }
+.ct-ticker span { display: inline-block; animation: ct-scroll 20s linear infinite; }
+@keyframes ct-scroll { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+.ct-counter { text-align: center; padding: .75rem; border-radius: .75rem; background: var(--vp-c-bg-soft); border: 1px solid var(--vp-c-divider); margin-bottom: 2rem; }
+.ct-counter span { font-weight: 900; font-size: 1.2rem; color: var(--vp-c-brand-1); }
+
+.ct-quote {
+  font-style: italic; font-size: .95rem; color: var(--vp-c-text-2); padding: .75rem 1rem;
+  border-left: 4px solid var(--vp-c-brand-1); margin: 0 0 2rem; background: var(--vp-c-bg-soft);
+  border-radius: 0 .5rem .5rem 0;
+}
+.ct-quote cite { display: block; font-style: normal; font-size: .8rem; margin-top: .4rem; opacity: .7; }
 </style>
 
-<div class="ct-demo-root">
+<div class="ct-pg">
 
 <section class="ct-hero">
   <h1>Playground</h1>
-  <p class="ct-sub">Click anything. Break everything. Reset and repeat.</p>
-  <button type="button" class="ct-btn ct-btn--xl" onclick="ChaosToggle.trigger()">TRIGGER CHAOS</button>
+  <p class="ct-tagline">Click anything. Break everything. Blame the intern.</p>
+  <div class="ct-warning">WARNING: No real computers were harmed in the making of this page</div>
+  <br><br>
+  <button type="button" class="ct-big-btn" onclick="ChaosToggle.trigger()">TRIGGER CHAOS</button>
 </section>
 
-<section class="ct-card">
-  <h2>Quick actions</h2>
+<div class="ct-ticker"><span>BREAKING: ChaosToggle.js detected in production. DevOps team in emergency meeting. Stock price unaffected because nobody uses our app anyway. Clippy seen roaming the codebase. Film at 11. This is not a drill (it might be a drill). Remember: git blame won't help you now.</span></div>
+
+<div class="ct-counter">Chaos effects triggered on this page: <span id="ct-count">0</span> (and counting)</div>
+
+<section class="ct-section">
+  <h2><span class="emoji">🎮</span> Quick Actions</h2>
   <div class="ct-row">
-    <button type="button" class="ct-btn" onclick="ChaosToggle.trigger()">Trigger</button>
-    <button type="button" class="ct-btn" onclick="ChaosToggle.reset()">Reset</button>
-    <button type="button" class="ct-btn" onclick="ChaosToggle.runMode('nuclear')">Nuclear mode</button>
-    <button type="button" class="ct-btn" onclick="ChaosToggle.runMode('panic')">Panic mode</button>
-    <button type="button" class="ct-btn" onclick="ChaosToggle.runMode('celebration')">Celebration</button>
-    <button type="button" class="ct-btn" onclick="ChaosToggle.openPanel()">Open panel</button>
+    <button type="button" class="ct-btn ct-btn--fire" onclick="ctFire('trigger')">Trigger</button>
+    <button type="button" class="ct-btn ct-btn--reset" onclick="ChaosToggle.reset()">Reset</button>
+    <button type="button" class="ct-btn ct-btn--dark" onclick="ctFire('nuclear')">Nuclear Mode</button>
+    <button type="button" class="ct-btn ct-btn--pink" onclick="ctFire('panic')">Panic Mode</button>
+    <button type="button" class="ct-btn ct-btn--green" onclick="ctFire('celebration')">Celebration</button>
+    <button type="button" class="ct-btn ct-btn--cool" onclick="ChaosToggle.openPanel()">Open Panel</button>
   </div>
 </section>
 
-<section class="ct-card">
-  <h2>Signature effects</h2>
+<section class="ct-section">
+  <h2><span class="emoji">💥</span> Signature Effects</h2>
+  <p class="ct-note">Each button fires a single effect. Some are subtle. Some will make you question your life choices.</p>
   <div class="ct-grid">
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('bsod')">BSOD</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('matrixRain')">Matrix rain</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('fakeTerminal')">Fake terminal</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('clippy')">Clippy</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('screenCrack')">Screen crack</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('gravity')">Gravity</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('screenFlip')">Screen flip</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('drunkMode')">Drunk mode</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('fakeUpdate')">Fake update</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('fakeVirusScan')">Virus scan</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('vhsDistortion')">VHS distortion</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('crtShutdown')">CRT shutdown</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('fakeCrash')">Fake crash</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('rgbSplit')">RGB split</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('elementShuffle')">Element shuffle</button>
-    <button type="button" class="ct-btn ct-btn--effect" onclick="ChaosToggle.runEffect('cursorChaos')">Cursor chaos</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','bsod')">BSOD</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','matrixRain')">Matrix Rain</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','fakeTerminal')">Fake Terminal</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','clippy')">Clippy</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','screenCrack')">Screen Crack</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','gravity')">Gravity</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','screenFlip')">Screen Flip</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','drunkMode')">Drunk Mode</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','fakeUpdate')">Fake Update</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','fakeVirusScan')">Virus Scan</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','vhsDistortion')">VHS Distortion</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','crtShutdown')">CRT Shutdown</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','fakeCrash')">Fake Crash</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','rgbSplit')">RGB Split</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','elementShuffle')">Element Shuffle</button>
+    <button type="button" class="ct-btn" onclick="ctFire('effect','cursorChaos')">Cursor Chaos</button>
   </div>
 </section>
 
-<section class="ct-card">
-  <h2>Themes</h2>
-  <p class="ct-composer-note">Seventeen built-in vibes — each one sets the palette and fires the full theme experience.</p>
-  <div class="ct-grid ct-grid--themes">
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('default')">Default</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('easter')">Easter</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('halloween')">Halloween</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('christmas')">Christmas</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('new-year')">New Year</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('4th-of-july')">4th of July</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('thanksgiving')">Thanksgiving</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('black-friday')">Black Friday</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('cyber-monday')">Cyber Monday</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('valentines-day')">Valentine's</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('birthday')">Birthday</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('office')">Office</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('hacker')">Hacker</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('retro')">Retro</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('apocalypse')">Apocalypse</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('drunk')">Drunk</button>
-    <button type="button" class="ct-btn ct-btn--theme" onclick="ChaosToggle.runTheme('jumpscare')">Jumpscare</button>
+<section class="ct-section">
+  <h2><span class="emoji">🎨</span> Themes</h2>
+  <p class="ct-note">17 built-in vibes. Each one changes the palette, particles, and fires a themed combo of effects.</p>
+  <div class="ct-grid ct-grid--sm">
+    <button type="button" class="ct-btn" onclick="ctFire('theme','default')">Default</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','easter')">Easter</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','halloween')">Halloween</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','christmas')">Christmas</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','new-year')">New Year</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','4th-of-july')">4th of July</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','thanksgiving')">Thanksgiving</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','black-friday')">Black Friday</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','cyber-monday')">Cyber Monday</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','valentines-day')">Valentine's</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','birthday')">Birthday</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','office')">Office</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','hacker')">Hacker</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','retro')">Retro</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','apocalypse')">Apocalypse</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','drunk')">Drunk</button>
+    <button type="button" class="ct-btn" onclick="ctFire('theme','jumpscare')">Jumpscare</button>
   </div>
 </section>
 
-<section class="ct-card">
-  <h2>Effect composer</h2>
-  <p class="ct-composer-note">Pre-built sequence: glass shatter, then the blue screen, then a dramatic “scan.” Buckle up.</p>
-  <button type="button" class="ct-btn ct-btn--xl" onclick="ChaosToggle.compose('ultimate',[ {effect:'screenCrack',delay:0},{effect:'bsod',delay:800},{effect:'fakeVirusScan',delay:4000} ]); ChaosToggle.runComposition('ultimate')">Run the ultimate prank</button>
+<section class="ct-section">
+  <h2><span class="emoji">🎬</span> Effect Composer</h2>
+  <p class="ct-note">Pre-built horror sequence: glass shatters, then the blue screen hits, then a dramatic virus scan. <strong>Buckle. Up.</strong></p>
+  <button type="button" class="ct-btn ct-btn--fire" style="font-size:1rem;padding:.7rem 1.5rem;" onclick="ChaosToggle.compose('ultimate',[{effect:'screenCrack',delay:0},{effect:'bsod',delay:800},{effect:'fakeVirusScan',delay:4000}]); ChaosToggle.runComposition('ultimate'); bumpCounter();">Run the Ultimate Prank</button>
 </section>
 
-<section class="ct-card">
-  <h2>Showcase pages</h2>
+<div class="ct-quote">
+  "I thought my laptop was possessed. Turns out my coworker installed ChaosToggle. HR says it's 'not technically a fireable offense.'"
+  <cite>Anonymous Developer, 2026</cite>
+</div>
+
+<section class="ct-section">
+  <h2><span class="emoji">🗺️</span> Showcase Pages</h2>
+  <p class="ct-note">See how ChaosToggle looks when it hits "real" websites. Each page is a fake site you can destroy.</p>
   <div class="ct-showcase">
-    <a href="/demo/store"><strong>Store</strong><span>Retail shelves, prices, and panic-buy energy for shopping chaos.</span></a>
-    <a href="/demo/dashboard"><strong>Dashboard</strong><span>Charts, KPIs, and fake productivity — perfect for corporate meltdown demos.</span></a>
-    <a href="/demo/blog"><strong>Blog</strong><span>Articles and bylines that beg to be scrambled and confetti-bombed.</span></a>
-    <a href="/demo/corporate"><strong>Corporate</strong><span>Stiff copy, stock photos vibes, and synergy gone wrong.</span></a>
+    <a href="/ChaosToggle.js/demo/store">
+      <span class="sc-emoji">🛒</span>
+      <span class="sc-title">E-commerce Store</span>
+      <span class="sc-desc">Invisible keyboards, error 404 mugs, and checkout assistants that won't leave you alone.</span>
+    </a>
+    <a href="/ChaosToggle.js/demo/dashboard">
+      <span class="sc-emoji">📊</span>
+      <span class="sc-title">Corporate Dashboard</span>
+      <span class="sc-desc">KPIs, bar charts, and fake productivity. Watch it all burn during Drunk Friday.</span>
+    </a>
+    <a href="/ChaosToggle.js/demo/blog">
+      <span class="sc-emoji">📰</span>
+      <span class="sc-title">Blog / News Site</span>
+      <span class="sc-desc">"Breaking: Local Developer Discovers One Weird Trick to Crash Any Website."</span>
+    </a>
+    <a href="/ChaosToggle.js/demo/corporate">
+      <span class="sc-emoji">🏢</span>
+      <span class="sc-title">Corporate Landing</span>
+      <span class="sc-desc">"Streamline Your Workflow" — until the intern pushes to prod and everything goes nuclear.</span>
+    </a>
   </div>
 </section>
 
-<section class="ct-card ct-sample">
-  <h2>Sample content</h2>
-  <p>
-    This paragraph exists purely so effects have real text and layout to chew on.
-    Follow the <a href="/guide/getting-started">getting started guide</a> or peek at the
-    <a href="/guide/effects">effects reference</a> when the storm clears.
-  </p>
-  <h3>Another heading</h3>
-  <p>
-    Lorem ipsum isn’t required — you’ve got ChaosToggle instead. Try gravity on this block,
-    or shuffle the headings until the page looks like a design review gone off the rails.
-  </p>
-  <form action="#" method="get" onsubmit="return false;">
-    <label for="ct-demo-name">Display name</label>
-    <input id="ct-demo-name" name="name" type="text" placeholder="Party captain" autocomplete="off" />
-    <label for="ct-demo-email">Email (fake)</label>
-    <input id="ct-demo-email" name="email" type="email" placeholder="you@chaos.example" />
-    <label for="ct-demo-tier">Chaos tier</label>
-    <select id="ct-demo-tier" name="tier">
-      <option>Mild</option>
-      <option selected>Spicy</option>
-      <option>Maximum</option>
-    </select>
-    <label for="ct-demo-notes">Notes</label>
-    <textarea id="ct-demo-notes" name="notes" rows="3" placeholder="What should break first?"></textarea>
-    <div class="ct-row" style="margin-top: 1rem;">
-      <button type="submit" class="ct-btn">Submit (does nothing)</button>
-      <button type="button" class="ct-btn" onclick="ChaosToggle.trigger()">Or trigger chaos</button>
-    </div>
-  </form>
+<section class="ct-section">
+  <h2><span class="emoji">🧪</span> Sample Content</h2>
+  <p class="ct-note">This section exists so effects have real DOM to chew on. Try Gravity or Element Shuffle on this stuff.</p>
+  <div class="ct-sample">
+    <p>This is a perfectly normal paragraph. Nothing to see here. Please do not press any of the buttons above. Especially not the Nuclear one. <strong>We mean it.</strong></p>
+    <h3>A Heading That Has Done Nothing Wrong</h3>
+    <p>This heading was minding its own business before you showed up. It had a family. A mortgage. Plans for the weekend. And now you're about to shuffle it into the comment section.</p>
+    <p>Here are some <a href="#">links</a> and <a href="#">more links</a> and <a href="#">even more links</a> that go nowhere, because this is a demo and consequences are imaginary.</p>
+    <form action="#" method="get" onsubmit="return false;">
+      <label for="ct-name">Your name (or alias)</label>
+      <input id="ct-name" type="text" placeholder="Captain Chaos" autocomplete="off" />
+      <label for="ct-email">Email (we won't spam you, the effects will)</label>
+      <input id="ct-email" type="email" placeholder="you@chaos.example" />
+      <label for="ct-tier">Chaos tolerance</label>
+      <select id="ct-tier">
+        <option>I scare easily</option>
+        <option selected>Bring it on</option>
+        <option>I AM the chaos</option>
+      </select>
+      <label for="ct-notes">Last words</label>
+      <textarea id="ct-notes" rows="3" placeholder="Tell your loved ones something nice..."></textarea>
+      <div class="ct-row" style="margin-top:.75rem;">
+        <button type="submit" class="ct-btn">Submit (does nothing)</button>
+        <button type="button" class="ct-btn ct-btn--fire" onclick="ctFire('trigger')">Or trigger chaos</button>
+      </div>
+    </form>
+  </div>
 </section>
 
 </div>
 
-<script>
-if (typeof window !== 'undefined') {
-  const s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js';
-  s.onload = function() {
-    ChaosToggle.init({ duration: 3000 });
-  };
-  document.head.appendChild(s);
+<script setup>
+import { onMounted, onUnmounted } from 'vue'
+
+function loadChaos() {
+  if (!window._ctCount) window._ctCount = 0
+  window.bumpCounter = function() {
+    window._ctCount++
+    var el = document.getElementById('ct-count')
+    if (el) el.textContent = window._ctCount
+  }
+  window.ctFire = function(type, name) {
+    window.bumpCounter()
+    if (!window.ChaosToggle) return
+    if (type === 'trigger') window.ChaosToggle.trigger()
+    else if (type === 'effect') window.ChaosToggle.runEffect(name)
+    else if (type === 'theme') window.ChaosToggle.runTheme(name)
+    else if (type === 'nuclear') window.ChaosToggle.runMode('nuclear')
+    else if (type === 'panic') window.ChaosToggle.runMode('panic')
+    else if (type === 'celebration') window.ChaosToggle.runMode('celebration')
+  }
+
+  if (window.ChaosToggle) {
+    window.ChaosToggle.init({ duration: 3000 })
+    return
+  }
+  var el = document.createElement('script')
+  el.src = 'https://cdn.jsdelivr.net/gh/Caripson/ChaosToggle.js@main/dist/chaos-toggle.min.js'
+  el.onload = function() {
+    if (window.ChaosToggle) window.ChaosToggle.init({ duration: 3000 })
+  }
+  document.head.appendChild(el)
 }
+
+onMounted(function() { loadChaos() })
+onUnmounted(function() { if (window.ChaosToggle) window.ChaosToggle.reset() })
 </script>
