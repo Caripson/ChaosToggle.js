@@ -77,15 +77,37 @@
 
     <section class="pg-section">
       <h2><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg> Sample Content (target for effects)</h2>
-      <div class="pg-sample">
-        <h3>A Perfectly Normal Website</h3>
-        <p>This is some content that gravity, shuffle, and other DOM-targeting effects can latch onto. Try running an effect and watch this section react.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla.</p>
+      <div class="pg-sample" id="chaos-target">
+        <h1>Welcome to Acme Corp</h1>
+        <h2>We Build Things That Definitely Work</h2>
+        <p>Our enterprise-grade solutions leverage cutting-edge synergies to deliver best-in-class outcomes for stakeholders across the vertical.</p>
+        <p>With over 10 years of experience in making up business jargon, we are the industry leader in saying a lot while meaning absolutely nothing.</p>
+        <h3>Our Services</h3>
+        <p>Cloud migration, AI-powered analytics, blockchain consulting, and other things that sound impressive in board meetings.</p>
+        <div class="pg-sample-cards">
+          <div class="pg-sample-card">
+            <h4>Enterprise Plan</h4>
+            <p>$999/mo</p>
+            <button type="button">Buy Now</button>
+          </div>
+          <div class="pg-sample-card">
+            <h4>Startup Plan</h4>
+            <p>$99/mo</p>
+            <button type="button">Buy Now</button>
+          </div>
+          <div class="pg-sample-card">
+            <h4>Free Tier</h4>
+            <p>$0/mo (just kidding)</p>
+            <button type="button">Sign Up</button>
+          </div>
+        </div>
+        <h3>Contact Us</h3>
         <div class="pg-sample-form">
-          <input type="text" placeholder="Type something...">
+          <input type="text" placeholder="Your name">
           <input type="email" placeholder="your@email.com">
           <button type="button">Submit</button>
         </div>
+        <p><a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookie Preferences</a></p>
       </div>
     </section>
 
@@ -130,7 +152,7 @@
   /* Make sure the global is the unwrapped API for onclick handlers */
   window.ChaosToggle = ct;
 
-  ct.init({ duration: 3000 });
+  ct.init({ duration: 3000, scopeSelector: '#chaos-target' });
 
   if (statusEl) {
     statusEl.style.display = 'block';

@@ -434,11 +434,33 @@ kbd {
 .pg-btn:hover { border-color: var(--brand); transform: translateY(-1px); }
 .pg-btn .icon { width: .9em; height: .9em; vertical-align: -0.1em; margin-right: .25em; }
 .pg-sample {
-  padding: 1.5rem; border: 2px dashed var(--border); border-radius: var(--radius-lg);
-  background: var(--bg-surface);
+  padding: 2rem; border: 2px dashed var(--border); border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  position: relative; overflow: hidden;
 }
-.pg-sample h3 { margin-bottom: .5rem; }
+.pg-sample::before {
+  content: ''; position: absolute; top: .5rem; right: .75rem; font-size: .65rem;
+  color: var(--text-muted); opacity: .5; letter-spacing: .05em;
+}
+.pg-sample h1 { font-size: 1.6rem; margin-bottom: .25rem; color: #fff; }
+.pg-sample h2 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--brand); font-weight: 600; border: none; padding: 0; }
+.pg-sample h3 { margin-bottom: .5rem; margin-top: 1.25rem; font-size: 1rem; color: #fff; }
+.pg-sample h4 { font-size: .9rem; margin-bottom: .25rem; color: #fff; }
 .pg-sample p { color: var(--text-muted); font-size: .9rem; margin-bottom: .5rem; }
+.pg-sample a { color: var(--brand); text-decoration: underline; }
+.pg-sample a:hover { color: var(--pink); }
+.pg-sample-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin: 1rem 0; }
+.pg-sample-card {
+  background: rgba(255,255,255,.05); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1rem; text-align: center; transition: border-color var(--transition), transform var(--transition);
+}
+.pg-sample-card:hover { border-color: var(--brand); transform: translateY(-2px); }
+.pg-sample-card button {
+  cursor: pointer; border: 1px solid var(--brand); background: transparent; color: var(--brand);
+  font-family: inherit; font-weight: 700; font-size: .8rem; padding: .4rem .8rem; border-radius: .4rem;
+  margin-top: .5rem; transition: background var(--transition), color var(--transition);
+}
+.pg-sample-card button:hover { background: var(--brand); color: #fff; }
 .pg-sample-form { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
 .pg-sample-form input, .pg-sample-form button {
   font-family: inherit; font-size: .85rem; padding: .5rem .75rem; border-radius: .5rem;
@@ -463,6 +485,7 @@ kbd {
   .features-grid { grid-template-columns: 1fr; }
   .examples-grid { grid-template-columns: 1fr; }
   .modes-grid { grid-template-columns: 1fr 1fr; }
+  .pg-sample-cards { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
