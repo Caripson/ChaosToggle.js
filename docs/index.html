@@ -73,18 +73,21 @@
         <a href="https://github.com/Caripson/ChaosToggle.js" class="btn btn--outline" target="_blank" rel="noopener">View on GitHub</a>
       </div>
     </div>
-    <aside class="hero-demo" aria-label="Live preview">
+    <aside class="hero-demo" aria-label="Live demo">
       <div class="hero-demo-card">
-        <div class="hero-demo-label">Live preview</div>
-        <div class="hero-demo-body">
-          <p class="hero-demo-title">Sample UI</p>
-          <p class="hero-demo-text">Effects target the main page area so navigation stays usable.</p>
-          <button type="button" class="hero-demo-btn">Primary action</button>
+        <div class="hero-demo-label">
+          <span class="hero-demo-label-text">Try it now — effects run on this page</span>
         </div>
         <div class="hero-demo-bar" id="hero-demo-bar">
           <button type="button" class="hero-demo-pill" data-landing-effect="confetti">Confetti</button>
           <button type="button" class="hero-demo-pill" data-landing-effect="shake">Shake</button>
           <button type="button" class="hero-demo-pill" data-landing-effect="textScramble">Scramble</button>
+          <button type="button" class="hero-demo-pill" data-landing-effect="matrixRain">Matrix</button>
+          <button type="button" class="hero-demo-pill" data-landing-effect="glitchOverlay">Glitch</button>
+          <button type="button" class="hero-demo-pill" data-landing-mode="celebration">Celebration</button>
+        </div>
+        <div class="hero-demo-footer">
+          <a href="demo/index.html" class="hero-demo-more">All 34 effects in the playground &rarr;</a>
         </div>
       </div>
     </aside>
@@ -363,23 +366,29 @@ ChaosToggle.runComposition('intro');</code></pre>
     <p class="section-sub">Opinionated configs you can drop in and tweak.</p>
     <div class="recipes-grid">
       <article class="recipe-card">
-        <h3>Office prank</h3>
-        <p class="recipe-desc">IT vibes, then panic.</p>
+        <div class="recipe-card-header">
+          <h3>Office prank</h3>
+          <p class="recipe-desc">IT department vibes, then panic mode.</p>
+        </div>
         <pre><code>ChaosToggle.start({ duration: 4000, theme: 'office' });
 ChaosToggle.runTheme('office');
 ChaosToggle.runMode('panic');</code></pre>
       </article>
       <article class="recipe-card">
-        <h3>Halloween horror</h3>
-        <p class="recipe-desc">Glitch stack on a dark theme.</p>
+        <div class="recipe-card-header">
+          <h3>Halloween horror</h3>
+          <p class="recipe-desc">Glitch stack on a dark theme.</p>
+        </div>
         <pre><code>ChaosToggle.start({ duration: 3500, theme: 'halloween' });
 ChaosToggle.runTheme('halloween');
 ChaosToggle.runEffect('vhsDistortion');
 ChaosToggle.runEffect('noise');</code></pre>
       </article>
       <article class="recipe-card">
-        <h3>Launch celebration</h3>
-        <p class="recipe-desc">Ship it energy, minimal risk.</p>
+        <div class="recipe-card-header">
+          <h3>Launch celebration</h3>
+          <p class="recipe-desc">Ship-it energy, minimal risk.</p>
+        </div>
         <pre><code>ChaosToggle.start({ duration: 5000, theme: 'birthday' });
 ChaosToggle.runMode('celebration');
 ChaosToggle.runEffect('confetti');</code></pre>
