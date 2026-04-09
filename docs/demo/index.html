@@ -120,7 +120,7 @@
   <button class="chaos-btn chaos-btn--reset" data-action="reset"><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Reset</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chaos-toggle@latest/dist/chaos-toggle.min.js"></script>
+<script src="../../dist/chaos-toggle.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/chaos-toggle@latest/dist/chaos-toggle.min.js'"></script>
 <script src="../js/main.js"></script>
 <script>
 (function () {
@@ -144,7 +144,7 @@
       statusEl.style.background = 'var(--bg-card)';
       statusEl.style.border = '1px solid var(--brand-red)';
       statusEl.style.color = 'var(--brand-red)';
-      statusEl.textContent = 'ChaosToggle library failed to load from CDN. Buttons will not work.';
+      statusEl.textContent = 'ChaosToggle library failed to load from local bundle or CDN. Buttons will not work.';
     }
     return;
   }
@@ -190,6 +190,9 @@
         'fakeCrash','fakeTerminal','crtShutdown','screenFlip','zoomFlicker','noise','flashOverlay',
         'vhsDistortion','popups','fakeErrorState','elementShuffle','elementScatter',
         'magneticCursor','tinyGiantMode','cursorChaos','cursorDrift','autoTypo',
+        'springParade','starSpangledBanner','hackerHud','holidayLights','hauntedEyes','retroBroadcast',
+        'partyBalloons','officeStickyNotes','evacuationTape','midnightBurst','harvestTable','doorbusterMarquee',
+        'protocolGrid','loveLetters','lastCall','panicAlarm',
         'delayedClicks','invertedScroll'];
     }
     effects.forEach(function (e) {

@@ -5,3 +5,5 @@ dist/
 *.log
 coverage/
 .env
+playwright-report/
+test-results/

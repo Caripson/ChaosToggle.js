@@ -2,7 +2,7 @@ import type {
   ChaosSettings, ThemeProfile, ModeConfig, ChaosEffect,
   EffectContext, ChaosPlugin, CompositionStep,
   ChaosEventName, ChaosEventHandler, ChaosToggleAPI, ThemeBuilder,
-  CleanupFn,
+  CleanupFn, ChaosEffectMeta, ChaosPolicy,
 } from './types';
 import { DEFAULT_THEME_PROFILE, DEFAULT_SETTINGS, PRESET_MODES } from './defaults';
 import { deepMerge, clamp, createEl, pickEnabledSections } from './utils';
@@ -12,6 +12,21 @@ import { ShortcutManager, type ShortcutAction } from './shortcut-manager';
 import { BASE_CSS } from './styles';
 
 export class ChaosToggleEngine {
+  private static readonly PRANK_POLICY_ONLY_EFFECTS = new Set([
+    'autoTypo',
+    'cursorChaos',
+    'cursorDrift',
+    'delayedClicks',
+    'drunkMode',
+    'gravity',
+    'elementScatter',
+    'elementShuffle',
+    'invertedScroll',
+    'magneticCursor',
+    'screenFlip',
+    'tinyGiantMode',
+  ]);
+
   private _settings: ChaosSettings;
   private _modes: Record<string, ModeConfig>;
   private _themes: Record<string, Partial<ThemeProfile>>;
@@ -32,6 +47,10 @@ export class ChaosToggleEngine {
   private _initialized = false;
   private _styleNode: HTMLStyleElement | null = null;
   private _panelInstance: { destroy(): void } | null = null;
+  private _panelLoading = false;
+  private _panelLoadToken = 0;
+  private _random: (() => number) | null = null;
+  private _randomCleanup: CleanupFn | null = null;
 
   constructor() {
     this._settings = deepMerge(DEFAULT_SETTINGS, {});
@@ -45,8 +64,62 @@ export class ChaosToggleEngine {
     console.log('[ChaosToggle]', ...args);
   }
 
+  private _rand(): number {
+    return this._random ? this._random() : Math.random();
+  }
+
+  private _createSeededRandom(seed: string): () => number {
+    let h = 1779033703 ^ seed.length;
+    for (let i = 0; i < seed.length; i++) {
+      h = Math.imul(h ^ seed.charCodeAt(i), 3432918353);
+      h = (h << 13) | (h >>> 19);
+    }
+    h = Math.imul(h ^ (h >>> 16), 2246822507);
+    h = Math.imul(h ^ (h >>> 13), 3266489909);
+    h ^= h >>> 16;
+
+    let state = h >>> 0;
+    return () => {
+      state = (state + 0x6D2B79F5) >>> 0;
+      let t = state;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  private _restoreRandomScope(): void {
+    if (this._randomCleanup) {
+      this._randomCleanup();
+      this._randomCleanup = null;
+    }
+    this._random = null;
+  }
+
+  private _activateRandomScope(scope: string, patchGlobal = true): void {
+    this._restoreRandomScope();
+    const seed = this._settings.randomSeed;
+    if (!seed) return;
+    const compositeSeed = [
+      seed,
+      scope,
+      this._activeThemeName(),
+      String(this._settings.intensity),
+      String(this._themeDuration()),
+    ].join('|');
+    const generator = this._createSeededRandom(compositeSeed);
+    this._random = generator;
+    if (!patchGlobal) return;
+    const originalRandom = Math.random;
+    Math.random = generator;
+    this._randomCleanup = () => {
+      Math.random = originalRandom;
+      this._random = null;
+    };
+  }
+
   private _maybe(): boolean {
-    return Math.random() <= clamp(Number(this._settings.probability || 0), 0, 1);
+    return this._rand() <= clamp(Number(this._settings.probability || 0), 0, 1);
   }
 
   scopeRoot(): HTMLElement {
@@ -67,7 +140,23 @@ export class ChaosToggleEngine {
     if (valid.probability !== undefined) valid.probability = clamp(Number(valid.probability), 0, 1);
     if (valid.duration !== undefined) valid.duration = clamp(Number(valid.duration), 250, 120000);
     if (valid.cooldownMs !== undefined) valid.cooldownMs = clamp(Number(valid.cooldownMs), 0, 60000);
+    const policy = valid.policy;
+    if (policy !== undefined) {
+      valid.policy = policy === 'safe' || policy === 'demo' || policy === 'prank' ? policy : this._settings.policy;
+    }
+    if (valid.safeMode !== undefined && valid.policy === undefined) {
+      valid.policy = valid.safeMode ? 'safe' : 'prank';
+    }
+    if (valid.policy !== undefined) {
+      valid.safeMode = valid.policy === 'safe';
+    }
     return valid;
+  }
+
+  private _policy(): ChaosPolicy {
+    const policy = this._settings.policy;
+    if (policy === 'safe' || policy === 'demo' || policy === 'prank') return policy;
+    return this._settings.safeMode ? 'safe' : 'prank';
   }
 
   private _resolveTheme(): ThemeProfile {
@@ -107,6 +196,37 @@ export class ChaosToggleEngine {
     return clamp(base * multi, 250, 120000);
   }
 
+  private _effectPolicy(id: string): ChaosPolicy {
+    const effect = this._effectRegistry.get(id);
+    if (!effect) return 'safe';
+    if (ChaosToggleEngine.PRANK_POLICY_ONLY_EFFECTS.has(id)) return 'prank';
+    if (effect.category === 'interaction' && id !== 'popups') return 'prank';
+    if (effect.category === 'prank') return 'demo';
+    return 'safe';
+  }
+
+  private _sanitizeEffects(effects: Record<string, boolean>): Record<string, boolean> {
+    const policy = this._policy();
+    if (policy === 'prank') return effects;
+    const ranks: Record<ChaosPolicy, number> = { safe: 0, demo: 1, prank: 2 };
+    const sanitized = deepMerge({} as Record<string, boolean>, effects);
+    for (const [id, enabled] of Object.entries(sanitized)) {
+      if (!enabled) continue;
+      const requiredPolicy = this._effectPolicy(id);
+      if (ranks[policy] >= ranks[requiredPolicy]) continue;
+      sanitized[id] = false;
+      this._log('Policy skipped effect:', id, { policy, requiredPolicy });
+    }
+    return sanitized;
+  }
+
+  private _isEffectAllowedByPolicy(id: string): boolean {
+    const ranks: Record<ChaosPolicy, number> = { safe: 0, demo: 1, prank: 2 };
+    const currentPolicy = this._policy();
+    const requiredPolicy = this._effectPolicy(id);
+    return ranks[currentPolicy] >= ranks[requiredPolicy];
+  }
+
   private _scheduleReset(): void {
     if (this._resetTimer) clearTimeout(this._resetTimer);
     this._resetTimer = window.setTimeout(() => this.reset(), this._themeDuration());
@@ -130,6 +250,7 @@ export class ChaosToggleEngine {
       themeName: this._activeThemeName(),
       theme: this._themeState,
       popup: this._resolvePopupConfig(),
+      random: () => this._rand(),
       addNode: (node: HTMLElement) => this.addNode(node),
       addTimer: (id: number) => this.addTimer(id),
       log: (...args: unknown[]) => this._log(...args),
@@ -178,19 +299,91 @@ export class ChaosToggleEngine {
     this.addNode(hint);
   }
 
+  private _applyThemeSound(): void {
+    const sound = this._themeState.sound;
+    if (!sound?.enabled) return;
+    const view = window as Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext };
+    const AudioContextCtor = view.AudioContext || view.webkitAudioContext;
+    if (!AudioContextCtor) return;
+
+    type Note = { at: number; frequency: number; duration: number; gain?: number; type?: OscillatorType };
+    const presets: Record<string, Note[]> = {
+      alarm: [
+        { at: 0, frequency: 740, duration: 0.14, gain: 0.045, type: 'square' },
+        { at: 0.16, frequency: 622, duration: 0.14, gain: 0.045, type: 'square' },
+        { at: 0.32, frequency: 740, duration: 0.14, gain: 0.04, type: 'square' },
+      ],
+      bells: [
+        { at: 0, frequency: 1046, duration: 0.2, gain: 0.03, type: 'triangle' },
+        { at: 0.11, frequency: 1318, duration: 0.24, gain: 0.028, type: 'triangle' },
+        { at: 0.23, frequency: 1567, duration: 0.3, gain: 0.024, type: 'sine' },
+      ],
+      celebration: [
+        { at: 0, frequency: 784, duration: 0.12, gain: 0.035, type: 'triangle' },
+        { at: 0.1, frequency: 988, duration: 0.14, gain: 0.032, type: 'triangle' },
+        { at: 0.22, frequency: 1174, duration: 0.2, gain: 0.03, type: 'triangle' },
+      ],
+      retro: [
+        { at: 0, frequency: 660, duration: 0.08, gain: 0.028, type: 'square' },
+        { at: 0.1, frequency: 550, duration: 0.08, gain: 0.026, type: 'square' },
+        { at: 0.2, frequency: 440, duration: 0.14, gain: 0.024, type: 'square' },
+      ],
+      system: [
+        { at: 0, frequency: 880, duration: 0.08, gain: 0.026, type: 'square' },
+        { at: 0.12, frequency: 660, duration: 0.12, gain: 0.024, type: 'square' },
+      ],
+    };
+
+    try {
+      const audio = new AudioContextCtor();
+      const resumeResult = audio.resume?.();
+      if (resumeResult && typeof resumeResult.catch === 'function') {
+        void resumeResult.catch(() => {});
+      }
+      const notes = presets[sound.preset || 'system'] || presets.system;
+
+      for (const note of notes) {
+        const oscillator = audio.createOscillator();
+        const gain = audio.createGain();
+        oscillator.type = note.type || 'sine';
+        oscillator.frequency.value = note.frequency;
+        gain.gain.setValueAtTime(0.0001, audio.currentTime + note.at);
+        gain.gain.linearRampToValueAtTime(note.gain ?? 0.024, audio.currentTime + note.at + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + note.at + note.duration);
+        oscillator.connect(gain);
+        gain.connect(audio.destination);
+        oscillator.start(audio.currentTime + note.at);
+        oscillator.stop(audio.currentTime + note.at + note.duration + 0.02);
+      }
+
+      this._effectCleanups.push(() => {
+        void audio.close().catch(() => {});
+      });
+    } catch {
+      this._log('Theme sound unavailable for preset:', sound.preset);
+    }
+  }
+
   private _applyBehavior(): void {
     const behavior = this._themeState.behavior || {};
     const root = this.scopeRoot();
     if (behavior.pulse) root.classList.add('ct-theme-pulse');
     if (behavior.recoil) root.classList.add('ct-theme-recoil');
     if (behavior.microJumps) {
-      const hops = 2 + Math.round(Math.random() * 3);
+      const hops = 2 + Math.round(this._rand() * 3);
       for (let i = 0; i < hops; i++) {
         this._activeTimers.push(window.setTimeout(() => {
-          root.style.transform = `translate(${(Math.random() - 0.5) * 6}px,${(Math.random() - 0.5) * 6}px)`;
+          root.style.transform = `translate(${(this._rand() - 0.5) * 6}px,${(this._rand() - 0.5) * 6}px)`;
           this._activeTimers.push(window.setTimeout(() => { root.style.transform = ''; }, 80));
         }, 120 + i * 140));
       }
+    }
+    if (behavior.drift) {
+      const layer = createEl('div', 'ct-theme-drift-layer');
+      layer.style.background = `radial-gradient(circle at 18% 22%, ${this._themeState.visual.palette.primary}33, transparent 42%),
+        radial-gradient(circle at 78% 26%, ${this._themeState.visual.palette.accent}29, transparent 38%),
+        radial-gradient(circle at 50% 78%, rgba(255,255,255,0.12), transparent 42%)`;
+      this.addNode(layer);
     }
     if (behavior.loopBursts) {
       const confettiEffect = this._effectRegistry.get('confetti');
@@ -201,13 +394,37 @@ export class ChaosToggleEngine {
         this._activeTimers.push(loopId);
       }
     }
+    if (behavior.countdown) {
+      const countdown = createEl('div', 'ct-theme-countdown');
+      const label = createEl('div', 'ct-theme-countdown__label');
+      label.textContent = 'Reset in';
+      const value = createEl('div', 'ct-theme-countdown__value');
+      const track = createEl('div', 'ct-theme-countdown__track');
+      const bar = createEl('div', 'ct-theme-countdown__bar');
+      bar.style.background = `linear-gradient(90deg, ${this._themeState.visual.palette.primary}, ${this._themeState.visual.palette.accent})`;
+      bar.style.animationDuration = `${this._themeDuration()}ms`;
+      track.appendChild(bar);
+      countdown.append(label, value, track);
+      this.addNode(countdown);
+
+      const startedAt = Date.now();
+      const duration = this._themeDuration();
+      const syncValue = () => {
+        const remaining = Math.max(0, duration - (Date.now() - startedAt));
+        value.textContent = `${Math.max(0, Math.ceil(remaining / 1000))}s`;
+      };
+
+      syncValue();
+      const countdownId = window.setInterval(syncValue, 200);
+      this._activeTimers.push(countdownId);
+    }
   }
 
   private _composeEffects(modeEffects?: Record<string, boolean>): Record<string, boolean> {
     const themeEffects = this._themeState.effects || {};
     let merged = deepMerge(this._settings.effects, themeEffects);
     if (modeEffects) merged = deepMerge(merged, modeEffects);
-    return merged;
+    return this._sanitizeEffects(merged);
   }
 
   private _applyEffectSet(modeEffects?: Record<string, boolean>): void {
@@ -216,6 +433,7 @@ export class ChaosToggleEngine {
     this._applyThemeOverlay();
     this._applyDecorations();
     this._applyBehavior();
+    this._applyThemeSound();
 
     const ctx = this._createEffectContext();
     for (const [id, enabled] of Object.entries(effects)) {
@@ -247,6 +465,7 @@ export class ChaosToggleEngine {
     for (const node of this._effectNodes) node.remove();
     this._effectNodes = [];
     this._clearTimers();
+    this._restoreRandomScope();
   }
 
   private _clearTimers(): void {
@@ -320,14 +539,28 @@ export class ChaosToggleEngine {
   trigger(modeEffects?: Record<string, boolean>): boolean {
     if (!this._initialized) this.init({});
     if (!this._enabled || !this._settings.enabled) return false;
+    this._resolveTheme();
+    const effectScope = Object.entries(this._composeEffects(modeEffects))
+      .filter(([, enabled]) => enabled)
+      .map(([id]) => id)
+      .sort()
+      .join(',');
+    this._activateRandomScope(`trigger:${effectScope}`, false);
     const now = Date.now();
     const cooldown = this._settings.cooldownMs * (this._themeState.timing?.cooldownMultiplier ?? 1);
-    if (now - this._lastTriggerAt < cooldown) return false;
+    if (now - this._lastTriggerAt < cooldown) {
+      this._restoreRandomScope();
+      return false;
+    }
     this._lastTriggerAt = now;
-    if (!this._maybe()) return false;
+    if (!this._maybe()) {
+      this._restoreRandomScope();
+      return false;
+    }
     this._events.emit('beforeTrigger');
     this.reset();
     this._resolveTheme();
+    this._activateRandomScope(`trigger:${effectScope}`);
     this._applyEffectSet(modeEffects);
     this._scheduleReset();
     this._events.emit('afterTrigger');
@@ -348,12 +581,18 @@ export class ChaosToggleEngine {
     if (this._styleNode) this._styleNode.remove();
     this._styleNode = null;
     this._initialized = false;
+    this._lastTriggerAt = 0;
     return this;
   }
 
   updateSettings(config: Partial<ChaosSettings>): this {
     this._settings = deepMerge(this._settings, this._validateSettings(config));
     this._modes = deepMerge(this._modes, this._settings.modes || {});
+    if (!this._initialized && this._settings.autoInit) {
+      this.init({});
+      this._events.emit('settingsChange', this._settings);
+      return this;
+    }
     this._resolveTheme();
     this._clearEffects();
     for (const fn of this._destroyables) fn();
@@ -488,6 +727,26 @@ export class ChaosToggleEngine {
     return this._effectRegistry.list();
   }
 
+  getEffectMeta(id: string): ChaosEffectMeta | null {
+    const effect = this._effectRegistry.get(id);
+    if (!effect) return null;
+    return {
+      id: effect.id,
+      name: effect.name,
+      description: effect.description,
+      category: effect.category,
+    };
+  }
+
+  describeEffects(): ChaosEffectMeta[] {
+    return this._effectRegistry.all().map((effect) => ({
+      id: effect.id,
+      name: effect.name,
+      description: effect.description,
+      category: effect.category,
+    }));
+  }
+
   getEffect(id: string): ChaosEffect | undefined {
     return this._effectRegistry.get(id);
   }
@@ -496,8 +755,13 @@ export class ChaosToggleEngine {
     const effect = this._effectRegistry.get(id);
     if (!effect) return false;
     if (!this._initialized) this.init({});
+    if (!this._isEffectAllowedByPolicy(id)) {
+      this._log('Policy blocked direct effect:', id, { policy: this._policy() });
+      return false;
+    }
     this._installStyles();
     this._resolveTheme();
+    this._activateRandomScope(`effect:${id}`);
     const ctx = this._createEffectContext();
     const cleanup = effect.apply(ctx);
     if (typeof cleanup === 'function') this._effectCleanups.push(cleanup);
@@ -516,8 +780,15 @@ export class ChaosToggleEngine {
     if (!this._initialized) this.init({});
     this._installStyles();
     this._resolveTheme();
+    this._activateRandomScope(`composition:${name}`);
     const ctx = this._createEffectContext();
-    for (const step of steps) {
+    const allowedSteps = steps.filter((step) => {
+      const allowed = this._isEffectAllowedByPolicy(step.effect);
+      if (!allowed) this._log('Policy blocked composition effect:', step.effect, { policy: this._policy() });
+      return allowed;
+    });
+    if (!allowedSteps.length) return false;
+    for (const step of allowedSteps) {
       const effect = this._effectRegistry.get(step.effect);
       if (!effect) continue;
       this._activeTimers.push(window.setTimeout(() => {
@@ -527,7 +798,7 @@ export class ChaosToggleEngine {
         this._events.emit('effectEnd', step.effect);
       }, step.delay));
     }
-    const maxDelay = Math.max(...steps.map(s => s.delay));
+    const maxDelay = Math.max(...allowedSteps.map(s => s.delay));
     this._activeTimers.push(window.setTimeout(() => this._scheduleReset(), maxDelay + 100));
     return true;
   }
@@ -556,16 +827,28 @@ export class ChaosToggleEngine {
   }
 
   openPanel(): void {
-    if (this._panelInstance) return;
+    if (this._panelInstance || this._panelLoading) return;
+    this._panelLoading = true;
+    const loadToken = ++this._panelLoadToken;
     import('../panel/panel').then(mod => {
+      if (loadToken !== this._panelLoadToken) return;
       this._panelInstance = mod.createPanel(this as unknown as ChaosToggleAPI);
+      this._events.emit('panelOpen');
+    }).finally(() => {
+      if (loadToken === this._panelLoadToken) this._panelLoading = false;
     });
   }
 
   closePanel(): void {
+    if (this._panelLoading && !this._panelInstance) {
+      this._panelLoadToken += 1;
+      this._panelLoading = false;
+      return;
+    }
     if (this._panelInstance) {
       this._panelInstance.destroy();
       this._panelInstance = null;
+      this._events.emit('panelClose');
     }
   }
 

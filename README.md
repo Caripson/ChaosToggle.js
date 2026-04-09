@@ -4,7 +4,7 @@
 
 **The ultimate prank & chaos effects library for the web.**
 
-34 effects. 17 themes. Built-in control panel. Plugin system. Zero dependencies.
+50 effects. 17 themes. Built-in control panel. Plugin system. Zero dependencies.
 
 [![npm version](https://img.shields.io/npm/v/chaos-toggle?color=ff4d6d&style=flat-square)](https://www.npmjs.com/package/chaos-toggle)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/chaos-toggle?color=00f5ff&style=flat-square)](https://bundlephobia.com/package/chaos-toggle)
@@ -44,7 +44,7 @@ ChaosToggle.trigger();
 
 ## What's inside
 
-### 34 Effects across 5 categories
+### 50 Effects across 5 categories
 
 | Category | Effects |
 |---|---|
@@ -52,7 +52,7 @@ ChaosToggle.trigger();
 | **Prank** | bsod, fakeUpdate, fakeTerminal, clippy, fakeVirusScan, fakeCrash |
 | **DOM** | gravity, elementShuffle, elementScatter, magneticCursor, tinyGiantMode |
 | **Interaction** | cursorChaos, cursorDrift, autoTypo, delayedClicks, invertedScroll, screenFlip, drunkMode |
-| **Overlay** | confetti, popups, textScramble |
+| **Overlay** | confetti, popups, textScramble, springParade, starSpangledBanner, hackerHud, holidayLights, hauntedEyes, retroBroadcast, partyBalloons, officeStickyNotes, evacuationTape, midnightBurst, harvestTable, doorbusterMarquee, protocolGrid, loveLetters, lastCall, panicAlarm |
 
 ### 17 Themes
 
@@ -61,6 +61,19 @@ ChaosToggle.trigger();
 ### 7 Preset Modes
 
 `subtle` `demo` `chaos` `nuclear` `celebration` `glitch` `panic`
+
+## Showcase picks
+
+If you want themes that read immediately, start here:
+
+- `easter`: chicks, eggs, and `springParade`
+- `4th-of-july`: flags, stars, and `starSpangledBanner`
+- `hacker`: terminal rain plus `hackerHud`
+- `birthday`: balloons and `partyBalloons`
+- `black-friday`: sale pressure via `doorbusterMarquee`
+- `jumpscare`: hard-stop warning treatment via `panicAlarm`
+
+For a live preview-first overview, use the docs showcase: [caripson.github.io/ChaosToggle.js](https://caripson.github.io/ChaosToggle.js/).
 
 ## Quick examples
 
@@ -173,6 +186,7 @@ ChaosToggle.init({
   duration: 3000,          // ms
   probability: 1,          // 0-1, chance of trigger firing
   cooldownMs: 150,         // ms between triggers
+  policy: 'demo',          // 'safe' | 'demo' | 'prank'
   theme: 'hacker',
   effects: {
     bsod: true,
@@ -189,6 +203,20 @@ ChaosToggle.init({
 // Update at runtime
 ChaosToggle.updateSettings({ intensity: 1, duration: 5000 });
 ```
+
+Policy levels:
+
+- `safe` blocks prank-heavy and interaction-disrupting effects.
+- `demo` allows visual pranks and overlays but still blocks disruptive interaction effects.
+- `prank` allows everything.
+
+`safeMode` still works as a compatibility alias: `true` maps to `safe`, `false` maps to `prank`.
+
+Recommended default:
+
+- Use `safe` for public pages and shared screens.
+- Use `demo` for staging, sales demos, and guided walkthroughs.
+- Use `prank` only when you explicitly want disruptive behavior.
 
 ## API Reference
 
@@ -225,6 +253,29 @@ Full type definitions included. Import types directly:
 ```typescript
 import type { ChaosEffect, ChaosPlugin, ChaosToggleAPI, ThemeProfile } from 'chaos-toggle';
 ```
+
+## Testing
+
+Unit and API regression tests:
+
+```bash
+npm test
+```
+
+Browser and visual regression tests:
+
+```bash
+npm run playwright:install
+npm run test:visual
+```
+
+When you intentionally update browser baselines:
+
+```bash
+npm run test:visual:update
+```
+
+The docs and playground pages load the local `dist/` bundle first and only fall back to CDN if the local bundle is unavailable, so browser tests exercise the code in this repo.
 
 ## Contributing
 

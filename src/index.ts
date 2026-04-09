@@ -5,7 +5,7 @@ import type {
   ChaosToggleAPI, ChaosSettings, ChaosEffect, ChaosPlugin,
   CompositionStep, ChaosEventName, ChaosEventHandler,
   ThemeProfile, ThemeBuilder, EffectContext, CleanupFn,
-  EffectCategory, ThemePalette, ThemeVisual, ThemeAnimation,
+  EffectCategory, ChaosEffectMeta, ChaosPolicy, ThemePalette, ThemeVisual, ThemeAnimation,
   ThemeParticles, ThemePopup, ThemeSound, ThemeTiming,
   ThemeOverlay, ThemeDecorations, ThemeBehavior, ModeConfig,
 } from './core/types';
@@ -51,6 +51,8 @@ const api: ChaosToggleAPI = {
   registerEffect: (effect) => { engine.registerEffect(effect); return api; },
   removeEffect: (id) => engine.removeEffect(id),
   listEffects: () => engine.listEffects(),
+  getEffectMeta: (id) => engine.getEffectMeta(id),
+  describeEffects: () => engine.describeEffects(),
   runEffect: (id) => engine.runEffect(id),
 
   compose: (name, steps) => { engine.compose(name, steps); return api; },
@@ -67,7 +69,16 @@ const api: ChaosToggleAPI = {
 };
 
 if (typeof window !== 'undefined') {
-  (window as any).ChaosToggle = api;
+  const view = window as Window & typeof globalThis & {
+    ChaosToggle?: ChaosToggleAPI;
+    ChaosToggleConfig?: Partial<ChaosSettings>;
+  };
+  view.ChaosToggle = api;
+  if (view.ChaosToggleConfig?.autoInit) {
+    const boot = () => { engine.init(view.ChaosToggleConfig); };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
+    else boot();
+  }
 }
 
 export default api;
@@ -76,7 +87,7 @@ export type {
   ChaosToggleAPI, ChaosSettings, ChaosEffect, ChaosPlugin,
   CompositionStep, ChaosEventName, ChaosEventHandler,
   ThemeProfile, ThemeBuilder, EffectContext, CleanupFn,
-  EffectCategory, ThemePalette, ThemeVisual, ThemeAnimation,
+  EffectCategory, ChaosEffectMeta, ChaosPolicy, ThemePalette, ThemeVisual, ThemeAnimation,
   ThemeParticles, ThemePopup, ThemeSound, ThemeTiming,
   ThemeOverlay, ThemeDecorations, ThemeBehavior, ModeConfig,
 };

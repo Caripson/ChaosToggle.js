@@ -22,6 +22,7 @@ export const DEFAULT_THEME_PROFILE: ThemeProfile = {
 export const DEFAULT_SETTINGS: ChaosSettings = {
   autoInit: false,
   enabled: true,
+  policy: 'safe',
   safeMode: true,
   debug: false,
   scopeSelector: 'body',

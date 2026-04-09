@@ -25,17 +25,65 @@
       var boot = typeof ct.start === 'function' ? ct.start.bind(ct) : ct.init.bind(ct);
       boot({ duration: 2800, scopeSelector: '#site-main' });
 
+      var previewTheme = document.querySelector('[data-preview-theme]');
+      var previewPolicy = document.querySelector('[data-preview-policy]');
+      var previewLast = document.querySelector('[data-preview-last]');
+
+      function readPolicy() {
+        if (!ct.getSettings) return 'safe';
+        var settings = ct.getSettings();
+        return settings && settings.policy ? settings.policy : (settings && settings.safeMode ? 'safe' : 'prank');
+      }
+
+      function readTheme() {
+        if (!ct.getTheme) return 'default';
+        var theme = ct.getTheme();
+        return theme && theme.name ? theme.name : 'default';
+      }
+
+      function syncPreview(lastAction) {
+        if (previewTheme) previewTheme.textContent = readTheme();
+        if (previewPolicy) previewPolicy.textContent = readPolicy();
+        if (previewLast && lastAction) previewLast.textContent = lastAction;
+      }
+
+      function setPolicy(policy) {
+        if (!ct.updateSettings) return;
+        ct.updateSettings({ policy: policy });
+      }
+
+      syncPreview('ready');
+
       document.addEventListener('click', function (e) {
         var effBtn = e.target.closest('[data-landing-effect]');
         if (effBtn && ct.runEffect) {
           e.preventDefault();
           ct.runEffect(effBtn.getAttribute('data-landing-effect') || '');
+          syncPreview('effect');
+          return;
+        }
+        var themeBtn = e.target.closest('[data-landing-theme]');
+        if (themeBtn && ct.runTheme) {
+          e.preventDefault();
+          var nextPolicy = themeBtn.getAttribute('data-landing-policy');
+          if (nextPolicy) setPolicy(nextPolicy);
+          ct.reset();
+          ct.runTheme(themeBtn.getAttribute('data-landing-theme') || '');
+          syncPreview('theme');
+          return;
+        }
+        var policyBtn = e.target.closest('[data-landing-policy]');
+        if (policyBtn && !policyBtn.hasAttribute('data-landing-theme')) {
+          e.preventDefault();
+          setPolicy(policyBtn.getAttribute('data-landing-policy') || 'safe');
+          syncPreview('policy');
           return;
         }
         var modeBtn = e.target.closest('[data-landing-mode]');
         if (modeBtn && ct.runMode) {
           e.preventDefault();
           ct.runMode(modeBtn.getAttribute('data-landing-mode') || '');
+          syncPreview('mode');
         }
       });
     }

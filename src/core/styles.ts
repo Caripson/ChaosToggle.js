@@ -17,6 +17,12 @@ export const BASE_CSS = `
 .ct-theme-hint{position:fixed;bottom:16px;left:16px;font-size:24px;opacity:.55;animation:ctHint 2.3s ease-in-out infinite;z-index:2147483003;pointer-events:none}
 .ct-theme-pulse{animation:ctHeartbeat .8s ease-in-out infinite}
 .ct-theme-recoil{animation:ctRecoil .42s ease-out 3}
+.ct-theme-drift-layer{position:fixed;inset:-10%;pointer-events:none;z-index:2147482998;opacity:.24;filter:blur(28px);mix-blend-mode:screen;animation:ctAmbientDrift 8.5s ease-in-out infinite alternate}
+.ct-theme-countdown{position:fixed;top:18px;left:50%;transform:translateX(-50%);min-width:136px;padding:10px 12px 12px;border-radius:14px;background:rgba(8,12,24,.72);border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 40px rgba(0,0,0,.32);backdrop-filter:blur(14px);z-index:2147483004;color:#f8fafc;text-align:center;pointer-events:none}
+.ct-theme-countdown__label{font:600 12px/1 ui-sans-serif,system-ui;letter-spacing:.18em;text-transform:uppercase;opacity:.84;margin-bottom:8px}
+.ct-theme-countdown__value{font:700 24px/1 ui-sans-serif,system-ui;letter-spacing:.04em}
+.ct-theme-countdown__track{position:relative;overflow:hidden;height:6px;border-radius:999px;background:rgba(255,255,255,.08);margin-top:10px}
+.ct-theme-countdown__bar{height:100%;width:100%;border-radius:999px;transform-origin:left center;animation:ctCountdownBar linear forwards}
 .ct-theme-dark{background-color:#07070b;color:#f5f5f5}
 .ct-rgb-split{position:fixed;inset:0;pointer-events:none;z-index:2147483000}
 .ct-vhs{position:fixed;inset:0;pointer-events:none;z-index:2147483000;overflow:hidden}
@@ -45,6 +51,8 @@ export const BASE_CSS = `
 @keyframes ctHint{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:.65;transform:translateY(-4px)}}
 @keyframes ctHeartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.01)}}
 @keyframes ctRecoil{0%{transform:translateX(0)}30%{transform:translateX(-6px)}60%{transform:translateX(3px)}100%{transform:translateX(0)}}
+@keyframes ctAmbientDrift{0%{transform:translate3d(-2%,0,0) scale(1)}50%{transform:translate3d(2%,-1.5%,0) scale(1.03)}100%{transform:translate3d(-1%,2%,0) scale(1.06)}}
+@keyframes ctCountdownBar{0%{transform:scaleX(1)}100%{transform:scaleX(0)}}
 @keyframes ctVhsTracking{0%{transform:translateY(0)}50%{transform:translateY(-2px)}100%{transform:translateY(1px)}}
 @keyframes ctMelt{0%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 0 100% 0)}}
 @keyframes ctCrtOff{0%{transform:scaleY(1) scaleX(1);opacity:1;filter:brightness(1)}50%{transform:scaleY(.005) scaleX(1);opacity:1;filter:brightness(2)}80%{transform:scaleY(.005) scaleX(.1);opacity:.7;filter:brightness(3)}100%{transform:scaleY(0) scaleX(0);opacity:0;filter:brightness(0)}}

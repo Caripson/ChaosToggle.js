@@ -1,6 +1,7 @@
 export type CleanupFn = () => void;
 
 export type EffectCategory = 'visual' | 'dom' | 'interaction' | 'overlay' | 'prank';
+export type ChaosPolicy = 'safe' | 'demo' | 'prank';
 
 export interface EffectContext {
   root: HTMLElement;
@@ -10,6 +11,7 @@ export interface EffectContext {
   themeName: string;
   theme: ThemeProfile;
   popup: ThemePopup;
+  random(): number;
   addNode(node: HTMLElement): void;
   addTimer(id: number): void;
   log(...args: unknown[]): void;
@@ -22,6 +24,13 @@ export interface ChaosEffect {
   category: EffectCategory;
   apply(ctx: EffectContext): void | CleanupFn;
   defaults?: Record<string, unknown>;
+}
+
+export interface ChaosEffectMeta {
+  id: string;
+  name: string;
+  description: string;
+  category: EffectCategory;
 }
 
 export interface ThemePalette {
@@ -115,6 +124,7 @@ export interface ModeConfig {
 export interface ChaosSettings {
   autoInit: boolean;
   enabled: boolean;
+  policy: ChaosPolicy;
   safeMode: boolean;
   debug: boolean;
   scopeSelector: string;
@@ -192,6 +202,8 @@ export interface ChaosToggleAPI {
   registerEffect(effect: ChaosEffect): ChaosToggleAPI;
   removeEffect(id: string): boolean;
   listEffects(): string[];
+  getEffectMeta(id: string): ChaosEffectMeta | null;
+  describeEffects(): ChaosEffectMeta[];
   runEffect(id: string): boolean;
 
   compose(name: string, steps: CompositionStep[]): ChaosToggleAPI;
