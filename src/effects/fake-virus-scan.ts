@@ -25,6 +25,14 @@ const THREAT_PATHS = new Set([
   'C:\\Users\\You\\Downloads\\totally_safe.pdf.exe',
 ]);
 
+const STATUS_MESSAGES = [
+  'Analyzing suspicious signatures...',
+  'Resolving heuristic confidence map...',
+  'Cross-checking kernel sectors...',
+  'Monitoring outbound traffic anomalies...',
+  'Rebuilding threat graph cache...',
+];
+
 const effect: ChaosEffect = {
   id: 'fakeVirusScan',
   name: 'Fake Virus Scan',
@@ -95,6 +103,22 @@ const effect: ChaosEffect = {
     status.textContent = 'Initializing threat engine...';
     Object.assign(status.style, { margin: '0', fontSize: '14px', opacity: '0.9' } as CSSStyleDeclaration);
 
+    const metrics = createEl('div');
+    Object.assign(metrics.style, {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+      gap: '8px',
+      fontSize: '12px',
+      color: '#8b949e',
+    } as CSSStyleDeclaration);
+
+    const filesMetric = createEl('span');
+    const threatMetric = createEl('span');
+    const stageMetric = createEl('span');
+    metrics.appendChild(filesMetric);
+    metrics.appendChild(threatMetric);
+    metrics.appendChild(stageMetric);
+
     const listWrap = createEl('div');
     Object.assign(listWrap.style, {
       flex: '1',
@@ -135,10 +159,21 @@ const effect: ChaosEffect = {
     overlay.appendChild(header);
     overlay.appendChild(barTrack);
     overlay.appendChild(status);
+    overlay.appendChild(metrics);
     overlay.appendChild(listWrap);
     ctx.addNode(overlay);
 
     let progress = 0;
+    let filesScanned = 0;
+    let threatsFound = 0;
+    let stage = 'Boot';
+
+    const renderMetrics = (): void => {
+      filesMetric.textContent = `Files scanned: ${filesScanned}`;
+      threatMetric.textContent = `Threats flagged: ${threatsFound}`;
+      stageMetric.textContent = `Scan stage: ${stage}`;
+    };
+    renderMetrics();
 
     const addLine = (text: string, isThreat: boolean): void => {
       const row = createEl('div');
@@ -152,6 +187,7 @@ const effect: ChaosEffect = {
         row.style.fontWeight = '700';
         row.textContent = `[${time}] [THREAT DETECTED] ${text}`;
       }
+      if (list.children.length > 72) list.removeChild(list.firstChild as ChildNode);
       list.appendChild(row);
       list.scrollTop = list.scrollHeight;
     };
@@ -160,6 +196,8 @@ const effect: ChaosEffect = {
       const path = PATHS[Math.floor(Math.random() * PATHS.length)]!;
       const threat = THREAT_PATHS.has(path) && Math.random() < 0.65;
       addLine(threat ? path : `Scanning ${path}...`, threat);
+      filesScanned += 1;
+      if (threat) threatsFound += 1;
 
       const inc = (0.8 + ctx.intensity * 1.4) * (Math.random() * 3 + 1);
       progress = Math.min(100, progress + inc);
@@ -167,12 +205,16 @@ const effect: ChaosEffect = {
 
       if (progress >= 99.5) {
         status.textContent = 'Finalizing deep scan...';
+        stage = 'Final checks';
         progress = 95 + Math.random() * 4;
       } else if (threat) {
         status.textContent = 'Quarantine recommended — DO NOT DISCONNECT POWER';
+        stage = 'Threat response';
       } else {
-        status.textContent = 'Analyzing suspicious signatures...';
+        status.textContent = STATUS_MESSAGES[Math.floor(Math.random() * STATUS_MESSAGES.length)]!;
+        stage = progress < 30 ? 'File crawl' : progress < 65 ? 'Heuristic pass' : 'Memory inspection';
       }
+      renderMetrics();
     }, 380);
     ctx.addTimer(tick);
 
