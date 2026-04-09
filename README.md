@@ -55,9 +55,9 @@ ChaosToggle.trigger();
 
 ### Effects we just pushed further (with 3D flavor)
 
-- `zoomFlicker`: now adds a subtle perspective/tilt pulse in addition to scaling
-- `screenFlip`: updated to a card-flip style transform with depth
-- `tinyGiantMode`: random elements now scale with slight `rotateX/rotateY` and `translateZ`
+- `zoomFlicker`: now reacts to pointer/gyro movement for a prism-like live 3D tilt
+- `screenFlip`: now plays a cinematic “portal flip” with elastic overshoot and vortex flash
+- `tinyGiantMode`: now does two-phase quantum pulses with depth-shift and dynamic shadowing
 
 ### 17 Themes
 
