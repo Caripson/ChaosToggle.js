@@ -747,7 +747,7 @@ ChaosToggle.on('effectStart', (id) =&gt;
 (function () {
   var localDocs = window.location.pathname.indexOf('/docs/') !== -1;
   var bundleSrc = localDocs ? '../dist/chaos-toggle.min.js' : 'dist/chaos-toggle.min.js';
-  document.write('<scr' + 'ipt src="' + bundleSrc + '" onerror="this.onerror=null;this.src=\\'https://cdn.jsdelivr.net/npm/chaos-toggle@latest/dist/chaos-toggle.min.js\\'"></scr' + 'ipt>');
+  document.write("<scr" + "ipt src=\"" + bundleSrc + "\" onerror=\"this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/chaos-toggle@latest/dist/chaos-toggle.min.js'\"></scr" + "ipt>");
 })();
 </script>
 <script src="js/main.js"></script>
