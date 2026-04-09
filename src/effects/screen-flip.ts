@@ -19,7 +19,7 @@ const effect: ChaosEffect = {
     ctx.addNode(overlay);
 
     root.style.transformStyle = 'preserve-3d';
-    root.style.backfaceVisibility = 'hidden';
+    root.style.backfaceVisibility = 'visible';
     root.style.willChange = 'transform, filter';
     root.style.filter = 'saturate(1.05) contrast(1.02)';
 
