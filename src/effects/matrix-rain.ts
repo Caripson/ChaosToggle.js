@@ -50,22 +50,46 @@ const matrixRain: ChaosEffect = {
     g.scale(dpr, dpr);
     g.font = `${colWidth}px ui-monospace, "Cascadia Code", "Fira Code", monospace`;
 
-    const colCount = Math.ceil(w / colWidth);
+    let colCount = 0;
     const heads: number[] = [];
     const speeds: number[] = [];
     const chars: string[] = [];
-    for (let i = 0; i < colCount; i++) {
-      heads[i] = Math.random() * h * 1.5;
-      speeds[i] = speedBase * (0.4 + Math.random() * 1.2);
-      chars[i] = pickChar(intensity);
-    }
+
+    const syncColumns = (): void => {
+      const needed = Math.ceil(w / colWidth);
+      if (needed === colCount) return;
+      if (needed > colCount) {
+        for (let i = colCount; i < needed; i++) {
+          heads[i] = Math.random() * h * 1.5;
+          speeds[i] = speedBase * (0.4 + Math.random() * 1.2);
+          chars[i] = pickChar(intensity);
+        }
+      } else {
+        heads.length = needed;
+        speeds.length = needed;
+        chars.length = needed;
+      }
+      colCount = needed;
+    };
+    syncColumns();
 
     const onResize = (): void => {
       resize();
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.font = `${colWidth}px ui-monospace, "Cascadia Code", "Fira Code", monospace`;
+      syncColumns();
     };
     window.addEventListener('resize', onResize);
+
+    const onVisibility = (): void => {
+      if (document.visibilityState !== 'visible') return;
+      for (let i = 0; i < colCount; i++) {
+        if (heads[i] > h + colWidth * 6) {
+          heads[i] = -Math.random() * h * 0.5;
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
 
     const tick = (): void => {
       if (!running) return;
@@ -112,6 +136,7 @@ const matrixRain: ChaosEffect = {
       running = false;
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
       canvas.remove();
     };
   },

@@ -22,9 +22,24 @@ const vhsDistortion: ChaosEffect = {
       mixBlendMode: 'screen',
       pointerEvents: 'none',
     });
+    const tear = createEl('div', '', {
+      position: 'absolute',
+      left: '0',
+      right: '0',
+      height: `${Math.round(6 + intensity * 18)}px`,
+      top: '-40px',
+      background:
+        'linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.02), rgba(0,0,0,.15))',
+      opacity: String(clamp(0.24 + intensity * 0.4, 0.2, 0.65)),
+      transform: 'translateY(0)',
+      pointerEvents: 'none',
+      mixBlendMode: 'screen',
+      willChange: 'transform, opacity',
+    });
     wrap.appendChild(scan);
     wrap.appendChild(track);
     wrap.appendChild(chroma);
+    wrap.appendChild(tear);
     addNode(wrap);
 
     const prevTransform = root.style.transform;
@@ -33,6 +48,8 @@ const vhsDistortion: ChaosEffect = {
 
     let tx = 0;
     let ty = 0;
+    let tearY = -40;
+    let tearVelocity = 0.8 + intensity * 2.1;
     const jitter = (): void => {
       if (Math.random() < 0.08 + intensity * 0.35) {
         tx = (Math.random() - 0.5) * (4 + intensity * 28);
@@ -42,6 +59,16 @@ const vhsDistortion: ChaosEffect = {
         ty *= 0.88;
       }
       track.style.transform = `translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px) scaleX(${1 + (Math.random() - 0.5) * intensity * 0.04})`;
+
+      tearY += tearVelocity;
+      if (tearY > window.innerHeight + 40) {
+        tearY = -40 - Math.random() * 120;
+        tearVelocity = 0.8 + Math.random() * (2 + intensity * 2.2);
+      }
+      tear.style.transform = `translateY(${tearY.toFixed(2)}px) translateX(${((Math.random() - 0.5) * intensity * 18).toFixed(2)}px)`;
+      tear.style.opacity = String(clamp(0.18 + Math.random() * (0.2 + intensity * 0.45), 0.14, 0.82));
+
+      chroma.style.opacity = String(clamp(0.5 + Math.random() * intensity * 0.55, 0.45, 1));
     };
 
     const id = window.setInterval(jitter, 40 + Math.floor((1 - intensity) * 50));
