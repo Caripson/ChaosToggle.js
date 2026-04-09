@@ -120,10 +120,9 @@
   <button class="chaos-btn chaos-btn--reset" data-action="reset"><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Reset</button>
 </div>
 
-<script src="../../dist/chaos-toggle.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/chaos-toggle@latest/dist/chaos-toggle.min.js'"></script>
-<script src="../js/main.js"></script>
 <script>
-(function () {
+function bootDocsDemo() {
+  (function () {
   /* Resolve the API — handle IIFE wrapping where ChaosToggle may be { ChaosToggle: api } */
   var raw = window.ChaosToggle;
   var ct = null;
@@ -223,6 +222,32 @@
       tg.appendChild(btn);
     });
   }
+  })();
+}
+
+(function () {
+  var localDocsDemo = window.location.pathname.indexOf('/docs/demo/') !== -1;
+  var bundleSrc = localDocsDemo ? '../../dist/chaos-toggle.min.js' : '../dist/chaos-toggle.min.js';
+  var booted = false;
+
+  function loadScript(src, onload, onerror) {
+    var script = document.createElement('script');
+    script.src = src;
+    if (onload) script.onload = onload;
+    if (onerror) script.onerror = onerror;
+    document.body.appendChild(script);
+  }
+
+  function bootAll() {
+    if (booted) return;
+    booted = true;
+    loadScript('../js/main.js');
+    bootDocsDemo();
+  }
+
+  loadScript(bundleSrc, bootAll, function () {
+    loadScript('https://cdn.jsdelivr.net/npm/chaos-toggle@latest/dist/chaos-toggle.min.js', bootAll);
+  });
 })();
 </script>
 </body>
