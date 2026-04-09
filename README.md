@@ -7,7 +7,6 @@
 50 effects. 17 themes. Built-in control panel. Plugin system. Zero dependencies.
 
 [![npm version](https://img.shields.io/npm/v/chaos-toggle?color=ff4d6d&style=flat-square)](https://www.npmjs.com/package/chaos-toggle)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/chaos-toggle?color=00f5ff&style=flat-square)](https://bundlephobia.com/package/chaos-toggle)
 [![license](https://img.shields.io/badge/license-MIT-10b981?style=flat-square)](./LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/Caripson/ChaosToggle.js/ci.yml?style=flat-square)](https://github.com/Caripson/ChaosToggle.js/actions)
 
