@@ -18,21 +18,26 @@ function collect(root: HTMLElement): HTMLElement[] {
 const effect: ChaosEffect = {
   id: 'tinyGiantMode',
   name: 'Tiny / giant mode',
-  description: 'Random elements balloon or shrink.',
+  description: 'Random elements balloon or shrink with playful 3D tilt.',
   category: 'dom',
   apply(ctx: EffectContext): () => void {
     const picks = collect(ctx.root);
     const prevTransform: string[] = [];
     const prevTransition: string[] = [];
+    const prevTransformOrigin: string[] = [];
     const ms = clamp(320 + ctx.duration * 0.12, 400, 1200);
 
     for (const el of picks) {
       prevTransform.push(el.style.transform);
       prevTransition.push(el.style.transition);
+      prevTransformOrigin.push(el.style.transformOrigin);
       const giant = Math.random() < 0.5;
       const s = giant ? 2 + Math.random() : 0.3 + Math.random() * 0.2;
+      const tiltX = (Math.random() - 0.5) * 14;
+      const tiltY = (Math.random() - 0.5) * 14;
+      const depth = giant ? 22 : -8;
       el.style.transition = `transform ${ms}ms cubic-bezier(0.45, 0, 0.2, 1.4)`;
-      el.style.transform = `scale(${s})`;
+      el.style.transform = `perspective(900px) translateZ(${depth}px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale(${s})`;
       el.style.transformOrigin = 'center center';
     }
 
@@ -41,7 +46,7 @@ const effect: ChaosEffect = {
         const el = picks[i];
         el.style.transition = 'none';
         el.style.transform = prevTransform[i] || '';
-        el.style.transformOrigin = '';
+        el.style.transformOrigin = prevTransformOrigin[i] || '';
         void el.offsetWidth;
         el.style.transition = prevTransition[i] || '';
       }

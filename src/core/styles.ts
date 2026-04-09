@@ -12,6 +12,7 @@ export const BASE_CSS = `
 .ct-shake-wobble{animation:ctWobble .22s ease-in-out infinite}
 .ct-shake-float{animation:ctFloat 2.4s ease-in-out infinite}
 .ct-zoom{animation:ctZoom .2s linear infinite alternate}
+.ct-zoom-3d{transform-style:preserve-3d;perspective:900px;animation:ctZoom3d .36s ease-in-out infinite alternate}
 .ct-error{filter:saturate(1.25) hue-rotate(-22deg)}
 .ct-theme-overlay{position:fixed;inset:0;pointer-events:none;z-index:2147482999}
 .ct-theme-hint{position:fixed;bottom:16px;left:16px;font-size:24px;opacity:.55;animation:ctHint 2.3s ease-in-out infinite;z-index:2147483003;pointer-events:none}
@@ -48,6 +49,7 @@ export const BASE_CSS = `
 @keyframes ctWobble{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-1px,0) rotate(-.2deg)}75%{transform:translate(1px,0) rotate(.2deg)}}
 @keyframes ctFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes ctZoom{from{transform:scale(1)}to{transform:scale(1.02)}}
+@keyframes ctZoom3d{0%{transform:perspective(900px) translateZ(0) rotateX(0) rotateY(0) scale(1)}100%{transform:perspective(900px) translateZ(24px) rotateX(.9deg) rotateY(-1.4deg) scale(1.024)}}
 @keyframes ctHint{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:.65;transform:translateY(-4px)}}
 @keyframes ctHeartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.01)}}
 @keyframes ctRecoil{0%{transform:translateX(0)}30%{transform:translateX(-6px)}60%{transform:translateX(3px)}100%{transform:translateX(0)}}

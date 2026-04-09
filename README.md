@@ -53,6 +53,12 @@ ChaosToggle.trigger();
 | **Interaction** | cursorChaos, cursorDrift, autoTypo, delayedClicks, invertedScroll, screenFlip, drunkMode |
 | **Overlay** | confetti, popups, textScramble, springParade, starSpangledBanner, hackerHud, holidayLights, hauntedEyes, retroBroadcast, partyBalloons, officeStickyNotes, evacuationTape, midnightBurst, harvestTable, doorbusterMarquee, protocolGrid, loveLetters, lastCall, panicAlarm |
 
+### Effects we just pushed further (with 3D flavor)
+
+- `zoomFlicker`: now adds a subtle perspective/tilt pulse in addition to scaling
+- `screenFlip`: updated to a card-flip style transform with depth
+- `tinyGiantMode`: random elements now scale with slight `rotateX/rotateY` and `translateZ`
+
 ### 17 Themes
 
 `default` `easter` `halloween` `christmas` `new-year` `4th-of-july` `thanksgiving` `black-friday` `cyber-monday` `valentines-day` `birthday` `office` `hacker` `retro` `apocalypse` `drunk` `jumpscare`
