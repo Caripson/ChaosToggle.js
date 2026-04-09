@@ -53,6 +53,12 @@ ChaosToggle.trigger();
 | **Interaction** | cursorChaos, cursorDrift, autoTypo, delayedClicks, invertedScroll, screenFlip, drunkMode |
 | **Overlay** | confetti, popups, textScramble, springParade, starSpangledBanner, hackerHud, holidayLights, hauntedEyes, retroBroadcast, partyBalloons, officeStickyNotes, evacuationTape, midnightBurst, harvestTable, doorbusterMarquee, protocolGrid, loveLetters, lastCall, panicAlarm |
 
+### Effects we just pushed further (with 3D flavor)
+
+- `zoomFlicker`: now reacts to pointer/gyro movement for a prism-like live 3D tilt
+- `screenFlip`: now plays a cinematic “portal flip” with elastic overshoot and vortex flash
+- `tinyGiantMode`: now does two-phase quantum pulses with depth-shift and dynamic shadowing
+
 ### 17 Themes
 
 `default` `easter` `halloween` `christmas` `new-year` `4th-of-july` `thanksgiving` `black-friday` `cyber-monday` `valentines-day` `birthday` `office` `hacker` `retro` `apocalypse` `drunk` `jumpscare`

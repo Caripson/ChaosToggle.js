@@ -12,6 +12,8 @@ export const BASE_CSS = `
 .ct-shake-wobble{animation:ctWobble .22s ease-in-out infinite}
 .ct-shake-float{animation:ctFloat 2.4s ease-in-out infinite}
 .ct-zoom{animation:ctZoom .2s linear infinite alternate}
+.ct-zoom-3d{transform-style:preserve-3d;perspective:900px;animation:ctZoom3d .36s ease-in-out infinite alternate}
+.ct-zoom-prism{filter:saturate(1.08) drop-shadow(0 10px 30px rgba(80,180,255,.2));transform:perspective(1000px) rotateX(var(--ct-zoom-tilt-x,0deg)) rotateY(var(--ct-zoom-tilt-y,0deg))}
 .ct-error{filter:saturate(1.25) hue-rotate(-22deg)}
 .ct-theme-overlay{position:fixed;inset:0;pointer-events:none;z-index:2147482999}
 .ct-theme-hint{position:fixed;bottom:16px;left:16px;font-size:24px;opacity:.55;animation:ctHint 2.3s ease-in-out infinite;z-index:2147483003;pointer-events:none}
@@ -41,6 +43,7 @@ export const BASE_CSS = `
 .ct-gravity-el{transition:none!important;position:fixed!important;z-index:2147483000!important}
 .ct-cursor-trail{position:fixed;pointer-events:none;z-index:2147483100;border-radius:50%;transition:opacity .3s}
 .ct-drunk{filter:blur(1.5px) hue-rotate(15deg);transition:filter .4s}
+.ct-screenflip-vortex{background:radial-gradient(circle at 50% 50%,rgba(120,200,255,.18),rgba(95,0,160,.08) 42%,transparent 72%);opacity:0;animation:ctFlipVortex .9s ease-out forwards}
 @keyframes ctGlitch{0%{transform:translate(0,0)}20%{transform:translate(-3px,2px)}40%{transform:translate(2px,-1px)}60%{transform:translate(-2px,1px)}80%{transform:translate(3px,-2px)}100%{transform:translate(0,0)}}
 @keyframes ctPulse{0%,100%{opacity:.05}50%{opacity:.25}}
 @keyframes ctShake{0%{transform:translate(1px,0)}25%{transform:translate(-1px,1px)}50%{transform:translate(-2px,-1px)}75%{transform:translate(2px,1px)}100%{transform:translate(1px,0)}}
@@ -48,6 +51,7 @@ export const BASE_CSS = `
 @keyframes ctWobble{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-1px,0) rotate(-.2deg)}75%{transform:translate(1px,0) rotate(.2deg)}}
 @keyframes ctFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes ctZoom{from{transform:scale(1)}to{transform:scale(1.02)}}
+@keyframes ctZoom3d{0%{transform:perspective(900px) translateZ(0) rotateX(0) rotateY(0) scale(1)}100%{transform:perspective(900px) translateZ(24px) rotateX(.9deg) rotateY(-1.4deg) scale(1.024)}}
 @keyframes ctHint{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:.65;transform:translateY(-4px)}}
 @keyframes ctHeartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.01)}}
 @keyframes ctRecoil{0%{transform:translateX(0)}30%{transform:translateX(-6px)}60%{transform:translateX(3px)}100%{transform:translateX(0)}}
@@ -58,4 +62,5 @@ export const BASE_CSS = `
 @keyframes ctCrtOff{0%{transform:scaleY(1) scaleX(1);opacity:1;filter:brightness(1)}50%{transform:scaleY(.005) scaleX(1);opacity:1;filter:brightness(2)}80%{transform:scaleY(.005) scaleX(.1);opacity:.7;filter:brightness(3)}100%{transform:scaleY(0) scaleX(0);opacity:0;filter:brightness(0)}}
 @keyframes ctClippyBounce{0%{transform:translateY(40px) scale(.8);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}
 @keyframes ctScreenFlip{0%{transform:rotate(0deg)}100%{transform:rotate(180deg)}}
+@keyframes ctFlipVortex{0%{opacity:0;transform:scale(.9)}30%{opacity:.45}100%{opacity:0;transform:scale(1.16)}}
 `;
