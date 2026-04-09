@@ -151,7 +151,7 @@ function bootDocsDemo() {
   /* Make sure the global is the unwrapped API for onclick handlers */
   window.ChaosToggle = ct;
 
-  ct.init({ duration: 3000, scopeSelector: '#chaos-target' });
+  ct.init({ duration: 3000, scopeSelector: '#chaos-target', policy: 'prank' });
 
   if (statusEl) {
     statusEl.style.display = 'block';
