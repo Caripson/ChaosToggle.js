@@ -10,7 +10,7 @@ import type {
   ThemeOverlay, ThemeDecorations, ThemeBehavior, ModeConfig,
 } from './core/types';
 
-const VERSION = '1.3.1';
+const VERSION = '1.3.2';
 
 const engine = new ChaosToggleEngine();
 

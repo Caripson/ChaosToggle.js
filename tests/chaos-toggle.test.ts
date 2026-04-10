@@ -80,7 +80,7 @@ async function waitFor(predicate: () => boolean, timeoutMs = 400): Promise<boole
 
 describe('ChaosToggle API', () => {
   it('exposes expected methods and version', () => {
-    expect(ChaosToggle.version).toBe('1.3.1');
+    expect(ChaosToggle.version).toBe('1.3.2');
     for (const key of [
       'init',
       'trigger',
@@ -243,82 +243,92 @@ describe('Theme-aware particles and popups', () => {
     ChaosToggle.init({ cooldownMs: 0, probability: 1, duration: 2000 });
   });
 
+  function confettiMetaText(): string {
+    return document.querySelector('.ct-confetti-meta')?.textContent || '';
+  }
+
+  it('confetti mounts a viewport canvas host', () => {
+    expect(ChaosToggle.runEffect('confetti')).toBe(true);
+    expect(document.querySelector('.ct-confetti-field')).not.toBeNull();
+    expect(document.querySelector('.ct-confetti-canvas')).not.toBeNull();
+  });
+
   it('4th-of-july confetti includes patriotic emoji accents', () => {
     ChaosToggle.setTheme('4th-of-july');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/🇺🇸|⭐/);
+    expect(confettiMetaText()).toMatch(/🇺🇸|⭐/);
   });
 
   it('easter particles include chicks or eggs', () => {
     ChaosToggle.setTheme('easter');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/🐥|🥚/);
+    expect(confettiMetaText()).toMatch(/🐥|🥚/);
   });
 
   it('birthday particles include balloons', () => {
     ChaosToggle.setTheme('birthday');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toContain('🎈');
+    expect(confettiMetaText()).toContain('🎈');
   });
 
   it('christmas particles include seasonal icons', () => {
     ChaosToggle.setTheme('christmas');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/❄️|🎁|⭐/);
+    expect(confettiMetaText()).toMatch(/❄️|🎁|⭐/);
   });
 
   it('halloween particles include spooky icons', () => {
     ChaosToggle.setTheme('halloween');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/🎃|🦇|👻/);
+    expect(confettiMetaText()).toMatch(/🎃|🦇|👻/);
   });
 
   it('valentines-day particles include hearts or roses', () => {
     ChaosToggle.setTheme('valentines-day');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/💖|💕|🌹/);
+    expect(confettiMetaText()).toMatch(/💖|💕|🌹/);
   });
 
   it('thanksgiving particles include autumn icons', () => {
     ChaosToggle.setTheme('thanksgiving');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/🍂|🍁|🦃/);
+    expect(confettiMetaText()).toMatch(/🍂|🍁|🦃/);
   });
 
   it('office particles include office clutter icons', () => {
     ChaosToggle.setTheme('office');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/📎|📄|☕/);
+    expect(confettiMetaText()).toMatch(/📎|📄|☕/);
   });
 
   it('hacker particles include terminal-like glyphs', () => {
     ChaosToggle.setTheme('hacker');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/0|1|>_/);
+    expect(confettiMetaText()).toMatch(/0|1|>_/);
   });
 
   it('retro particles include broadcast-era icons', () => {
     ChaosToggle.setTheme('retro');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/📼|📺|✦/);
+    expect(confettiMetaText()).toMatch(/📼|📺|✦/);
   });
 
   it('apocalypse particles include destructive icons', () => {
     ChaosToggle.setTheme('apocalypse');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/🔥|☠|💥/);
+    expect(confettiMetaText()).toMatch(/🔥|☠|💥/);
   });
 
   it('drunk particles include drink or bubble icons', () => {
     ChaosToggle.setTheme('drunk');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/🍺|🍸|🫧/);
+    expect(confettiMetaText()).toMatch(/🍺|🍸|🫧/);
   });
 
   it('jumpscare particles include danger icons', () => {
     ChaosToggle.setTheme('jumpscare');
     expect(ChaosToggle.runEffect('confetti')).toBe(true);
-    expect(document.body.textContent || '').toMatch(/☠|✖/);
+    expect(confettiMetaText()).toMatch(/☠|✖/);
   });
 
   it('popups use the active theme copy and button label', () => {
