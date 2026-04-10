@@ -80,7 +80,7 @@ async function waitFor(predicate: () => boolean, timeoutMs = 400): Promise<boole
 
 describe('ChaosToggle API', () => {
   it('exposes expected methods and version', () => {
-    expect(ChaosToggle.version).toBe('1.3.0');
+    expect(ChaosToggle.version).toBe('1.3.1');
     for (const key of [
       'init',
       'trigger',
@@ -760,6 +760,28 @@ describe('Runtime completeness', () => {
     ChaosToggle.reset();
     ChaosToggle.updateSettings({ policy: 'safe' });
     expect(ChaosToggle.runEffect('bsod')).toBe(false);
+  });
+
+  it('celebration mode uses party overlays instead of generic demo popups', () => {
+    ChaosToggle.init({ cooldownMs: 0, probability: 1, policy: 'safe' });
+
+    expect(ChaosToggle.runMode('celebration')).toBe(true);
+    expect(document.querySelector('.ct-party-balloons')).toBeTruthy();
+    expect(document.querySelector('.ct-popup')).toBeNull();
+  });
+
+  it('panic and nuclear modes now have distinct flagship layers', () => {
+    ChaosToggle.init({ cooldownMs: 0, probability: 1, policy: 'demo' });
+
+    expect(ChaosToggle.runMode('panic')).toBe(true);
+    expect(document.querySelector('.ct-panic-alarm')).toBeTruthy();
+    expect(document.querySelector('.ct-reality-tear')).toBeNull();
+
+    ChaosToggle.reset();
+
+    expect(ChaosToggle.runMode('nuclear')).toBe(true);
+    expect(document.querySelector('.ct-panic-alarm')).toBeTruthy();
+    expect(document.querySelector('.ct-reality-tear')).toBeTruthy();
   });
 
   it('bsod v2 renders staged diagnostics and progress chrome', () => {

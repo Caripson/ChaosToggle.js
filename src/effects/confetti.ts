@@ -229,6 +229,10 @@ const confetti: ChaosEffect = {
     const forcedEmojiCount = particle.emojiSet.length
       ? Math.min(count, Math.max(1, Math.min(4, particle.emojiSet.length + (particle.mixWithConfetti ? 0 : 1))))
       : 0;
+    const kickoffBurstCount =
+      particle.motion === 'fall' && particle.type === 'confetti'
+        ? clamp(Math.round(count * 0.18), 4, 28)
+        : 0;
 
     for (let i = 0; i < count; i++) {
       const scale = clamp(particle.size * (0.8 + Math.random() * 0.55), 0.5, 2.8);
@@ -244,8 +248,12 @@ const confetti: ChaosEffect = {
       const color = particle.colors.length
         ? particle.colors[i % particle.colors.length]!
         : `hsl(${((baseHue + (Math.random() - 0.5) * 70 + (i % 7) * 12) % 360 + 360) % 360} ${65 + Math.random() * 30}% ${45 + Math.random() * 25}%)`;
-
-      spawn(ctx, particle.motion, coloredPiece(color, scale), scale);
+      const piece = coloredPiece(color, scale);
+      if (i < kickoffBurstCount) {
+        spawnBurst(ctx, piece, scale);
+        continue;
+      }
+      spawn(ctx, particle.motion, piece, scale);
     }
   },
 };

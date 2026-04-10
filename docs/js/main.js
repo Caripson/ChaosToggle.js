@@ -23,7 +23,8 @@
     if (ct) {
       window.ChaosToggle = ct;
       var boot = typeof ct.start === 'function' ? ct.start.bind(ct) : ct.init.bind(ct);
-      boot({ duration: 2800, scopeSelector: '#site-main' });
+      var modePolicyMap = { celebration: 'safe', panic: 'demo', nuclear: 'demo' };
+      boot({ duration: 3200, intensity: 0.82, scopeSelector: '#site-main', policy: 'demo' });
 
       var previewTheme = document.querySelector('[data-preview-theme]');
       var previewPolicy = document.querySelector('[data-preview-policy]');
@@ -58,8 +59,10 @@
         var effBtn = e.target.closest('[data-landing-effect]');
         if (effBtn && ct.runEffect) {
           e.preventDefault();
-          ct.runEffect(effBtn.getAttribute('data-landing-effect') || '');
-          syncPreview('effect');
+          if (ct.reset) ct.reset();
+          var effectId = effBtn.getAttribute('data-landing-effect') || '';
+          ct.runEffect(effectId);
+          syncPreview('effect: ' + effectId);
           return;
         }
         var themeBtn = e.target.closest('[data-landing-theme]');
@@ -82,8 +85,12 @@
         var modeBtn = e.target.closest('[data-landing-mode]');
         if (modeBtn && ct.runMode) {
           e.preventDefault();
-          ct.runMode(modeBtn.getAttribute('data-landing-mode') || '');
-          syncPreview('mode');
+          var modeName = modeBtn.getAttribute('data-landing-mode') || '';
+          var modePolicy = modePolicyMap[modeName];
+          if (modePolicy) setPolicy(modePolicy);
+          if (ct.reset) ct.reset();
+          ct.runMode(modeName);
+          syncPreview('mode: ' + modeName);
         }
       });
     }

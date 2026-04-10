@@ -18,8 +18,11 @@ async function seedChaos(page: import('@playwright/test').Page): Promise<void> {
 
 test('landing page matches baseline', async ({ page }) => {
   await page.goto('/docs/index.html');
-  await expect(page.locator('#site-main')).toBeVisible();
-  await expect(page.locator('#site-main')).toHaveScreenshot('landing-page.png');
+  const hero = page.locator('.hero.hero--split');
+  await expect(hero).toBeVisible();
+  await expect(page.locator('[data-preview-policy]')).toHaveText('demo');
+  await expect(page.locator('[data-preview-theme]')).toHaveText('default');
+  await expect(hero).toHaveScreenshot('landing-page.png');
 });
 
 test('playground page loads locally and matches baseline', async ({ page }) => {

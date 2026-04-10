@@ -77,7 +77,7 @@
 
     <section class="pg-section">
       <h2><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg> Sample Content (target for effects)</h2>
-      <div class="pg-sample" id="chaos-target">
+      <div class="pg-sample" id="chaos-target" tabindex="0">
         <h1>Welcome to Acme Corp</h1>
         <h2>We Build Things That Definitely Work</h2>
         <p>Our enterprise-grade solutions leverage cutting-edge synergies to deliver best-in-class outcomes for stakeholders across the vertical.</p>
@@ -108,6 +108,11 @@
           <button type="button">Submit</button>
         </div>
         <p><a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookie Preferences</a></p>
+        <h3>Release Notes Feed</h3>
+        <p>Q2 launch prep: verify rollback messaging, patch delivery windows, and internal sign-off notes for the simulated environment.</p>
+        <p>Ops memo: this panel is intentionally long so scroll-based interaction effects have a real surface to act on inside the playground sample area.</p>
+        <p>Incident queue: retry payment flow, confirm modal focus states, and audit loading states across the mock interface before the fake chaos escalates.</p>
+        <p>Support digest: three customers reported spontaneous optimism, one reported delight, and engineering has not reproduced either issue.</p>
       </div>
     </section>
 
@@ -151,14 +156,68 @@ function bootDocsDemo() {
   /* Make sure the global is the unwrapped API for onclick handlers */
   window.ChaosToggle = ct;
 
-  ct.init({ duration: 3000, scopeSelector: '#chaos-target', policy: 'prank' });
+  ct.init({ duration: 3200, intensity: 0.85, scopeSelector: '#chaos-target', policy: 'prank' });
 
-  if (statusEl) {
+  var sample = document.getElementById('chaos-target');
+  var sampleInput = sample ? sample.querySelector('input') : null;
+  var effectHints = {
+    confetti: 'Confetti fired. Look across the viewport for the kickoff burst and falling pieces.',
+    noise: 'Noise is active. Look at the viewport grain and subtle animated flicker.',
+    fakeErrorState: 'Fake error state is active. Watch the sample panel for the stronger red-shifted failure treatment.',
+    autoTypo: 'Auto typo is armed. Type in the sample input below and it will occasionally inject a wrong neighbor key.',
+    delayedClicks: 'Delayed clicks is armed. Try clicking Buy Now or Submit inside the sample card.',
+    invertedScroll: 'Inverted scroll is armed. Scroll inside the sample panel and the direction will feel backwards.',
+    magneticCursor: 'Magnetic cursor is armed. Move across the sample panel and nearby elements should creep toward the pointer.',
+    cursorChaos: 'Cursor chaos is armed. Move your pointer around the sample panel to see the trail.',
+    cursorDrift: 'Cursor drift is armed. Move the pointer and watch the fake cursor wander.',
+    default: 'Effect triggered.'
+  };
+
+  function setStatus(message, tone) {
+    if (!statusEl) return;
     statusEl.style.display = 'block';
     statusEl.style.background = 'var(--bg-card)';
     statusEl.style.border = '1px solid var(--green)';
     statusEl.style.color = 'var(--green)';
-    statusEl.textContent = 'ChaosToggle v' + (ct.version || '?') + ' loaded. Ready to cause chaos.';
+    if (tone === 'info') {
+      statusEl.style.borderColor = 'var(--brand)';
+      statusEl.style.color = 'var(--brand)';
+    } else if (tone === 'warn') {
+      statusEl.style.borderColor = 'var(--yellow)';
+      statusEl.style.color = 'var(--yellow)';
+    } else if (tone === 'error') {
+      statusEl.style.borderColor = 'var(--brand-red)';
+      statusEl.style.color = 'var(--brand-red)';
+    }
+    statusEl.textContent = message;
+  }
+
+  function focusSampleFor(effect) {
+    if (!sample) return;
+    sample.classList.remove('pg-sample--effect-focus');
+    void sample.offsetWidth;
+    sample.classList.add('pg-sample--effect-focus');
+    window.setTimeout(function () {
+      sample.classList.remove('pg-sample--effect-focus');
+    }, 900);
+
+    if (effect === 'autoTypo' && sampleInput && typeof sampleInput.focus === 'function') {
+      sampleInput.focus();
+      return;
+    }
+    if (effect === 'invertedScroll') {
+      sample.scrollTop = Math.max(40, Math.round(sample.scrollHeight * 0.32));
+      if (typeof sample.focus === 'function') sample.focus();
+      return;
+    }
+    if (effect === 'delayedClicks' && sample) {
+      var button = sample.querySelector('button');
+      if (button && typeof button.focus === 'function') button.focus();
+    }
+  }
+
+  if (statusEl) {
+    setStatus('ChaosToggle v' + (ct.version || '?') + ' loaded. Ready to cause chaos.', 'ok');
   }
 
   /* Wire quick actions via data attributes instead of inline onclick */
@@ -171,12 +230,36 @@ function bootDocsDemo() {
     var effect = btn.getAttribute('data-effect');
     var theme = btn.getAttribute('data-theme');
 
-    if (action === 'trigger') ct.trigger();
-    else if (action === 'reset') ct.reset();
-    else if (action === 'openPanel') ct.openPanel();
-    else if (mode && ct.runMode) ct.runMode(mode);
-    else if (effect && ct.runEffect) ct.runEffect(effect);
-    else if (theme && ct.runTheme) ct.runTheme(theme);
+    if (action === 'trigger') {
+      ct.trigger();
+      setStatus('Random chaos triggered.', 'info');
+    } else if (action === 'reset') {
+      ct.reset();
+      setStatus('All active effects reset.', 'ok');
+    } else if (action === 'openPanel') {
+      ct.openPanel();
+      setStatus('Control panel opened.', 'info');
+    } else if (mode && ct.runMode) {
+      if (ct.reset) ct.reset();
+      ct.runMode(mode);
+      if (mode === 'celebration') setStatus('Celebration mode triggered. Confetti and party layers should fire, not a generic alert.', 'info');
+      else if (mode === 'panic') setStatus('Panic mode triggered. Expect cracks, alarms, error-state pressure, and no celebration layers.', 'warn');
+      else if (mode === 'nuclear') setStatus('Nuclear mode triggered. Expect the heaviest stack, including the reality tear layer.', 'warn');
+      else setStatus('Mode "' + mode + '" triggered.', 'info');
+    } else if (effect && ct.runEffect) {
+      if (ct.reset) ct.reset();
+      var ok = ct.runEffect(effect);
+      if (ok) {
+        focusSampleFor(effect);
+        setStatus(effectHints[effect] || effectHints.default, /typo|click|scroll|cursor|magnetic/.test(effect) ? 'warn' : 'info');
+      } else {
+        setStatus('Effect "' + effect + '" was blocked by current policy.', 'error');
+      }
+    } else if (theme && ct.runTheme) {
+      if (ct.reset) ct.reset();
+      ct.runTheme(theme);
+      setStatus('Theme "' + theme + '" applied.', 'info');
+    }
   });
 
   /* Populate effects grid */

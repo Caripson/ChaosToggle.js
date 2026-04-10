@@ -1,7 +1,7 @@
 export const BASE_CSS = `
 .ct-layer{position:fixed;inset:0;pointer-events:none;z-index:2147483000;mix-blend-mode:screen}
 .ct-glitch{background:repeating-linear-gradient(180deg,rgba(255,0,80,.18) 0 2px,rgba(0,255,255,.12) 2px 4px);opacity:.55;animation:ctGlitch .14s steps(2,end) infinite}
-.ct-noise{background-image:radial-gradient(circle,rgba(255,255,255,.2) 1px,transparent 1px);background-size:3px 3px;opacity:.2}
+.ct-noise{background-image:radial-gradient(circle,rgba(255,255,255,.26) .8px,transparent .9px),linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.02));background-size:2px 2px,100% 100%;opacity:.28}
 .ct-flash{background:rgba(255,255,255,.35);animation:ctPulse .16s linear infinite}
 .ct-popup{position:fixed;right:18px;bottom:18px;max-width:320px;background:#111;color:#f8f8f8;border:2px solid #ff4d6d;border-radius:10px;padding:12px 12px 10px;box-shadow:0 12px 28px rgba(0,0,0,.4);z-index:2147483001;font-family:ui-sans-serif,system-ui}
 .ct-popup h4{margin:0 0 6px;font-size:14px;letter-spacing:.02em}
@@ -14,7 +14,7 @@ export const BASE_CSS = `
 .ct-zoom{animation:ctZoom .2s linear infinite alternate}
 .ct-zoom-3d{transform-style:preserve-3d;perspective:900px;animation:ctZoom3d .36s ease-in-out infinite alternate}
 .ct-zoom-prism{filter:saturate(1.08) drop-shadow(0 10px 30px rgba(80,180,255,.2));transform:perspective(1000px) rotateX(var(--ct-zoom-tilt-x,0deg)) rotateY(var(--ct-zoom-tilt-y,0deg))}
-.ct-error{filter:saturate(1.25) hue-rotate(-22deg)}
+.ct-error{filter:saturate(1.78) hue-rotate(-52deg) contrast(1.18) brightness(.86);animation:ctErrorPulse .22s steps(2,end) infinite alternate}
 .ct-theme-overlay{position:fixed;inset:0;pointer-events:none;z-index:2147482999}
 .ct-theme-hint{position:fixed;bottom:16px;left:16px;font-size:24px;opacity:.55;animation:ctHint 2.3s ease-in-out infinite;z-index:2147483003;pointer-events:none}
 .ct-theme-pulse{animation:ctHeartbeat .8s ease-in-out infinite}
@@ -52,6 +52,7 @@ export const BASE_CSS = `
 @keyframes ctFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes ctZoom{from{transform:scale(1)}to{transform:scale(1.02)}}
 @keyframes ctZoom3d{0%{transform:perspective(900px) translateZ(0) rotateX(0) rotateY(0) scale(1)}100%{transform:perspective(900px) translateZ(24px) rotateX(.9deg) rotateY(-1.4deg) scale(1.024)}}
+@keyframes ctErrorPulse{0%{filter:saturate(1.74) hue-rotate(-46deg) contrast(1.12) brightness(.92)}100%{filter:saturate(1.98) hue-rotate(-58deg) contrast(1.24) brightness(.8)}}
 @keyframes ctHint{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:.65;transform:translateY(-4px)}}
 @keyframes ctHeartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.01)}}
 @keyframes ctRecoil{0%{transform:translateX(0)}30%{transform:translateX(-6px)}60%{transform:translateX(3px)}100%{transform:translateX(0)}}
