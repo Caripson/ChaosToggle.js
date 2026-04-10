@@ -370,11 +370,12 @@ export class ChaosToggleEngine {
     if (behavior.pulse) root.classList.add('ct-theme-pulse');
     if (behavior.recoil) root.classList.add('ct-theme-recoil');
     if (behavior.microJumps) {
+      const scheduleTimeout = globalThis.setTimeout.bind(globalThis);
       const hops = 2 + Math.round(this._rand() * 3);
       for (let i = 0; i < hops; i++) {
-        this._activeTimers.push(window.setTimeout(() => {
+        this._activeTimers.push(scheduleTimeout(() => {
           root.style.transform = `translate(${(this._rand() - 0.5) * 6}px,${(this._rand() - 0.5) * 6}px)`;
-          this._activeTimers.push(window.setTimeout(() => { root.style.transform = ''; }, 80));
+          this._activeTimers.push(scheduleTimeout(() => { root.style.transform = ''; }, 80));
         }, 120 + i * 140));
       }
     }

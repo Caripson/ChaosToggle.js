@@ -48,6 +48,7 @@ import protocolGrid from './protocol-grid';
 import loveLetters from './love-letters';
 import lastCall from './last-call';
 import panicAlarm from './panic-alarm';
+import realityTear from './reality-tear';
 import type { ChaosEffect } from '../core/types';
 
 export const ALL_EFFECTS: ChaosEffect[] = [
@@ -101,4 +102,5 @@ export const ALL_EFFECTS: ChaosEffect[] = [
   loveLetters,
   lastCall,
   panicAlarm,
+  realityTear,
 ];

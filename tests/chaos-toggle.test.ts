@@ -80,7 +80,7 @@ async function waitFor(predicate: () => boolean, timeoutMs = 400): Promise<boole
 
 describe('ChaosToggle API', () => {
   it('exposes expected methods and version', () => {
-    expect(ChaosToggle.version).toBe('1.2.0');
+    expect(ChaosToggle.version).toBe('1.3.0');
     for (const key of [
       'init',
       'trigger',
@@ -575,6 +575,20 @@ describe('Effect registry', () => {
       ]),
     );
   });
+
+  it('includes realityTear in metadata and renders its overlay structure', () => {
+    expect(ChaosToggle.getEffectMeta('realityTear')).toEqual({
+      id: 'realityTear',
+      name: 'Reality tear',
+      description: 'The page splits into drifting slabs while a dark rift opens through the center.',
+      category: 'overlay',
+    });
+
+    expect(ChaosToggle.runEffect('realityTear')).toBe(true);
+    expect(document.querySelector('.ct-reality-tear')).toBeTruthy();
+    expect(document.querySelector('.ct-reality-tear__rift')).toBeTruthy();
+    expect(document.querySelectorAll('.ct-reality-tear__segment')).toHaveLength(4);
+  });
 });
 
 describe('compose() / runComposition()', () => {
@@ -746,6 +760,49 @@ describe('Runtime completeness', () => {
     ChaosToggle.reset();
     ChaosToggle.updateSettings({ policy: 'safe' });
     expect(ChaosToggle.runEffect('bsod')).toBe(false);
+  });
+
+  it('bsod v2 renders staged diagnostics and progress chrome', () => {
+    ChaosToggle.init({ cooldownMs: 0, probability: 1, policy: 'demo' });
+
+    expect(ChaosToggle.runEffect('bsod')).toBe(true);
+    expect(document.querySelector('.ct-bsod')).toBeTruthy();
+    expect(document.querySelector('.ct-bsod__scanlines')).toBeTruthy();
+    expect(document.querySelector('.ct-bsod__phase')?.textContent).toBe('Collecting crash data');
+    expect(document.querySelector('.ct-bsod__bar')).toBeTruthy();
+    expect(document.querySelectorAll('.ct-bsod__dump-line')).toHaveLength(3);
+  });
+
+  it('fakeUpdate v2 renders staged update chrome', () => {
+    ChaosToggle.init({ cooldownMs: 0, probability: 1, policy: 'demo' });
+
+    expect(ChaosToggle.runEffect('fakeUpdate')).toBe(true);
+    expect(document.querySelector('.ct-fake-update')).toBeTruthy();
+    expect(document.querySelector('.ct-fake-update__spinner')).toBeTruthy();
+    expect(document.querySelector('.ct-fake-update__track')).toBeTruthy();
+    expect(document.querySelector('.ct-fake-update__stage')?.textContent).toBe('Stage 1 of 4 · Downloading cumulative update');
+    expect(document.querySelectorAll('.ct-fake-update__timeline-step')).toHaveLength(4);
+  });
+
+  it('matrixRain v2 renders canvas with cinematic overlay chrome', () => {
+    ChaosToggle.init({ cooldownMs: 0, probability: 1, policy: 'demo' });
+
+    expect(ChaosToggle.runEffect('matrixRain')).toBe(true);
+    expect(document.querySelector('.ct-matrix-rain')).toBeTruthy();
+    expect(document.querySelector('.ct-matrix-canvas')).toBeTruthy();
+    expect(document.querySelector('.ct-matrix-rain__hud')).toBeTruthy();
+    expect(document.querySelector('.ct-matrix-rain__badge')?.textContent).toBe('LINK ACTIVE');
+  });
+
+  it('screenCrack v2 renders vector, impact, and debris layers', () => {
+    ChaosToggle.init({ cooldownMs: 0, probability: 1, policy: 'demo' });
+
+    expect(ChaosToggle.runEffect('screenCrack')).toBe(true);
+    expect(document.querySelector('.ct-screen-crack')).toBeTruthy();
+    expect(document.querySelector('.ct-screen-crack__impact')).toBeTruthy();
+    expect(document.querySelector('.ct-screen-crack__vector')).toBeTruthy();
+    expect(document.querySelectorAll('.ct-screen-crack__vector path').length).toBeGreaterThan(10);
+    expect(document.querySelectorAll('.ct-screen-crack__vector polygon').length).toBeGreaterThan(4);
   });
 
   it('safeMode remains a compatibility alias for safe and prank policy', () => {

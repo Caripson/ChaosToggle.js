@@ -4,7 +4,7 @@
 
 **The ultimate prank & chaos effects library for the web.**
 
-50 effects. 17 themes. Built-in control panel. Plugin system. Zero dependencies.
+51 effects. 17 themes. Built-in control panel. Plugin system. Zero dependencies.
 
 [![npm version](https://img.shields.io/npm/v/chaos-toggle?color=ff4d6d&style=flat-square)](https://www.npmjs.com/package/chaos-toggle)
 [![license](https://img.shields.io/badge/license-MIT-10b981?style=flat-square)](./LICENSE)
@@ -43,7 +43,7 @@ ChaosToggle.trigger();
 
 ## What's inside
 
-### 50 Effects across 5 categories
+### 51 Effects across 5 categories
 
 | Category | Effects |
 |---|---|
@@ -51,7 +51,7 @@ ChaosToggle.trigger();
 | **Prank** | bsod, fakeUpdate, fakeTerminal, clippy, fakeVirusScan, fakeCrash |
 | **DOM** | gravity, elementShuffle, elementScatter, magneticCursor, tinyGiantMode |
 | **Interaction** | cursorChaos, cursorDrift, autoTypo, delayedClicks, invertedScroll, screenFlip, drunkMode |
-| **Overlay** | confetti, popups, textScramble, springParade, starSpangledBanner, hackerHud, holidayLights, hauntedEyes, retroBroadcast, partyBalloons, officeStickyNotes, evacuationTape, midnightBurst, harvestTable, doorbusterMarquee, protocolGrid, loveLetters, lastCall, panicAlarm |
+| **Overlay** | confetti, popups, textScramble, springParade, starSpangledBanner, hackerHud, holidayLights, hauntedEyes, retroBroadcast, partyBalloons, officeStickyNotes, evacuationTape, midnightBurst, harvestTable, doorbusterMarquee, protocolGrid, loveLetters, lastCall, panicAlarm, realityTear |
 
 ### Effects we just pushed further (with 3D flavor)
 
@@ -77,6 +77,7 @@ If you want themes that read immediately, start here:
 - `birthday`: balloons and `partyBalloons`
 - `black-friday`: sale pressure via `doorbusterMarquee`
 - `jumpscare`: hard-stop warning treatment via `panicAlarm`
+- `realityTear`: flagship viewport split with drifting slabs and a live rift core
 
 For a live preview-first overview, use the docs showcase: [caripson.github.io/ChaosToggle.js](https://caripson.github.io/ChaosToggle.js/).
 
