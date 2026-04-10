@@ -118,17 +118,66 @@ const screenMelt: ChaosEffect = {
       { duration: 900 - intensity * 250, iterations: Infinity, easing: 'linear' },
     );
 
+    const dripField = createEl('div', '', {
+      position: 'fixed',
+      left: '0',
+      right: '0',
+      bottom: '0',
+      height: '40vh',
+      pointerEvents: 'none',
+      zIndex: '2147483003',
+      overflow: 'hidden',
+    });
+    const dripAnims: Animation[] = [];
+    const streamCount = Math.round(clamp(5 + intensity * 10, 5, 15));
+    for (let i = 0; i < streamCount; i++) {
+      const width = clamp(10 + Math.random() * 30 + intensity * 18, 10, 54);
+      const stream = createEl('div', '', {
+        position: 'absolute',
+        left: `${Math.random() * 100}%`,
+        bottom: '-6%',
+        width: `${width}px`,
+        height: `${clamp(40 + Math.random() * 160 + intensity * 120, 40, 300)}px`,
+        borderRadius: `${width}px ${width}px ${Math.max(10, width * 0.45)}px ${Math.max(10, width * 0.45)}px`,
+        background: `linear-gradient(180deg, ${palette.accent}bb 0%, ${palette.primary}aa 48%, ${palette.background}00 100%)`,
+        filter: 'blur(0.8px)',
+        opacity: String(0.24 + Math.random() * 0.42),
+        transformOrigin: 'top center',
+        mixBlendMode: 'screen',
+      });
+      dripField.appendChild(stream);
+      dripAnims.push(
+        stream.animate(
+          [
+            { transform: 'translateY(0) scaleY(0.22)', opacity: 0.14, offset: 0 },
+            { transform: 'translateY(8%) scaleY(0.9)', opacity: 0.48, offset: 0.45 },
+            { transform: 'translateY(30%) scaleY(1.35)', opacity: 0.06, offset: 1 },
+          ],
+          {
+            duration: 950 + Math.random() * 900 - intensity * 180,
+            delay: Math.random() * 350,
+            iterations: Infinity,
+            direction: 'alternate',
+            easing: 'cubic-bezier(0.3, 0.02, 0.42, 0.98)',
+          },
+        ),
+      );
+    }
+
     addNode(wave as unknown as HTMLElement);
     addNode(shimmer);
+    addNode(dripField);
 
     return () => {
       drip.cancel();
       gl.cancel();
+      dripAnims.forEach((anim) => anim.cancel());
       root.classList.remove('ct-screen-melt');
       root.style.animationDuration = '';
       root.style.animationTimingFunction = '';
       wave.remove();
       shimmer.remove();
+      dripField.remove();
     };
   },
 };

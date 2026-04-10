@@ -58,7 +58,14 @@ export const BASE_CSS = `
 @keyframes ctAmbientDrift{0%{transform:translate3d(-2%,0,0) scale(1)}50%{transform:translate3d(2%,-1.5%,0) scale(1.03)}100%{transform:translate3d(-1%,2%,0) scale(1.06)}}
 @keyframes ctCountdownBar{0%{transform:scaleX(1)}100%{transform:scaleX(0)}}
 @keyframes ctVhsTracking{0%{transform:translateY(0)}50%{transform:translateY(-2px)}100%{transform:translateY(1px)}}
-@keyframes ctMelt{0%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 0 100% 0)}}
+@keyframes ctMelt{
+0%{clip-path:inset(0 0 0 0 round 0);transform:translateY(0) scaleY(1);filter:blur(0) saturate(1)}
+15%{clip-path:inset(0 0 6% 0 round 0 0 1.2vw 1.2vw);transform:translateY(.2vh) scaleY(1.002)}
+35%{clip-path:inset(1% 0 22% 0 round 0 0 2.4vw 2.4vw);transform:translateY(.5vh) scaleY(.997);filter:blur(.25px) saturate(1.04)}
+55%{clip-path:inset(3% 0 48% 0 round 0 0 3.2vw 3.2vw);transform:translateY(1.1vh) scaleY(.992) skewX(-.22deg);filter:blur(.55px) saturate(1.08)}
+80%{clip-path:inset(8% 0 82% 0 round 0 0 4.4vw 4.4vw);transform:translateY(2vh) scaleY(.984) skewX(.18deg);filter:blur(1px) saturate(1.14)}
+100%{clip-path:inset(16% 0 100% 0 round 0 0 5vw 5vw);transform:translateY(2.8vh) scaleY(.975) skewX(-.12deg);filter:blur(1.4px) saturate(1.2)}
+}
 @keyframes ctCrtOff{0%{transform:scaleY(1) scaleX(1);opacity:1;filter:brightness(1)}50%{transform:scaleY(.005) scaleX(1);opacity:1;filter:brightness(2)}80%{transform:scaleY(.005) scaleX(.1);opacity:.7;filter:brightness(3)}100%{transform:scaleY(0) scaleX(0);opacity:0;filter:brightness(0)}}
 @keyframes ctClippyBounce{0%{transform:translateY(40px) scale(.8);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}
 @keyframes ctScreenFlip{0%{transform:rotate(0deg)}100%{transform:rotate(180deg)}}
